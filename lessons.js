@@ -1,270 +1,170 @@
-const basicLessons = [
-  {
-    id:'database', icon:'🗄️',
-    titleAr:'1) ما هي قاعدة البيانات؟', titleEn:'1) What is a Database?',
-    subtitleAr:'الأساس الذي لازم تفهمه قبل أي SQL.', subtitleEn:'The foundation you must understand before SQL.',
-    diagram:'database',
-    sectionsAr:[
-      ['الفكرة الأساسية','قاعدة البيانات هي مكان منظم لتخزين البيانات بحيث نقدر نبحث عنها، نعدلها، نحذفها، ونطلع منها تقارير. الفرق بينها وبين ملف عادي أن قاعدة البيانات لا تخزن المعلومات عشوائيًا؛ بل تخزنها داخل جداول أو هياكل واضحة، وكل جزء له معنى وعلاقة بباقي الأجزاء.'],
-      ['Data vs Information','البيانات Data هي أرقام أو نصوص خام مثل: 100، Ahmed، 2026-07-01. أما المعلومات Information فهي نتيجة فهم هذه البيانات، مثل: أحمد اشترى منتجًا بمبلغ 100 في تاريخ محدد. لذلك قاعدة البيانات تساعدنا نحول البيانات الخام إلى معلومات مفيدة.'],
-      ['لماذا لا نكتفي بـ Excel؟','Excel ممتاز للجداول البسيطة، لكن لما يزيد عدد المستخدمين والبيانات والعلاقات، تظهر مشاكل: تكرار، أخطاء، صعوبة صلاحيات، بطء، وصعوبة معرفة من عدل ماذا. قاعدة البيانات تحل هذه المشاكل لأنها تدعم العلاقات، المفاتيح، القيود، الأمان، والتعامل مع عدد كبير من العمليات.'],
-      ['مثال حقيقي','في نظام جامعة، عندك طلاب، مواد، دكاترة، تسجيل مواد، درجات. لا يصح تخزين كل شيء في جدول واحد؛ الأفضل تقسيمه إلى جداول مترابطة: Students, Courses, Instructors, Enrollments, Grades.'],
-      ['الخلاصة','أي نظام حقيقي يحتاج قاعدة بيانات إذا كان يتعامل مع بيانات كثيرة أو علاقات أو أكثر من مستخدم. SQL هي اللغة التي نخاطب بها قواعد البيانات العلائقية.']
-    ],
-    sectionsEn:[
-      ['Core idea','A database is an organized place for storing data so we can search, update, delete, and generate reports. It is not random storage; data is arranged in clear structures such as tables, and each part has a meaning and relation to other parts.'],
-      ['Data vs Information','Data is raw values such as 100, Ahmed, or 2026-07-01. Information is the meaningful result, such as Ahmed bought a product for 100 on a specific date. Databases help convert raw data into useful information.'],
-      ['Why not only Excel?','Excel is good for simple sheets, but when users, data size, and relationships grow, problems appear: duplication, mistakes, weak permissions, slowness, and unclear editing history. Databases solve this with relationships, keys, constraints, security, and multi-user support.'],
-      ['Real example','In a university system you have students, courses, instructors, enrollments, and grades. Storing everything in one table is wrong; the better design is connected tables.'],
-      ['Summary','Any real system needs a database when it handles many records, relationships, or multiple users. SQL is the language used to communicate with relational databases.']
-    ],
-    code:`-- A database stores related tables\nSELECT first_name, last_name\nFROM employees;`,
-    mistakesAr:['خلط Database مع Table: قاعدة البيانات تحتوي جداول كثيرة، والجدول جزء منها.','وضع كل البيانات في جدول واحد يسبب تكرار وصعوبة تعديل.','نسيان العلاقات بين الجداول يجعل التصميم ضعيفًا.'],
-    mistakesEn:['Confusing database with table: a database contains many tables.','Putting all data in one table causes duplication and update problems.','Ignoring relationships makes the design weak.'],
-    quizAr:['ما الفرق بين Data و Information؟','اذكر مثالًا على نظام يحتاج قاعدة بيانات.','لماذا Excel ليس كافيًا للأنظمة الكبيرة؟'],
-    quizEn:['What is the difference between Data and Information?','Give an example of a system that needs a database.','Why is Excel not enough for large systems?']
-  },
-  {
-    id:'sql-nosql', icon:'⚖️', titleAr:'2) SQL vs NoSQL', titleEn:'2) SQL vs NoSQL', subtitleAr:'متى أستخدم الجداول ومتى أستخدم Document أو Key-Value؟', subtitleEn:'When to use tables and when to use document or key-value models?', diagram:'compare',
-    sectionsAr:[
-      ['SQL باختصار','SQL قواعد بيانات علائقية تعتمد على الجداول. البيانات تكون منظمة في Rows و Columns، والعلاقات بينها واضحة باستخدام Primary Key و Foreign Key. أمثلة: Oracle, MySQL, PostgreSQL, SQL Server.'],
-      ['NoSQL باختصار','NoSQL ليست نوعًا واحدًا. هي عائلة قواعد بيانات مرنة مثل Document (MongoDB/Firebase)، Key-Value (Redis)، Graph (Neo4j)، Column-Family (Cassandra). تستخدم غالبًا عندما تحتاج مرونة عالية أو سرعة قراءة/كتابة لأنواع بيانات غير ثابتة.'],
-      ['متى SQL أفضل؟','إذا عندك علاقات قوية، تقارير دقيقة، معاملات مالية، نظام موارد بشرية، فواتير، جامعة، أو أي نظام يحتاج دقة عالية وتكامل بيانات؛ SQL غالبًا أفضل.'],
-      ['متى NoSQL أفضل؟','إذا البيانات تتغير كثيرًا، أو شكل السجل غير ثابت، أو تحتاج تخزين JSON، أو نظام محادثات/Logs/Cache/Real-time؛ NoSQL قد يكون مناسبًا.'],
-      ['قاعدة قرار بسيطة','إذا السؤال الأساسي: هل عندي علاقات واضحة وتقارير دقيقة؟ ابدأ بـ SQL. إذا السؤال: هل أحتاج مرونة كبيرة وشكل بيانات متغير؟ فكر في NoSQL.']
-    ],
-    sectionsEn:[
-      ['SQL in short','SQL databases are relational and table-based. Data is organized into rows and columns, and relationships are defined using primary and foreign keys. Examples: Oracle, MySQL, PostgreSQL, SQL Server.'],
-      ['NoSQL in short','NoSQL is not one type. It includes document databases, key-value stores, graph databases, and column-family systems. It is often used when flexibility or high-speed access for changing data structures is needed.'],
-      ['When SQL is better','If you have strong relationships, accurate reports, financial transactions, HR systems, invoices, university systems, or data integrity requirements, SQL is usually better.'],
-      ['When NoSQL is better','If the data shape changes frequently, records are not fixed, JSON storage is needed, or you build chat/log/cache/real-time systems, NoSQL may fit well.'],
-      ['Simple decision rule','If you need clear relationships and accurate reporting, start with SQL. If you need flexible changing data structures, consider NoSQL.']
-    ],
-    code:`-- SQL uses structured tables\nSELECT customer_name, total_price\nFROM invoices;\n\n-- NoSQL example idea:\n-- { "customerName": "Ali", "orders": [...] }`,
-    mistakesAr:['الاعتقاد أن NoSQL أفضل دائمًا لأنه أحدث.','استخدام NoSQL مع نظام يحتاج علاقات وتقارير مالية دقيقة جدًا بدون سبب.','استخدام SQL مع بيانات JSON متغيرة جدًا بدون تخطيط.'],
-    mistakesEn:['Thinking NoSQL is always better because it is newer.','Using NoSQL for highly relational financial reporting without a clear reason.','Using SQL for highly changing JSON data without planning.'],
-    quizAr:['اذكر مثالين على قواعد SQL.','متى يكون NoSQL مناسبًا؟','لماذا SQL مناسب للفواتير؟'],
-    quizEn:['Give two SQL database examples.','When is NoSQL suitable?','Why is SQL suitable for invoices?']
-  },
-  {
-    id:'srs', icon:'📄', titleAr:'3) وثيقة SRS', titleEn:'3) SRS Document', subtitleAr:'قبل التصميم والبرمجة لازم نعرف المتطلبات.', subtitleEn:'Before design and coding, requirements must be clear.', diagram:'srs',
-    sectionsAr:[
-      ['ما هي SRS؟','SRS اختصار Software Requirements Specification، وهي وثيقة تصف ماذا يريد العميل أو المستخدم من النظام. لا تشرح غالبًا كيف نبرمج، بل تشرح ماذا يجب أن يفعل النظام وما القيود المطلوبة.'],
-      ['لماذا مهمة؟','بدون SRS يمكن للمبرمج يفهم المطلوب بطريقة، والعميل يقصد شيئًا آخر. SRS تقلل سوء الفهم، وتساعد الفريق في التصميم، الاختبار، وتقدير الوقت.'],
-      ['Functional Requirements','هي الوظائف التي يجب أن يقدمها النظام. مثال: المستخدم يستطيع تسجيل الدخول، الطالب يستطيع عرض درجاته، الأدمن يستطيع إضافة مادة. هذه متطلبات مباشرة مرتبطة بسلوك النظام.'],
-      ['Non-Functional Requirements','هي جودة النظام وليس وظيفة مباشرة. مثل: الأمان، سرعة الاستجابة، سهولة الاستخدام، التوفر، قابلية التوسع، الصيانة. مثال: يجب أن يتم تسجيل الدخول خلال أقل من 3 ثوان.'],
-      ['كيف تربطها بالـ ERD؟','بعد قراءة SRS نبحث عن الأسماء المهمة: طالب، مادة، فاتورة، منتج. هذه غالبًا تصبح Entities. ثم نبحث عن الأفعال والعلاقات: الطالب يسجل مادة، العميل يملك فاتورة. هذه تساعدنا نبني ERD.']
-    ],
-    sectionsEn:[
-      ['What is SRS?','SRS means Software Requirements Specification. It describes what the customer or user wants from the system. It usually focuses on what the system must do, not how to code it.'],
-      ['Why is it important?','Without SRS, the developer may understand the task one way while the client means something else. SRS reduces misunderstanding and helps design, testing, and time estimation.'],
-      ['Functional Requirements','These are the features the system must provide, such as login, viewing grades, or adding a course. They describe system behavior.'],
-      ['Non-Functional Requirements','These describe system quality such as security, speed, usability, availability, scalability, and maintainability. Example: login should complete within 3 seconds.'],
-      ['Connection to ERD','After reading SRS, find important nouns: student, course, invoice, product. These often become entities. Then find verbs/relations: student enrolls in course, customer owns invoice.']
-    ],
-    code:`-- SRS sentence:\n-- "A customer can create many invoices."\n-- ERD result idea:\n-- CUSTOMER 1 ---- N INVOICE`,
-    mistakesAr:['كتابة SRS عامة جدًا مثل: النظام يكون ممتاز. لازم تكون قابلة للقياس.','خلط المتطلبات الوظيفية وغير الوظيفية.','الانتقال للبرمجة قبل فهم المتطلبات.'],
-    mistakesEn:['Writing vague requirements such as: the system should be excellent. Requirements should be measurable.','Mixing functional and non-functional requirements.','Starting coding before understanding requirements.'],
-    quizAr:['ما معنى SRS؟','أعط مثال Functional Requirement.','أعط مثال Non-Functional Requirement.'],
-    quizEn:['What does SRS mean?','Give a functional requirement example.','Give a non-functional requirement example.']
-  },
-  {
-    id:'erd', icon:'🧩', titleAr:'4) ERD بالتفصيل مع رسومات', titleEn:'4) Detailed ERD with Diagrams', subtitleAr:'تحويل الكلام إلى كيانات وعلاقات واضحة.', subtitleEn:'Turning text into clear entities and relationships.', diagram:'erd',
-    sectionsAr:[
-      ['ما هو ERD؟','ERD اختصار Entity Relationship Diagram. هو رسم يوضح الجداول المستقبلية للنظام والعلاقات بينها قبل إنشاء الجداول في قاعدة البيانات. فائدته أنك تكتشف الأخطاء قبل البرمجة.'],
-      ['Entity','الكيان هو شيء مهم في النظام نحتاج نخزن عنه بيانات. مثال: Student, Course, Product, Customer, Invoice. غالبًا الكيان يصبح Table لاحقًا.'],
-      ['Attribute','الصفة هي معلومة تخص الكيان. مثال: Student له student_id, name, phone. Product له product_id, product_name, price. لاحقًا الصفات تصبح Columns.'],
-      ['Primary Key و Foreign Key','Primary Key يميز كل سجل داخل الجدول ولا يتكرر. Foreign Key يربط جدولًا بجدول آخر. مثال: invoices تحتوي customer_id كـ FK لأنها تابعة لعميل.'],
-      ['Cardinality','تحدد عدد السجلات بين الكيانات: واحد لواحد 1:1، واحد لكثير 1:N، كثير لكثير M:N. مثال: عميل واحد يملك عدة فواتير = 1:N.'],
-      ['مثال مكتبة','Member يستعير Borrow، والكتاب يدخل في Borrow. إذا الكتاب يمكن استعارته مرات كثيرة، العلاقة Book 1:N Borrow. والعضو يمكنه عدة استعارات، Member 1:N Borrow.']
-    ],
-    sectionsEn:[
-      ['What is ERD?','ERD means Entity Relationship Diagram. It shows the future tables of a system and the relationships between them before creating the database tables. It helps catch design mistakes early.'],
-      ['Entity','An entity is an important thing in the system that we need to store data about, such as Student, Course, Product, Customer, or Invoice. An entity usually becomes a table.'],
-      ['Attribute','An attribute is information about an entity. A student has student_id, name, phone. A product has product_id, product_name, price. Attributes become columns.'],
-      ['Primary Key and Foreign Key','A primary key uniquely identifies each row. A foreign key connects one table to another. Example: invoices contain customer_id as an FK because each invoice belongs to a customer.'],
-      ['Cardinality','Cardinality shows how many records can be related: 1:1, 1:N, and M:N. Example: one customer has many invoices = 1:N.'],
-      ['Library example','A member creates borrow records, and a book appears in borrow records. Book 1:N Borrow and Member 1:N Borrow.']
-    ],
-    code:`-- From ERD to SQL idea\nCUSTOMERS(customer_id PK, customer_name, phone)\nINVOICES(invoice_id PK, invoice_date, customer_id FK)`,
-    mistakesAr:['رسم العلاقة بدون تحديد 1 أو N.','نسيان جدول وسيط في علاقة Many-to-Many.','استخدام اسم جمع أو غير واضح للكيانات.','وضع FK في المكان الخطأ.'],
-    mistakesEn:['Drawing relationships without 1 or N.','Forgetting an associative table for many-to-many relationships.','Using unclear entity names.','Placing the foreign key in the wrong table.'],
-    quizAr:['ما الفرق بين Entity و Attribute؟','أين نضع FK في علاقة Customer و Invoice؟','كيف نمثل علاقة Many-to-Many؟'],
-    quizEn:['What is the difference between entity and attribute?','Where do we place the FK between Customer and Invoice?','How do we represent many-to-many?']
-  },
-  {
-    id:'schema', icon:'🏗️', titleAr:'5) Schema والجداول', titleEn:'5) Schema and Tables', subtitleAr:'افهم ترتيب قاعدة البيانات قبل CREATE TABLE.', subtitleEn:'Understand database structure before CREATE TABLE.', diagram:'schema',
-    sectionsAr:[
-      ['ما هي Schema؟','Schema هي مساحة منطقية داخل قاعدة البيانات تحتوي كائنات مثل Tables, Views, Indexes, Sequences. في Oracle كثيرًا ما ترتبط Schema باسم User. مثال HR Schema تحتوي EMPLOYEES و DEPARTMENTS و JOBS.'],
-      ['Database vs Schema vs Table','Database هي النظام الكبير الذي يدير التخزين. Schema مثل مجلد منطقي داخل قاعدة البيانات. Table هو جدول محدد داخل Schema. Column هو خانة/حقل، Row هو سجل كامل.'],
-      ['مثال HR Schema','HR Schema في تدريبات Oracle تحتوي جداول مثل EMPLOYEES, DEPARTMENTS, JOBS, LOCATIONS. جدول EMPLOYEES فيه أعمدة مثل employee_id, first_name, salary, department_id.'],
-      ['لماذا نفهم Schema؟','قبل كتابة SQL لازم تعرف من أين تأتي البيانات. إذا كتبت SELECT من جدول غير موجود أو في Schema مختلفة، سيظهر خطأ. فهم Schema يساعدك تعرف العلاقات وتكتب Joins لاحقًا.'],
-      ['Schema ليست CREATE TABLE','أنت طلبت شرح السكيما والجدول وليس الإنشاء فقط. لذلك هنا نفهم الخريطة: من يملك الجداول؟ ما أسماء الجداول؟ ما الأعمدة؟ ما المفاتيح؟ ما العلاقات؟ بعد ذلك ننتقل للإنشاء.']
-    ],
-    sectionsEn:[
-      ['What is Schema?','A schema is a logical area inside a database that contains objects such as tables, views, indexes, and sequences. In Oracle it is often connected to a user name. Example: HR schema contains EMPLOYEES, DEPARTMENTS, and JOBS.'],
-      ['Database vs Schema vs Table','A database is the large system that manages storage. A schema is a logical container. A table is a specific structure inside a schema. A column is a field, and a row is a full record.'],
-      ['HR Schema example','Oracle HR Schema contains tables such as EMPLOYEES, DEPARTMENTS, JOBS, and LOCATIONS. EMPLOYEES has columns like employee_id, first_name, salary, and department_id.'],
-      ['Why understand Schema?','Before writing SQL you must know where the data comes from. If you SELECT from a missing table or different schema, errors happen. Understanding schema helps with relationships and joins later.'],
-      ['Schema is not only CREATE TABLE','Here we understand the map first: who owns the tables, table names, columns, keys, and relationships. Then we move to creation.']
-    ],
-    code:`-- HR schema idea\nHR\n ├─ EMPLOYEES(employee_id, first_name, salary, department_id)\n ├─ DEPARTMENTS(department_id, department_name)\n └─ JOBS(job_id, job_title)`,
-    mistakesAr:['اعتبار Schema نفس Table.','حفظ الاستعلام بدون معرفة الجداول والعلاقات.','نسيان اسم Schema عند العمل في بيئات متعددة.'],
-    mistakesEn:['Thinking schema is the same as table.','Memorizing queries without understanding tables and relationships.','Forgetting schema name in multi-schema environments.'],
-    quizAr:['ما الفرق بين Database و Schema؟','اذكر جدولين من HR Schema.','ما الفرق بين Row و Column؟'],
-    quizEn:['What is the difference between database and schema?','Name two HR schema tables.','What is the difference between row and column?']
-  },
-  {
-    id:'table-rules', icon:'📐', titleAr:'6) قواعد بناء الجدول السبعة', titleEn:'6) Seven Table Design Rules', subtitleAr:'كيف تفكر قبل بناء الجدول؟', subtitleEn:'How to think before building a table.', diagram:'rules',
-    sectionsAr:[
-      ['Rule 1: اسم واضح','اسم الجدول لازم يعبر عن كيان واحد مثل STUDENT أو PRODUCT. لا تستخدم اسم غامض مثل data1. في Oracle غالبًا الأسماء تكون واضحة وبالأحرف الكبيرة، لكن في الشرح نستخدم lower_snake_case للوضوح.'],
-      ['Rule 2: Primary Key لكل جدول','كل جدول أساسي لازم يحتوي مفتاح أساسي يميز كل صف. مثال: student_id، product_id. بدون PK صعب نعدل أو نحذف سجل محدد بأمان.'],
-      ['Rule 3: الأعمدة تمثل صفات فقط','لا تضع أكثر من معنى في عمود واحد. مثال سيئ: full_info يحتوي الاسم والجوال والمدينة. الأفضل: name, phone, city.'],
-      ['Rule 4: اختر Data Type صحيح','النصوص VARCHAR2، الأرقام NUMBER، التواريخ DATE. لا تخزن التاريخ كنص إذا تحتاج تقارن أو ترتب بالتاريخ. ولا تخزن السعر كنص.'],
-      ['Rule 5: قلل التكرار Normalization','إذا تكرر اسم القسم مع كل موظف، الأفضل جدول DEPARTMENTS ونربطه بـ department_id. هذا يقلل الأخطاء ويجعل التعديل أسهل.'],
-      ['Rule 6: العلاقات بالمفاتيح الأجنبية','إذا فاتورة تخص عميل، ضع customer_id داخل INVOICES كـ FK. FK يحافظ على أن الفاتورة لا ترتبط بعميل غير موجود.'],
-      ['Rule 7: القيود والأسماء','استخدم NOT NULL للأعمدة الضرورية، UNIQUE للقيم التي لا تتكرر، CHECK للشروط، DEFAULT للقيمة الافتراضية. واتبع Naming Convention ثابت مثل employee_id و hire_date.']
-    ],
-    sectionsEn:[
-      ['Rule 1: Clear name','The table name should represent one entity such as STUDENT or PRODUCT. Avoid vague names like data1. Use consistent naming.'],
-      ['Rule 2: Primary Key for each table','Every core table should have a primary key that identifies each row, such as student_id or product_id. Without PK, safe updates and deletes are difficult.'],
-      ['Rule 3: Columns are attributes only','Do not store multiple meanings in one column. Bad: full_info includes name, phone, and city. Better: name, phone, city.'],
-      ['Rule 4: Choose correct data type','Use VARCHAR2 for text, NUMBER for numbers, and DATE for dates. Do not store dates or prices as text when you need comparison or sorting.'],
-      ['Rule 5: Reduce duplication','If department name repeats with every employee, create DEPARTMENTS and connect with department_id. This reduces mistakes.'],
-      ['Rule 6: Relationships with foreign keys','If an invoice belongs to a customer, put customer_id inside INVOICES as FK. FK prevents invoices from pointing to missing customers.'],
-      ['Rule 7: Constraints and names','Use NOT NULL, UNIQUE, CHECK, and DEFAULT when needed. Follow consistent naming such as employee_id and hire_date.']
-    ],
-    code:`-- Good table thinking\nEMPLOYEES\n- employee_id  PK\n- first_name   NOT NULL\n- salary       NUMBER\n- department_id FK`,
-    mistakesAr:['اختيار VARCHAR2 لكل شيء حتى الأرقام والتواريخ.','عدم وجود PK.','تكرار نفس المعلومة في أكثر من جدول بدون سبب.','إضافة أعمدة كثيرة غير مفهومة.'],
-    mistakesEn:['Using VARCHAR2 for everything including numbers and dates.','No primary key.','Duplicating the same information without reason.','Adding many unclear columns.'],
-    quizAr:['لماذا كل جدول يحتاج PK؟','متى نستخدم FK؟','ما الخطأ في تخزين السعر كنص؟'],
-    quizEn:['Why does each table need a PK?','When do we use FK?','What is wrong with storing price as text?']
-  },
-  {
-    id:'select', icon:'🔎', titleAr:'7) SELECT البدائي', titleEn:'7) Basic SELECT', subtitleAr:'أول استعلام لازم تفهم كل كلمة فيه.', subtitleEn:'The first query where every word must be clear.', diagram:'select',
-    sectionsAr:[
-      ['ما معنى SELECT؟','SELECT تعني اختر أو اعرض. نستخدمها لاسترجاع بيانات من جدول. هي لا تغير البيانات، فقط تعرضها. لذلك هي آمنة للتعلم والتجربة.'],
-      ['ما معنى FROM؟','FROM تحدد الجدول الذي سنأخذ منه البيانات. مثلًا FROM employees يعني اجلب البيانات من جدول الموظفين.'],
-      ['ما معنى * ؟','النجمة تعني كل الأعمدة. SELECT * FROM employees يعرض كل أعمدة جدول employees. تستخدم للتجربة، لكن في التقارير الأفضل تحدد الأعمدة المطلوبة فقط.'],
-      ['اختيار أعمدة محددة','بدل عرض كل شيء، اكتب أسماء الأعمدة: SELECT first_name, salary FROM employees. هذا أوضح وأسرع وأفضل للمشاريع الحقيقية.'],
-      ['الفاصلة المنقوطة ;','في SQL Developer غالبًا تستخدم ; لإنهاء الجملة. إذا كتبت أكثر من استعلام، الفاصلة المنقوطة تساعد الأداة تعرف نهاية كل استعلام.']
-    ],
-    sectionsEn:[
-      ['Meaning of SELECT','SELECT means choose or display. It retrieves data from a table. It does not change data, so it is safe for learning.'],
-      ['Meaning of FROM','FROM specifies the table where data comes from. FROM employees means get data from the employees table.'],
-      ['Meaning of *','The star means all columns. SELECT * FROM employees displays all employee columns. It is useful for exploration, but reports should select needed columns only.'],
-      ['Selecting specific columns','Instead of displaying everything, write column names: SELECT first_name, salary FROM employees. This is clearer and better for real projects.'],
-      ['Semicolon ;','In SQL Developer, ; is commonly used to end a statement. When writing multiple queries, it helps the tool detect where each query ends.']
-    ],
-    code:`SELECT *\nFROM employees;\n\nSELECT first_name, last_name, salary\nFROM employees;`,
-    mistakesAr:['نسيان FROM.','كتابة اسم عمود غير موجود.','استخدام * دائمًا حتى في التقارير.','نسيان الفاصلة بين الأعمدة.'],
-    mistakesEn:['Forgetting FROM.','Writing a column name that does not exist.','Always using * even in reports.','Forgetting commas between columns.'],
-    quizAr:['ماذا تعني *؟','هل SELECT يغير البيانات؟','ما وظيفة FROM؟'],
-    quizEn:['What does * mean?','Does SELECT change data?','What does FROM do?']
-  },
-  {
-    id:'where-order', icon:'🎯', titleAr:'8) WHERE و ORDER BY', titleEn:'8) WHERE and ORDER BY', subtitleAr:'تصفية وترتيب النتائج بطريقة صحيحة.', subtitleEn:'Filter and sort results correctly.', diagram:'filter',
-    sectionsAr:[
-      ['WHERE','WHERE تستخدم لتصفية الصفوف. يعني لا تعرض كل الموظفين، بل الموظفين الذين يحققون شرطًا معينًا مثل salary > 1000.'],
-      ['Operators','تقدر تستخدم = للمساواة، > أكبر، < أصغر، >= أكبر أو يساوي، <= أصغر أو يساوي، <> لا يساوي. للنصوص نضع القيمة بين علامات اقتباس مفردة.'],
-      ['IN و BETWEEN و LIKE','IN لاختيار عدة قيم مثل department_id IN (60,90). BETWEEN لمدى معين مثل salary BETWEEN 1000 AND 3000. LIKE للبحث النصي مثل last_name LIKE 'A%'.'],
-      ['ORDER BY','ORDER BY ترتب النتائج. ASC تصاعدي وهو الافتراضي، DESC تنازلي. مثال: ORDER BY salary DESC يعرض الأعلى راتبًا أولًا.'],
-      ['ترتيب الجملة','الترتيب الصحيح عادة: SELECT ثم FROM ثم WHERE ثم ORDER BY. إذا وضعت ORDER BY قبل WHERE سيظهر خطأ.']
-    ],
-    sectionsEn:[
-      ['WHERE','WHERE filters rows. Instead of showing all employees, it displays only rows that match a condition such as salary > 1000.'],
-      ['Operators','Use =, >, <, >=, <=, and <>. Text values should be placed inside single quotes.'],
-      ['IN, BETWEEN, LIKE','IN chooses multiple values such as department_id IN (60,90). BETWEEN filters a range. LIKE searches text patterns such as last_name LIKE A%.'],
-      ['ORDER BY','ORDER BY sorts results. ASC is ascending and default, DESC is descending. ORDER BY salary DESC shows the highest salary first.'],
-      ['Statement order','Correct order is usually SELECT, FROM, WHERE, ORDER BY. ORDER BY before WHERE causes an error.']
-    ],
-    code:`SELECT first_name, salary, department_id\nFROM employees\nWHERE salary > 1000\nORDER BY salary DESC;\n\nSELECT first_name, department_id\nFROM employees\nWHERE department_id IN (60, 90, 100);`,
-    mistakesAr:['وضع ORDER BY قبل WHERE.','نسيان علامات الاقتباس للنصوص.','استخدام = مع أكثر من قيمة بدل IN.','كتابة DESC في المكان الخطأ.'],
-    mistakesEn:['Putting ORDER BY before WHERE.','Forgetting quotes around text values.','Using = with multiple values instead of IN.','Writing DESC in the wrong place.'],
-    quizAr:['ما وظيفة WHERE؟','ما الفرق بين ASC و DESC؟','متى نستخدم IN؟'],
-    quizEn:['What does WHERE do?','What is the difference between ASC and DESC?','When do we use IN?']
-  }
+const detailedLessons = [
+{
+ id:'database', no:'01', title:'ما هي قاعدة البيانات؟', en:'What is a Database?', icon:'🗄️',
+ intro:'قاعدة البيانات هي مكان منظم لتخزين البيانات بحيث نستطيع البحث عنها وتعديلها وتحليلها بسرعة وبدقة. الفكرة ليست مجرد حفظ معلومات، بل تنظيمها بطريقة تمنع التكرار وتساعد النظام على استخراج الإجابات.',
+ sections:[
+  ['الفكرة ببساطة','تخيل جامعة فيها طلاب، مواد، درجات، مدرسين، وجداول. لو حفظنا كل شيء في ملفات Word أو Excel عشوائية ستظهر مشاكل: تكرار، صعوبة بحث، اختلاف نسخ، وأخطاء. قاعدة البيانات تحل المشكلة لأنها تجعل كل نوع من البيانات في جدول واضح، وكل جدول مرتبط بالجداول الأخرى.'],
+  ['Data vs Information','البيانات Data هي حقائق خام مثل: 101، Ahmed، 5000. المعلومات Information هي معنى ناتج من معالجة البيانات مثل: عدد الطلاب الناجحين 85%. إذن قاعدة البيانات تحفظ البيانات، و SQL يساعدنا نحولها إلى معلومات مفيدة.'],
+  ['لماذا لا نستخدم Excel فقط؟','Excel ممتاز للجداول الصغيرة، لكنه ليس مناسبًا لأنظمة كبيرة فيها آلاف المستخدمين، صلاحيات، علاقات، أمان، نسخ احتياطي، واستعلامات معقدة. قواعد البيانات مصممة لهذا المستوى.'],
+  ['أمثلة واقعية','نظام بنك يحفظ العملاء والحسابات والعمليات. نظام مستشفى يحفظ المرضى والمواعيد والأطباء. نظام متجر يحفظ المنتجات والعملاء والفواتير. كل هذه تحتاج قاعدة بيانات.']
+ ],
+ diagram:`<div class="diagram-flow"><div>Data</div><span>→</span><div>Database</div><span>→</span><div>SQL</div><span>→</span><div>Information</div></div>`,
+ example:`Student_ID | Name | Major\n101        | Ali  | IT\n102        | Sara | CS`,
+ mistakes:['خلط كل البيانات في جدول واحد كبير.','عدم استخدام مفاتيح Primary Key.','تكرار نفس المعلومة في أكثر من مكان بدون حاجة.'],
+ quiz:['ما الفرق بين Data و Information؟','اذكر مثالًا على نظام يحتاج قاعدة بيانات.']
+},
+{
+ id:'sql-nosql', no:'02', title:'SQL و NoSQL', en:'SQL vs NoSQL', icon:'⚖️',
+ intro:'SQL و NoSQL طريقتان مختلفتان لتخزين البيانات. SQL مناسب عندما تكون البيانات منظمة وعلاقاتها واضحة. NoSQL مناسب عندما تكون البيانات مرنة أو متغيرة كثيرًا أو تحتاج توسع سريع.',
+ sections:[
+  ['SQL','يعتمد على الجداول Tables والصفوف Rows والأعمدة Columns. مثل Oracle, MySQL, SQL Server. قوي جدًا في العلاقات، التقارير، الأنظمة المالية، أنظمة الجامعات، والفواتير.'],
+  ['NoSQL','لا يلتزم دائمًا بشكل الجداول. قد يكون Document مثل MongoDB، أو Key-Value مثل Redis، أو Graph مثل Neo4j. مناسب للتطبيقات التي تتغير بياناتها بسرعة أو تحتاج توسع أفقي كبير.'],
+  ['متى أختار SQL؟','إذا عندك علاقات مهمة مثل: طالب يسجل في مواد، عميل يملك فواتير، موظف ينتمي لقسم. إذا تحتاج دقة عالية وقيود وحماية من الأخطاء، SQL غالبًا أفضل.'],
+  ['متى أختار NoSQL؟','إذا البيانات غير ثابتة الشكل، مثل ملفات JSON مختلفة بين المستخدمين، أو تطبيق يحتاج سرعة قراءة عالية وتخزين مرن مثل بعض تطبيقات المحادثات والتحليلات.']
+ ],
+ diagram:`<div class="compare"><div><h3>SQL</h3><p>Tables</p><p>Fixed Schema</p><p>Strong Relations</p><p>Oracle / MySQL</p></div><div><h3>NoSQL</h3><p>Documents / Keys</p><p>Flexible Schema</p><p>High Scalability</p><p>MongoDB / Firebase</p></div></div>`,
+ example:`SQL: employees table, departments table, relationship by department_id\nNoSQL: { name:'Ali', skills:['SQL','JavaScript'] }`,
+ mistakes:['اختيار NoSQL فقط لأنه جديد.','استخدام SQL بدون تصميم علاقات صحيح.','اعتقاد أن NoSQL يعني لا يوجد Query أبدًا.'],
+ quiz:['متى يكون SQL أفضل من NoSQL؟','اذكر مثالًا على قاعدة بيانات Document.']
+},
+{
+ id:'srs', no:'03', title:'وثيقة SRS', en:'Software Requirements Specification', icon:'📄',
+ intro:'SRS هي وثيقة توضح ماذا يريد العميل من النظام قبل التصميم والبرمجة. هي الجسر بين الفكرة والتنفيذ، وتمنع سوء الفهم بين العميل والمطور.',
+ sections:[
+  ['تعريف SRS','اختصار Software Requirements Specification. تحتوي وصف النظام، المستخدمين، الوظائف المطلوبة، القيود، والمتطلبات غير الوظيفية مثل الأداء والأمان.'],
+  ['لماذا مهمة؟','لأنها تجعل المطلوب واضحًا. بدل أن يقول العميل “أبغى نظام مكتبة”، نكتب تفاصيل: إضافة كتاب، تسجيل عضو، استعارة، إرجاع، غرامة تأخير، صلاحيات الموظف.'],
+  ['Functional Requirements','هي الأشياء التي يجب أن يفعلها النظام. مثال: يستطيع الموظف إضافة كتاب جديد. يستطيع العضو البحث عن كتاب. يستطيع النظام تسجيل عملية استعارة.'],
+  ['Non-Functional Requirements','هي جودة النظام: السرعة، الأمان، سهولة الاستخدام، التوفر، قابلية الصيانة. مثال: صفحة البحث تظهر خلال أقل من ثانيتين.'],
+  ['من SRS إلى ERD','بعد كتابة المتطلبات نستخرج منها الكيانات. إذا قالت الوثيقة “العضو يستعير كتابًا”، نعرف أن لدينا MEMBER و BOOK و BORROW وعلاقة بينهم.']
+ ],
+ diagram:`<div class="diagram-flow"><div>Idea</div><span>→</span><div>SRS</div><span>→</span><div>ERD</div><span>→</span><div>Tables</div><span>→</span><div>Code</div></div>`,
+ example:`Requirement: The employee can register a new borrow transaction.\nEntities: EMPLOYEE, MEMBER, BOOK, BORROW`,
+ mistakes:['البدء بالبرمجة قبل فهم المتطلبات.','كتابة متطلبات عامة جدًا بدون تفاصيل.','خلط المتطلبات الوظيفية وغير الوظيفية.'],
+ quiz:['ما الفرق بين Functional و Non-Functional؟','كيف تساعد SRS في رسم ERD؟']
+},
+{
+ id:'erd', no:'04', title:'مخطط ERD بالتفصيل', en:'Entity Relationship Diagram', icon:'🧩',
+ intro:'ERD هو رسم يوضح كيانات النظام وصفاتها والعلاقات بينها. قبل بناء الجداول في قاعدة البيانات نرسم ERD حتى نفهم النظام بشكل بصري واضح.',
+ sections:[
+  ['Entity','الكيان هو شيء مهم في النظام ونحتاج نخزن عنه بيانات. مثل STUDENT، COURSE، EMPLOYEE، PRODUCT. غالبًا يتحول الكيان لاحقًا إلى جدول.'],
+  ['Attribute','الصفة هي معلومة تخص الكيان. مثال STUDENT لديه student_id, name, phone. الصفة تتحول غالبًا إلى عمود داخل الجدول.'],
+  ['Primary Key','مفتاح يميز كل صف عن غيره. لا يتكرر ولا يكون فارغًا. مثل student_id. وجوده مهم جدًا حتى نستطيع تحديد كل سجل بدقة.'],
+  ['Foreign Key','عمود يربط جدولًا بجدول آخر. مثال department_id داخل EMPLOYEE يربط الموظف بالقسم الموجود في جدول DEPARTMENT.'],
+  ['One To One','كل سجل في الجدول الأول يرتبط بسجل واحد فقط في الثاني. مثال: شخص واحد له جواز واحد.'],
+  ['One To Many','الأكثر استخدامًا. قسم واحد يحتوي عدة موظفين، لكن الموظف ينتمي لقسم واحد.'],
+  ['Many To Many','طالب يسجل في عدة مواد، والمادة تحتوي عدة طلاب. لا ننفذها مباشرة كعمودين فقط، بل نستخدم جدول وسيط مثل ENROLLMENT.'],
+  ['Cardinality','توضح عدد السجلات الممكنة في العلاقة: واحد، كثير، اختياري، إلزامي. هي التي تساعدك تعرف هل العلاقة 1:1 أو 1:N أو M:N.'],
+  ['مثال مكتبة','MEMBER يستعير BOOK من خلال BORROW. هنا BORROW ليس مجرد علاقة، بل جدول مهم لأنه يحتوي تاريخ الاستعارة وتاريخ الإرجاع.']
+ ],
+ diagram:`<div class="erd-box"><div class="entity"><b>DEPARTMENT</b><span># department_id</span><span>department_name</span></div><div class="rel">1 ──────── N<br><small>has / belongs to</small></div><div class="entity"><b>EMPLOYEE</b><span># employee_id</span><span>employee_name</span><span>* department_id FK</span></div></div><div class="erd-box"><div class="entity"><b>STUDENT</b><span># student_id</span><span>name</span></div><div class="rel">M ── ENROLLMENT ── N</div><div class="entity"><b>COURSE</b><span># course_id</span><span>course_name</span></div></div>`,
+ example:`Library ERD:\nMEMBER 1 --- N BORROW N --- 1 BOOK\nEMPLOYEE 1 --- N BORROW`,
+ mistakes:['رسم Many-to-Many بدون جدول وسيط.','استخدام الاسم كـ Primary Key.','نسيان تحديد Cardinality.','خلط Entity مع Attribute.'],
+ quiz:['لماذا نحتاج جدول وسيط في Many-to-Many؟','ما الفرق بين PK و FK؟']
+},
+{
+ id:'schema', no:'05', title:'Schema والجداول', en:'Schema and Tables', icon:'🏗️',
+ intro:'Schema هي مساحة تنظيمية داخل قاعدة البيانات تحتوي الجداول والعناصر الأخرى. في Oracle مثال مشهور هو HR Schema وفيه جداول مثل EMPLOYEES و DEPARTMENTS.',
+ sections:[
+  ['Database vs Schema','Database هي النظام الكبير الذي يخزن كل شيء. Schema مثل مجلد أو مساحة داخل قاعدة البيانات تحتوي كائنات مستخدم معين مثل الجداول والفهارس والعروض.'],
+  ['Table','الجدول يخزن نوعًا واحدًا من البيانات. جدول EMPLOYEES يخزن الموظفين، وجدول DEPARTMENTS يخزن الأقسام.'],
+  ['Row','الصف يمثل سجلًا واحدًا. في EMPLOYEES كل صف يعني موظف واحد.'],
+  ['Column','العمود يمثل نوع معلومة. مثل first_name أو salary أو hire_date.'],
+  ['Constraint','قيد يحمي البيانات من الأخطاء. مثل NOT NULL يمنع الفراغ، و UNIQUE يمنع التكرار، و FK يحافظ على العلاقة.'],
+  ['HR Schema','في تدريب Oracle، HR Schema يستخدم للتعلم لأنه يحتوي جداول مترابطة: EMPLOYEES, DEPARTMENTS, JOBS, LOCATIONS, COUNTRIES, REGIONS.']
+ ],
+ diagram:`<div class="tree"><b>Oracle Database</b><ul><li>HR Schema<ul><li>EMPLOYEES</li><li>DEPARTMENTS</li><li>JOBS</li><li>LOCATIONS</li></ul></li><li>Sales Schema</li><li>Finance Schema</li></ul></div>`,
+ example:`EMPLOYEES(employee_id, first_name, last_name, salary, department_id)\nDEPARTMENTS(department_id, department_name)`,
+ mistakes:['اعتبار Schema نفس Table.','وضع كل النظام في جدول واحد.','عدم ربط الجداول بالمفاتيح الأجنبية.'],
+ quiz:['ما الفرق بين Table و Schema؟','ما معنى Row؟']
+},
+{
+ id:'table-rules', no:'06', title:'قواعد بناء الجدول', en:'Table Design Rules', icon:'📐',
+ intro:'تصميم الجدول ليس مجرد اختيار أسماء أعمدة. التصميم الصحيح يمنع التكرار ويسهل الاستعلامات ويحافظ على جودة البيانات.',
+ sections:[
+  ['Rule 1: اسم واضح','اسم الجدول يجب أن يوضح محتواه. استخدم EMPLOYEE أو EMPLOYEES، وتجنب أسماء غامضة مثل data1 أو info. الأهم أن تكون متسقًا في كل المشروع.'],
+  ['Rule 2: Primary Key','كل جدول يحتاج مفتاحًا أساسيًا يميز كل سجل. مثال employee_id. لا تستخدم الاسم أو رقم الجوال كمفتاح أساسي لأنها قد تتغير أو تتكرر.'],
+  ['Rule 3: أعمدة محددة','كل عمود يخزن معلومة واحدة فقط. لا تضع الاسم الكامل في عمود واحد إذا كنت تحتاج first_name و last_name منفصلين.'],
+  ['Rule 4: Datatype صحيح','اختر نوع البيانات بناءً على طبيعة القيمة. الاسم VARCHAR2، الراتب NUMBER، تاريخ التوظيف DATE.'],
+  ['Rule 5: لا تكرر البيانات','إذا كان القسم يتكرر مع كل موظف، اجعل له جدول DEPARTMENTS واربطه بـ department_id بدل تكرار اسم القسم في كل صف.'],
+  ['Rule 6: العلاقات واضحة','حدد هل العلاقة واحد لكثير أو كثير لكثير. العلاقة تحدد أين نضع Foreign Key.'],
+  ['Rule 7: قيود البيانات','استخدم NOT NULL للحقول الضرورية، UNIQUE للقيم التي لا تتكرر، CHECK للقيم المسموحة، DEFAULT للقيم الافتراضية.']
+ ],
+ diagram:`<div class="compare"><div><h3>تصميم ضعيف</h3><p>Employee(name, department_name, department_location)</p><p>تكرار اسم القسم والموقع</p></div><div><h3>تصميم أفضل</h3><p>EMPLOYEES(..., department_id)</p><p>DEPARTMENTS(department_id, name, location)</p></div></div>`,
+ example:`Good columns:\nemployee_id NUMBER PK\nfirst_name VARCHAR2(50)\nsalary NUMBER(8,2)\nhire_date DATE\ndepartment_id NUMBER FK`,
+ mistakes:['اختيار CHAR لكل النصوص.','عدم وضع PK.','تكرار بيانات علاقة يمكن فصلها في جدول.'],
+ quiz:['لماذا لا نستخدم name كمفتاح أساسي؟','أين نضع FK في علاقة One-to-Many؟']
+},
+{
+ id:'select', no:'07', title:'SELECT البدائي', en:'Basic SELECT', icon:'💻',
+ intro:'SELECT هو أول أمر يتعلمه الطالب في SQL. وظيفته استرجاع البيانات من جدول. لا يغير البيانات، فقط يعرضها.',
+ sections:[
+  ['الصيغة الأساسية','نكتب SELECT ثم الأعمدة التي نريدها، ثم FROM ثم اسم الجدول. علامة ; تعني نهاية الأمر في أدوات كثيرة مثل SQL Developer و SQL*Plus.'],
+  ['استخدام النجمة *','النجمة تعني عرض كل الأعمدة. مفيدة في التعلم، لكن في العمل الأفضل تحدد الأعمدة المطلوبة فقط لتحسين الأداء والوضوح.'],
+  ['اختيار أعمدة محددة','بدل SELECT * نكتب SELECT first_name, salary FROM employees; وهذا يعرض عمودين فقط.'],
+  ['Alias','يمكن تغيير اسم العمود في النتيجة باستخدام Alias مثل salary AS monthly_salary. هذا لا يغير اسم العمود الحقيقي في الجدول.'],
+  ['DISTINCT','تستخدم لإزالة التكرار من النتائج. مثال عرض أرقام الأقسام بدون تكرار.']
+ ],
+ diagram:`<div class="sql-map"><span>SELECT</span><span>columns</span><span>FROM</span><span>table</span><span>;</span></div>`,
+ example:`SELECT *\nFROM employees;\n\nSELECT first_name, last_name, salary\nFROM employees;\n\nSELECT DISTINCT department_id\nFROM employees;`,
+ mistakes:['نسيان FROM.','كتابة اسم جدول غير موجود.','استخدام * دائمًا في التقارير النهائية.'],
+ quiz:['ماذا تعني * في SELECT؟','هل SELECT يغير البيانات؟']
+},
+{
+ id:'where-order', no:'08', title:'WHERE و ORDER BY', en:'WHERE and ORDER BY', icon:'🔎',
+ intro:'بعد أن تعرفنا على SELECT، نحتاج تصفية النتائج وترتيبها. WHERE تختار الصفوف المطلوبة، و ORDER BY يرتب النتائج.',
+ sections:[
+  ['WHERE','تستخدم لعرض الصفوف التي تحقق شرطًا معينًا. مثال: الموظفون الذين رواتبهم أكبر من 10000.'],
+  ['المقارنات','يمكن استخدام =, >, <, >=, <=, <>. مثال department_id = 60.'],
+  ['AND و OR','AND يعني كل الشروط يجب أن تكون صحيحة. OR يعني يكفي شرط واحد صحيح.'],
+  ['ORDER BY','تستخدم لترتيب النتائج تصاعديًا ASC أو تنازليًا DESC. إذا لم تكتب ASC أو DESC فالافتراضي غالبًا ASC.'],
+  ['الفرق المهم','WHERE يحدث قبل عرض النتيجة لأنه يفلتر الصفوف. ORDER BY يحدث في النهاية لأنه يرتب ما تم اختياره.']
+ ],
+ diagram:`<div class="diagram-flow"><div>FROM</div><span>→</span><div>WHERE</div><span>→</span><div>SELECT</div><span>→</span><div>ORDER BY</div></div>`,
+ example:`SELECT last_name, salary\nFROM employees\nWHERE salary > 10000\nORDER BY salary DESC;`,
+ mistakes:['وضع ORDER BY قبل WHERE.','نسيان علامات النصوص مثل last_name = \'King\'.','استخدام = مع NULL بدل IS NULL.'],
+ quiz:['ما وظيفة WHERE؟','ما الفرق بين ASC و DESC؟']
+},
+{
+ id:'functions', no:'09', title:'الدوال الأساسية في Oracle SQL', en:'Basic Oracle SQL Functions', icon:'🧮',
+ intro:'الدوال تساعدنا نعدل شكل البيانات أو نحسب قيمة جديدة أثناء العرض. في Oracle توجد دوال نصية ورقمية وتاريخية، وكثير منها يرجع نتيجة لكل صف.',
+ sections:[
+  ['Single-row Functions','هي دوال تعمل على كل صف وترجع نتيجة لكل صف. مثل UPPER(last_name) أو ROUND(salary).'],
+  ['Character Functions','LOWER يحول النص لصغير، UPPER لكبير، INITCAP يجعل أول حرف كبير، LENGTH يحسب الطول، SUBSTR يقتطع جزءًا من النص.'],
+  ['Number Functions','ROUND يقرب الرقم، TRUNC يقطع بدون تقريب، MOD يرجع باقي القسمة.'],
+  ['Date Functions','SYSDATE يرجع تاريخ ووقت النظام، MONTHS_BETWEEN يحسب الفرق بالشهور، ADD_MONTHS يضيف شهورًا للتاريخ.'],
+  ['Nesting Functions','يمكن وضع دالة داخل دالة. مثال UPPER(SUBSTR(last_name,1,3)) يأخذ أول 3 أحرف ثم يحولها لكبير.']
+ ],
+ diagram:`<div class="diagram-flow"><div>Input</div><span>→</span><div>Function</div><span>→</span><div>Output</div></div>`,
+ example:`SELECT UPPER(last_name), LENGTH(last_name)\nFROM employees;\n\nSELECT ROUND(45.926, 2), TRUNC(45.926, 2)\nFROM dual;\n\nSELECT SYSDATE\nFROM dual;`,
+ mistakes:['خلط ROUND و TRUNC.','نسيان أن بعض الدوال تحتاج معاملات بالترتيب الصحيح.','استخدام دوال النصوص مع أرقام بدون فهم التحويل.'],
+ quiz:['ما الفرق بين ROUND و TRUNC؟','ماذا ترجع SYSDATE؟']
+}
 ];
 
-const diagrams = {
-  database: `<div class="visual-stack"><div class="vbox big">Database</div><div class="vline"></div><div class="visual-row"><div class="vbox">Students</div><div class="vbox">Courses</div><div class="vbox">Grades</div></div><div class="caption">Database = organized related tables</div></div>`,
-  compare: `<div class="compare-diagram"><div><h4>SQL</h4><p>Tables</p><p>Rows / Columns</p><p>Relationships</p><p>Fixed Schema</p></div><div><h4>NoSQL</h4><p>Documents</p><p>Key-Value</p><p>Graph</p><p>Flexible Schema</p></div></div>`,
-  srs: `<div class="flow"><span>Idea</span><b>→</b><span>SRS</span><b>→</b><span>ERD</span><b>→</b><span>Schema</span><b>→</b><span>SQL</span></div>`,
-  erd: `<svg class="erd-svg" viewBox="0 0 900 420" role="img" aria-label="ERD diagram"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="currentColor"></path></marker></defs><g class="entity"><rect x="40" y="60" width="250" height="145" rx="18"></rect><text x="165" y="95" text-anchor="middle">CUSTOMER</text><line x1="40" y1="112" x2="290" y2="112"></line><text x="65" y="145"># customer_id</text><text x="65" y="170">* customer_name</text><text x="65" y="195">o phone</text></g><g class="entity"><rect x="610" y="60" width="250" height="170" rx="18"></rect><text x="735" y="95" text-anchor="middle">INVOICE</text><line x1="610" y1="112" x2="860" y2="112"></line><text x="635" y="145"># invoice_id</text><text x="635" y="170">* invoice_date</text><text x="635" y="195">* customer_id FK</text><text x="635" y="220">* total_price</text></g><path d="M290 135 C410 135, 490 135, 610 135" fill="none" stroke="currentColor" stroke-width="3" marker-end="url(#arrow)"></path><text x="450" y="120" text-anchor="middle">1 : N</text><text x="450" y="160" text-anchor="middle">one customer has many invoices</text><g class="entity"><rect x="325" y="270" width="250" height="105" rx="18"></rect><text x="450" y="305" text-anchor="middle">INVOICE_DETAIL</text><line x1="325" y1="322" x2="575" y2="322"></line><text x="350" y="350"># invoice_id FK</text><text x="350" y="372"># product_id FK</text></g></svg>`,
-  schema: `<div class="tree"><div class="tree-root">Oracle Database</div><div class="tree-branch"><div>HR Schema</div><ul><li>EMPLOYEES</li><li>DEPARTMENTS</li><li>JOBS</li><li>LOCATIONS</li></ul></div><div class="tree-branch"><div>SALES Schema</div><ul><li>CUSTOMERS</li><li>INVOICES</li></ul></div></div>`,
-  rules: `<div class="rule-grid"><span>1 Name</span><span>2 PK</span><span>3 Columns</span><span>4 Data Type</span><span>5 Normalize</span><span>6 FK</span><span>7 Constraints</span></div>`,
-  select: `<div class="sql-break"><span>SELECT</span><em>what columns?</em><span>FROM</span><em>which table?</em><span>;</span><em>end statement</em></div>`,
-  filter: `<div class="flow vertical"><span>SELECT columns</span><b>↓</b><span>FROM table</span><b>↓</b><span>WHERE condition</span><b>↓</b><span>ORDER BY column</span></div>`
-};
-
-const menu = document.getElementById('basicMenu');
-const content = document.getElementById('basicContent');
+const list = document.getElementById('lessonList');
+const reader = document.getElementById('lessonReader');
 const search = document.getElementById('lessonSearch');
-
-function lang(){ return localStorage.getItem('lang') || 'ar'; }
-function t(lesson, key){ return lesson[key + (lang()==='ar'?'Ar':'En')]; }
-function arr(lesson, key){ return lesson[key + (lang()==='ar'?'Ar':'En')]; }
-function label(ar,en){ return lang()==='ar'?ar:en; }
-
-function renderMenu(filter=''){
-  const q = filter.trim().toLowerCase();
-  const items = basicLessons.filter(l => !q || (l.titleAr+l.titleEn+l.subtitleAr+l.subtitleEn).toLowerCase().includes(q));
-  menu.innerHTML = items.map((l,i)=>`<button class="basic-menu-btn ${i===0 && !location.hash?'active':''}" data-id="${l.id}"><span>${l.icon}</span><b>${t(l,'title')}</b><small>${t(l,'subtitle')}</small></button>`).join('');
-  menu.querySelectorAll('button').forEach(btn=>btn.onclick=()=>openLesson(btn.dataset.id));
+function getLesson(id){return detailedLessons.find(x=>x.id===id)||detailedLessons[0]}
+function renderList(filter=''){
+ const q=filter.trim().toLowerCase();
+ const data=detailedLessons.filter(l=>(l.title+' '+l.en+' '+l.intro).toLowerCase().includes(q));
+ list.innerHTML=data.map(l=>`<button class="lesson-link" data-id="${l.id}"><b>${l.no}</b><span>${l.icon} ${l.title}</span></button>`).join('');
+ document.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id;renderReader(b.dataset.id)});
 }
-
-function openLesson(id){
-  const lesson = basicLessons.find(l=>l.id===id) || basicLessons[0];
-  location.hash = lesson.id;
-  document.querySelectorAll('.basic-menu-btn').forEach(b=>b.classList.toggle('active', b.dataset.id===lesson.id));
-  const sections = arr(lesson,'sections');
-  content.innerHTML = `
-    <div class="lesson-open-head">
-      <span class="lesson-open-icon">${lesson.icon}</span>
-      <div><p class="eyebrow">BASIC</p><h2>${t(lesson,'title')}</h2><p>${t(lesson,'subtitle')}</p></div>
-    </div>
-    <div class="visual-card">${diagrams[lesson.diagram] || ''}</div>
-    <div class="deep-sections">
-      ${sections.map(([h,p],i)=>`<section class="deep-block"><span class="deep-number">${String(i+1).padStart(2,'0')}</span><h3>${h}</h3><p>${p}</p></section>`).join('')}
-    </div>
-    <div class="learning-box">
-      <h3>${label('مثال عملي','Practical Example')}</h3>
-      <div class="codebox"><button class="copy-btn btn ghost" onclick="copyText(${JSON.stringify(lesson.code)})">${label('نسخ','Copy')}</button><pre>${lesson.code.replaceAll('<','&lt;')}</pre></div>
-    </div>
-    <div class="two-panels">
-      <div class="panel warn"><h3>${label('الأخطاء الشائعة','Common Mistakes')}</h3><ul>${arr(lesson,'mistakes').map(m=>`<li>${m}</li>`).join('')}</ul></div>
-      <div class="panel quizlet"><h3>${label('تأكد من فهمك','Check Your Understanding')}</h3><ol>${arr(lesson,'quiz').map(q=>`<li>${q}</li>`).join('')}</ol></div>
-    </div>
-    <div class="lesson-actions"><button class="btn primary" onclick="completeBasic('${lesson.id}')">${label('علّم الدرس كمكتمل','Mark lesson complete')}</button><span id="done-${lesson.id}" class="done-badge"></span></div>
-  `;
-  updateDone(lesson.id);
-  content.scrollIntoView({behavior:'smooth', block:'start'});
+function renderReader(id){
+ const l=getLesson(id);
+ document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===l.id));
+ reader.innerHTML=`
+ <div class="lesson-hero"><span class="lesson-icon">${l.icon}</span><div><p class="eyebrow">LESSON ${l.no}</p><h2>${l.title}</h2><p>${l.intro}</p></div></div>
+ <div class="lesson-diagram">${l.diagram}</div>
+ <div class="lesson-sections">${l.sections.map((s,i)=>`<section class="deep-block"><h3>${i+1}. ${s[0]}</h3><p>${s[1]}</p></section>`).join('')}</div>
+ <section class="deep-block"><h3>مثال عملي</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">Copy</button><pre>${l.example}</pre></div></section>
+ <section class="deep-block warn"><h3>أخطاء شائعة</h3><ul>${l.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul></section>
+ <section class="deep-block"><h3>تأكد من فهمك</h3><ol>${l.quiz.map(q=>`<li>${q}</li>`).join('')}</ol></section>
+ <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button><a class="btn ghost" href="playground.html">افتح المحاكي</a></div>`;
+ document.getElementById('doneLesson').onclick=()=>{localStorage.setItem('lesson_'+l.id,'1');document.getElementById('doneLesson').textContent='تم حفظ إنجازك ✅'};
+ window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function completeBasic(id){
-  const done = JSON.parse(localStorage.getItem('basicDone') || '[]');
-  if(!done.includes(id)) done.push(id);
-  localStorage.setItem('basicDone', JSON.stringify(done));
-  updateDone(id); renderProgressMini();
-}
-function updateDone(id){
-  const done = JSON.parse(localStorage.getItem('basicDone') || '[]');
-  const el = document.getElementById('done-'+id);
-  if(el) el.textContent = done.includes(id) ? label('✅ مكتمل','✅ Completed') : '';
-}
-function renderProgressMini(){
-  const done = JSON.parse(localStorage.getItem('basicDone') || '[]').length;
-  document.getElementById('basicMenuTitle').textContent = label(`دروس BASIC (${done}/${basicLessons.length})`,`BASIC Lessons (${done}/${basicLessons.length})`);
-}
-function refreshLanguageText(){
-  document.getElementById('basicTitle').textContent = label('الأساسيات بالتفصيل قبل Oracle SQL','Detailed fundamentals before Oracle SQL');
-  document.getElementById('basicDesc').textContent = label('هذا القسم يبني الأساس من الصفر: قاعدة البيانات، SRS، ERD، Schema، تصميم الجداول، ثم أول أوامر SELECT بشكل واضح ومفصل.','This section builds the foundation from zero: database, SRS, ERD, schema, table design, then the first SELECT commands in a clear detailed way.');
-  search.placeholder = label('ابحث داخل BASIC...','Search BASIC...');
-  renderProgressMini();
-}
-
-renderMenu(); renderProgressMini(); refreshLanguageText();
-const initial = location.hash?.replace('#','') || basicLessons[0].id;
-openLesson(initial);
-search?.addEventListener('input', e=>renderMenu(e.target.value));
-document.getElementById('langToggle')?.addEventListener('click',()=>setTimeout(()=>{refreshLanguageText(); renderMenu(search.value); openLesson(location.hash.replace('#') || basicLessons[0].id);},0));
+renderList();renderReader(location.hash.replace('#','')||'database');
+search?.addEventListener('input',e=>renderList(e.target.value));
+window.addEventListener('hashchange',()=>renderReader(location.hash.replace('#','')));
