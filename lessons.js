@@ -1,179 +1,174 @@
-(function(){
 const detailedLessons = [
 {
- id:'database', no:'01', title:'ما هي قاعدة البيانات؟', en:'What is a Database?', icon:'🗄️',
- intro:'قاعدة البيانات هي مكان منظم لتخزين البيانات بحيث نستطيع البحث عنها، تعديلها، ربطها، وتحليلها بسرعة ودقة. ليست مجرد ملف يحفظ معلومات؛ بل نظام ينظم البيانات ويمنع التكرار ويحافظ على العلاقات.',
- diagram:`<div class="diagram-flow"><div>Data</div><span>→</span><div>Database</div><span>→</span><div>SQL</div><span>→</span><div>Information</div></div>`,
- sections:[
-  ['الفكرة ببساطة','تخيل جامعة فيها طلاب، مواد، مدرسين، درجات، وجداول. لو حفظنا كل شيء في ملفات عشوائية ستظهر مشاكل: تكرار، صعوبة بحث، اختلاف نسخ، وأخطاء. قاعدة البيانات تجعل كل نوع من البيانات في مكان واضح، ثم تربط هذه الأماكن ببعضها.'],
-  ['Data vs Information','Data هي حقائق خام مثل 101 أو Ahmed أو 5000. Information هي معنى ناتج من معالجة البيانات مثل: متوسط رواتب الموظفين 8500. قاعدة البيانات تحفظ Data، و SQL يحولها إلى Information.'],
-  ['لماذا لا يكفي Excel؟','Excel جيد للجداول الصغيرة، لكنه لا يكفي عندما يوجد آلاف المستخدمين، صلاحيات، علاقات، أمان، نسخ احتياطي، واستعلامات معقدة. قواعد البيانات صممت لهذا المستوى.']
- ],
- example:`Student_ID | Name | Major\n101        | Ali  | IT\n102        | Sara | CS`,
- mistakes:['وضع كل البيانات في جدول واحد كبير.','عدم استخدام Primary Key.','تكرار نفس المعلومة في أكثر من جدول بدون حاجة.'],
- quiz:['ما الفرق بين Data و Information؟','اذكر مثالًا لنظام يحتاج قاعدة بيانات.']
+ id:'database', no:'01', title:'مدخل قواعد البيانات', icon:'🗄️', minutes:'25 دقيقة',
+ intro:'هذا الدرس يشرح معنى البيانات وقاعدة البيانات ولماذا نحتاجها في الأنظمة الحقيقية. الهدف أن تفهم الأساس قبل الدخول إلى ERD أو SQL.',
+ objectives:['تفرق بين Data و Information.','تعرف لماذا نستخدم قاعدة البيانات بدل الملفات العادية.','تفهم معنى Table و Row و Column بصورة مبدئية.'],
+ body:`
+ <section class="deep-block"><h3>ما هي البيانات؟</h3><p>البيانات هي حقائق خام لم يتم تحليلها بعد. مثل رقم طالب، اسم موظف، تاريخ طلب، سعر منتج. هذه القيم وحدها قد لا تعطي قرارًا مباشرًا، لكنها تصبح مفيدة عندما ننظمها ونعالجها.</p></section>
+ <section class="deep-block"><h3>ما هي المعلومات؟</h3><p>المعلومات هي معنى ناتج من معالجة البيانات. مثال: وجود رواتب الموظفين كبيانات شيء، وحساب متوسط الرواتب في قسم معيّن هو معلومة تساعد الإدارة في اتخاذ قرار.</p></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>بيانات خام</div><span>←</span><div>تنظيم داخل قاعدة البيانات</div><span>←</span><div>استعلام SQL</div><span>←</span><div>معلومة مفيدة</div></div></div>
+ <section class="deep-block"><h3>لماذا لا نكتفي بملفات Excel؟</h3><p>Excel جيد للأعمال الصغيرة، لكن الأنظمة الحقيقية تحتاج أمان، صلاحيات، علاقات، تحديث متزامن، نسخ احتياطي، ومنع التكرار. قاعدة البيانات مصممة لإدارة هذه المشاكل.</p></section>
+ <section class="deep-block info"><h3>مثال واقعي</h3><p>في نظام جامعة يوجد طلاب ومواد ومدرسون وشعب ودرجات. لو وضعنا كل شيء في ملف واحد سيحدث تكرار كبير. قاعدة البيانات تفصل البيانات في جداول مترابطة، مثل جدول STUDENTS وجدول COURSES وجدول ENROLLMENTS.</p></section>
+ <div class="schema-grid"><div class="schema-table"><h4>STUDENTS</h4><code>student_id PK\nstudent_name\nmajor</code></div><div class="schema-table"><h4>COURSES</h4><code>course_id PK\ncourse_name\ncredit_hours</code></div><div class="schema-table"><h4>ENROLLMENTS</h4><code>student_id FK\ncourse_id FK\ngrade</code></div></div>
+ <section class="deep-block warn"><h3>أخطاء شائعة</h3><ul><li>وضع كل بيانات النظام في جدول واحد.</li><li>تكرار نفس المعلومة في أكثر من مكان بدون سبب.</li><li>عدم استخدام مفتاح أساسي يميز كل سجل.</li></ul></section>`
 },
 {
- id:'sql-nosql', no:'02', title:'SQL و NoSQL', en:'SQL vs NoSQL', icon:'⚖️',
- intro:'SQL و NoSQL طريقتان لتخزين البيانات. SQL مناسب للبيانات المنظمة والعلاقات الواضحة. NoSQL مناسب للبيانات المرنة أو المتغيرة كثيرًا.',
- diagram:`<div class="compare"><div><h3>SQL</h3><p>Tables / Rows / Columns</p><p>Schema ثابت</p><p>Relations قوية</p><p>Oracle - MySQL - SQL Server</p></div><div><h3>NoSQL</h3><p>Documents / Keys / Graph</p><p>Schema مرن</p><p>Scalability عالية</p><p>MongoDB - Firebase - Redis</p></div></div>`,
- sections:[
-  ['SQL','يعتمد على الجداول والصفوف والأعمدة. ممتاز للأنظمة المالية والجامعات والفواتير لأنه يحافظ على العلاقات والقيود والدقة.'],
-  ['NoSQL','قد يخزن البيانات كـ Document أو Key-Value أو Graph. مناسب عندما يكون شكل البيانات متغيرًا أو تحتاج توسع سريع.'],
-  ['متى أستخدم SQL؟','إذا كانت العلاقات مهمة: طالب يسجل في مواد، عميل يملك فواتير، موظف ينتمي لقسم.'],
-  ['متى أستخدم NoSQL؟','إذا كانت البيانات غير ثابتة الشكل مثل JSON مختلف بين المستخدمين أو تطبيق يحتاج قراءة سريعة جدًا وتخزين مرن.']
- ],
- example:`SQL: employees table + departments table linked by department_id\nNoSQL: { name:'Ali', skills:['SQL','JavaScript'] }`,
- mistakes:['اختيار NoSQL فقط لأنه جديد.','استخدام SQL بدون تصميم علاقات صحيح.','اعتقاد أن NoSQL يعني لا توجد استعلامات.'],
- quiz:['متى يكون SQL أفضل؟','اذكر مثالًا على قاعدة Document.']
+ id:'sql-nosql', no:'02', title:'SQL و NoSQL', icon:'⚖️', minutes:'30 دقيقة',
+ intro:'قبل اختيار نوع قاعدة البيانات، لازم تعرف الفرق بين النظام العلائقي SQL والنظام المرن NoSQL ومتى تستخدم كل واحد.',
+ objectives:['تفهم فكرة الجداول والعلاقات في SQL.','تفهم فكرة المرونة في NoSQL.','تعرف متى تختار SQL ومتى تختار NoSQL.'],
+ body:`
+ <div class="compare big"><div><h3>SQL</h3><p>يعتمد على الجداول، الصفوف، الأعمدة، العلاقات، والقيود. مناسب للأنظمة التي تحتاج دقة عالية مثل الجامعات والبنوك والفواتير.</p><ul><li>Schema ثابت غالبًا</li><li>علاقات قوية</li><li>يدعم ACID</li><li>أمثلة: Oracle, MySQL, SQL Server</li></ul></div><div><h3>NoSQL</h3><p>يعتمد على نماذج مرنة مثل Documents أو Key-Value أو Graph. مناسب للبيانات المتغيرة بسرعة أو التطبيقات التي تحتاج توسع عالي.</p><ul><li>Schema مرن</li><li>توسع أفقي أسهل</li><li>مناسب للـ JSON</li><li>أمثلة: MongoDB, Firebase, Redis, Neo4j</li></ul></div></div>
+ <section class="deep-block"><h3>متى SQL أفضل؟</h3><p>إذا عندك علاقات واضحة: عميل يملك فواتير، فاتورة تحتوي منتجات، طالب يسجل في مواد. هنا SQL ممتاز لأنه يحافظ على العلاقات بالمفاتيح الأجنبية والقيود.</p></section>
+ <section class="deep-block"><h3>متى NoSQL أفضل؟</h3><p>إذا البيانات غير ثابتة الشكل أو تحتاج تخزين مستندات مختلفة لكل مستخدم أو توسع سريع جدًا. مثال: تطبيق يخزن إعدادات مستخدمين بشكل JSON مختلف من مستخدم لآخر.</p></section>
+ <section class="deep-block info"><h3>قاعدة قرار سريعة</h3><div class="diagram-flow"><div>هل العلاقات مهمة؟</div><span>←</span><div>نعم: SQL</div><span> / </span><div>لا أو البيانات مرنة: NoSQL</div></div></section>
+ <table class="mini-table"><tr><th>المعيار</th><th>SQL</th><th>NoSQL</th></tr><tr><td>الشكل</td><td>جداول</td><td>مستندات أو مفاتيح أو Graph</td></tr><tr><td>العلاقات</td><td>قوية جدًا</td><td>حسب النوع</td></tr><tr><td>التغيير</td><td>يحتاج تعديل Schema</td><td>مرن أكثر</td></tr></table>`
 },
 {
- id:'srs', no:'03', title:'وثيقة SRS', en:'Software Requirements Specification', icon:'📄',
- intro:'SRS هي وثيقة توضح ماذا يريد العميل من النظام قبل التصميم والبرمجة. هي الجسر بين الفكرة والتنفيذ، ومنها نبدأ استخراج الكيانات والعلاقات.',
- diagram:`<div class="diagram-flow"><div>Idea</div><span>→</span><div>SRS</div><span>→</span><div>ERD</div><span>→</span><div>Schema</div><span>→</span><div>SQL</div></div>`,
- sections:[
-  ['تعريف SRS','اختصار Software Requirements Specification. تحتوي وصف النظام، المستخدمين، الوظائف المطلوبة، القيود، والمتطلبات غير الوظيفية مثل الأداء والأمان.'],
-  ['Functional Requirements','هي الأشياء التي يجب أن يفعلها النظام. مثال: يستطيع الموظف إضافة كتاب. يستطيع العضو استعارة كتاب.'],
-  ['Non-Functional Requirements','هي جودة النظام: السرعة، الأمان، سهولة الاستخدام، التوفر، قابلية الصيانة. مثال: صفحة البحث تظهر خلال أقل من ثانيتين.'],
-  ['من SRS إلى ERD','إذا قالت الوثيقة: العضو يستعير كتابًا، نستخرج MEMBER و BOOK و BORROW ونحدد العلاقة بينهم.']
- ],
- example:`Requirement: The employee can register a borrow transaction.\nEntities: EMPLOYEE, MEMBER, BOOK, BORROW`,
- mistakes:['البدء بالبرمجة قبل فهم المتطلبات.','كتابة متطلبات عامة جدًا.','خلط functional مع non-functional.'],
- quiz:['ما فائدة SRS؟','كيف تساعد SRS في رسم ERD؟']
+ id:'srs', no:'03', title:'وثيقة SRS', icon:'📄', minutes:'35 دقيقة',
+ intro:'SRS هي الوثيقة التي تسبق التصميم والبرمجة. منها نستخرج الكيانات والعلاقات التي تظهر لاحقًا في ERD.',
+ objectives:['تعرف وظيفة SRS في المشروع.','تفرق بين Functional و Non-Functional Requirements.','تتعلم كيف تستخرج الكيانات من المتطلبات.'],
+ body:`
+ <section class="deep-block"><h3>ما معنى SRS؟</h3><p>SRS اختصار Software Requirements Specification. هي وثيقة تشرح ماذا يريد العميل من النظام قبل أن نبدأ التصميم أو البرمجة. بدونها قد يفهم المطور شيئًا والعميل يقصد شيئًا آخر.</p></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>فكرة المشروع</div><span>←</span><div>SRS</div><span>←</span><div>ERD</div><span>←</span><div>Schema</div><span>←</span><div>SQL</div></div></div>
+ <section class="deep-block"><h3>المتطلبات الوظيفية</h3><p>هي الأشياء التي يجب أن يقوم بها النظام. مثال: يستطيع الموظف إضافة كتاب جديد. يستطيع العضو استعارة كتاب. يستطيع النظام حساب غرامة التأخير.</p></section>
+ <section class="deep-block"><h3>المتطلبات غير الوظيفية</h3><p>هي صفات جودة النظام مثل السرعة، الأمان، سهولة الاستخدام، التوفر، وقابلية الصيانة. مثال: صفحة البحث يجب أن تظهر خلال أقل من ثانيتين.</p></section>
+ <section class="deep-block info"><h3>كيف نطلع ERD من SRS؟</h3><p>اقرأ الجمل وابحث عن الأسماء المهمة: عضو، كتاب، استعارة، موظف. غالبًا هذه الأسماء تتحول إلى Entities. ثم ابحث عن الأفعال: يستعير، يدير، يحتوي. غالبًا هذه تتحول إلى Relationships.</p></section>
+ <div class="schema-grid"><div class="schema-table"><h4>جملة في SRS</h4><code>العضو يستطيع استعارة عدة كتب.</code></div><div class="schema-table"><h4>استخراج ERD</h4><code>MEMBER\nBOOK\nBORROW\nMEMBER 1:N BORROW\nBOOK 1:N BORROW</code></div></div>`
 },
 {
- id:'erd', no:'04', title:'مخطط ERD بالتفصيل', en:'Entity Relationship Diagram', icon:'🧩',
- intro:'ERD هو الرسم الذي يوضح كيانات النظام وصفاتها والعلاقات بينها. قبل أن تبني جداول SQL، ترسم ERD حتى تعرف ماذا ستخزن وكيف ستربط البيانات.',
- diagram:`<div class="erd-box"><div class="entity"><b>DEPARTMENT</b><span># department_id</span><span>department_name</span></div><div class="rel">1 ─────── N<br><small>has / works for</small></div><div class="entity"><b>EMPLOYEE</b><span># employee_id</span><span>employee_name</span><span>* department_id FK</span></div></div><div class="erd-box"><div class="entity"><b>STUDENT</b><span># student_id</span><span>name</span></div><div class="rel">M ── ENROLLMENT ── N</div><div class="entity"><b>COURSE</b><span># course_id</span><span>course_name</span></div></div>`,
- sections:[
-  ['Entity - الكيان','شيء مهم في النظام ونحتاج نخزن عنه بيانات. مثل STUDENT أو EMPLOYEE أو PRODUCT. غالبًا يتحول الكيان إلى جدول.'],
-  ['Attribute - الخاصية','معلومة تصف الكيان. مثال STUDENT لديه student_id و name و phone. غالبًا تتحول الخاصية إلى عمود.'],
-  ['Primary Key - المفتاح الأساسي','عمود أو أكثر يميز كل صف عن غيره. لا يتكرر ولا يكون فارغًا. مثل student_id.'],
-  ['Foreign Key - المفتاح الأجنبي','عمود يربط جدولًا بجدول آخر. مثال department_id داخل EMPLOYEE يشير إلى DEPARTMENT.'],
-  ['Cardinality - الكارديناليتي','تحدد نوع العلاقة: 1:1 أو 1:N أو M:N. وهي أهم شيء قبل التحويل إلى Schema.'],
-  ['Weak Entity - الكيان الضعيف','كيان لا يملك هوية كاملة وحده، مثل DEPENDENT الذي يعتمد على EMPLOYEE.']
- ],
- example:`Library ERD:\nMEMBER 1 --- N BORROW N --- 1 BOOK\nEMPLOYEE 1 --- N BORROW`,
- mistakes:['رسم Many-to-Many بدون جدول وسيط.','استخدام الاسم كمفتاح أساسي.','نسيان تحديد Cardinality.','خلط Entity مع Attribute.'],
- quiz:['لماذا نحتاج جدول وسيط في M:N؟','ما الفرق بين PK و FK؟']
+ id:'erd', no:'04', title:'مخطط ERD بالتفصيل', icon:'🧩', minutes:'60 دقيقة',
+ intro:'ERD هو الرسم الذي يوضح الكيانات والخصائص والعلاقات قبل تحويلها إلى جداول SQL. هذا الدرس يعتمد على فكرة ملف ERD الذي أرسلته، لكن بصيغة الموقع وبشرح خطوة خطوة.',
+ objectives:['تعرف Entity و Attribute و Relationship.','تفهم PK و FK والكارديناليتي.','تميز بين Chen Notation و Crow’s Foot.','تفهم مثال COMPANY الموجود في الـ PDF.'],
+ body:`
+ <section class="deep-block"><h3>ما هو ERD؟</h3><p>ERD هو مخطط الكيانات والعلاقات. نستخدمه قبل إنشاء الجداول حتى نفهم ما الذي سنخزنه، وما خصائص كل شيء، وكيف ترتبط الأشياء ببعضها.</p></section>
+ <div class="erd-box"><div class="entity"><b>ENTITY</b><span>شيء مستقل نخزن عنه بيانات</span><span>مثل: CUSTOMER</span></div><div class="rel">يتحول إلى</div><div class="entity"><b>TABLE</b><span>جدول في قاعدة البيانات</span><span>مثل: customers</span></div></div>
+ <section class="deep-block"><h3>Entity الكيان</h3><p>الكيان هو شيء له وجود مستقل في النظام ونحتاج تخزين معلومات عنه. في نظام الطلبات: Customer و Order و Product كيانات.</p></section>
+ <section class="deep-block"><h3>Attribute الخاصية</h3><p>الخاصية هي معلومة تصف الكيان. Customer لديه customer_id و full_name و email. لاحقًا تتحول هذه الخصائص إلى أعمدة داخل الجدول.</p></section>
+ <section class="deep-block"><h3>Relationship العلاقة</h3><p>العلاقة توضح كيف يرتبط كيان بآخر. مثال: العميل يضع طلبًا. هذه العلاقة تساعدنا نعرف أين نضع Foreign Key أو هل نحتاج جدول ربط.</p></section>
+ <div class="erd-box"><div class="entity"><b>CUSTOMER</b><span>🔑 customer_id</span><span>full_name</span><span>email</span></div><div class="rel">1 ───── N<br><small>يضع طلبات</small></div><div class="entity"><b>ORDER</b><span>🔑 order_id</span><span>↳ customer_id FK</span><span>order_date</span><span>status</span></div></div>
+ <section class="deep-block"><h3>Cardinality الكارديناليتي</h3><p>الكارديناليتي تحدد عدد السجلات الممكنة في العلاقة: واحد لواحد، واحد لمتعدد، أو متعدد لمتعدد.</p></section>
+ <div class="relation-gallery"><div class="relation-card"><h4>1 : 1</h4><p>مستخدم واحد له جواز واحد.</p><div class="simple-rel"><b>USER</b><span>1 ─ 1</span><b>PASSPORT</b></div></div><div class="relation-card"><h4>1 : N</h4><p>قسم واحد يحتوي عدة موظفين.</p><div class="simple-rel"><b>DEPARTMENT</b><span>1 ─ N</span><b>EMPLOYEE</b></div></div><div class="relation-card"><h4>M : N</h4><p>طلب يحتوي عدة منتجات والمنتج يظهر في عدة طلبات.</p><div class="simple-rel"><b>ORDER</b><span>M ─ N</span><b>PRODUCT</b></div></div></div>
+ <section class="deep-block info"><h3>Chen Notation</h3><p>في بعض الكتب مثل مثال COMPANY، الكيان يكون مستطيلًا، العلاقة تكون معينًا، والخاصية تكون بيضاوية. هذا أسلوب قديم ومهم في المناهج الجامعية.</p><div class="chen"><div class="oval">Fname</div><div class="rect">EMPLOYEE</div><div class="diamond">WORKS_FOR</div><div class="rect">DEPARTMENT</div><div class="oval">Name</div></div></section>
+ <section class="deep-block"><h3>مثال COMPANY من ملف ERD</h3><p>المثال يحتوي كيانات مثل EMPLOYEE و DEPARTMENT و PROJECT و DEPENDENT. العلاقات المهمة: WORKS_FOR بين الموظف والقسم، MANAGES لإدارة القسم، CONTROLS بين القسم والمشروع، WORKS_ON بين الموظف والمشروع، وDEPENDENTS_OF للكيان الضعيف DEPENDENT.</p></section>
+ <table class="mini-table"><tr><th>العلاقة</th><th>المعنى</th><th>التحويل لاحقًا</th></tr><tr><td>WORKS_FOR</td><td>كل موظف يعمل في قسم واحد والقسم يحتوي عدة موظفين</td><td>نضع dno كـ FK في EMPLOYEE</td></tr><tr><td>WORKS_ON</td><td>الموظف يعمل على عدة مشاريع والمشروع يضم عدة موظفين</td><td>جدول وسيط WORKS_ON</td></tr><tr><td>DEPENDENTS_OF</td><td>المعال يعتمد على موظف</td><td>DEPENDENT يأخذ essn من EMPLOYEE</td></tr></table>
+ <section class="deep-block warn"><h3>أخطاء شائعة في ERD</h3><ul><li>رسم علاقة M:N بدون جدول وسيط عند التحويل.</li><li>اختيار الاسم كمفتاح أساسي رغم أنه قد يتكرر.</li><li>خلط Entity مع Attribute.</li><li>نسيان صفة العلاقة مثل Hours في WORKS_ON.</li></ul></section>`
 },
 {
- id:'erd-to-schema', no:'05', title:'تحويل ERD إلى Schema خطوة بخطوة', en:'ERD to Relational Schema Mapping', icon:'🔁',
- intro:'هذا الدرس هو المقصود بقواعد التحويل: كيف نأخذ ERD مثل مثال COMPANY ونحوله إلى جداول فعلية: EMPLOYEE, DEPARTMENT, PROJECT, DEPENDENT, EMP_PROJECT, DE_LOCATION. سنمشي خطوة بخطوة مثل الصورة والمخطط في ملفك.',
- diagram:`<div class="mapping-visual"><div class="map-row"><div class="map-label">ERD</div><div class="rel-arrow"></div></div><div class="map-row"><div class="map-label">Entities</div><div>EMPLOYEE - DEPARTMENT - PROJECT - DEPENDENT</div></div><div class="map-row"><div class="map-label">Relations</div><div>WORKS_FOR - MANAGES - CONTROLS - WORKS_ON - SUPERVISION - DEPENDENTS_OF</div></div><div class="map-row"><div class="map-label">Schema</div><div>Tables + Columns + PK + FK</div></div></div>`,
- sections:[
-  ['الخطوة 1: الكيانات القوية تتحول إلى جداول','كل Entity قوي يتحول إلى Table. في مثال COMPANY عندنا: EMPLOYEE و DEPARTMENT و PROJECT. نبدأ بها لأنها مستقلة ولها مفاتيح خاصة.'],
-  ['الخطوة 2: الخصائص البسيطة تتحول إلى أعمدة','خصائص EMPLOYEE مثل Ssn و Bdate و Address و Salary و Sex تصبح أعمدة. خصائص PROJECT مثل Name و Number و Location تصبح أعمدة.'],
-  ['الخطوة 3: الخاصية المركبة Composite','خاصية Name في EMPLOYEE مركبة وتتفرع إلى Fname و Minit و Lname. عند التحويل لا نخزن Name ككتلة واحدة إذا نحتاج أجزاءه، بل نخزن Fname, Minit, Lname كأعمدة.'],
-  ['الخطوة 4: الخاصية المفتاحية تصبح Primary Key','Ssn في EMPLOYEE يصبح PK. Number في DEPARTMENT يصبح PK. Number في PROJECT يصبح PK. المفتاح الأساسي يحدد كل صف بشكل فريد.'],
-  ['الخطوة 5: الخاصية متعددة القيم Multivalued تصبح جدولًا جديدًا','Locations في DEPARTMENT متعددة القيم؛ القسم قد يكون له أكثر من موقع. لذلك لا نضعها كعمود واحد داخل DEPARTMENT. ننشئ جدول DE_LOCATION يحتوي Dnumber و Location، ويكون المفتاح غالبًا مركبًا منهما.'],
-  ['الخطوة 6: الخاصية المشتقة Derived لا نخزنها غالبًا','Number_of_employees خاصية مشتقة لأنها تحسب من عدد الموظفين المرتبطين بالقسم. الأفضل لا نخزنها حتى لا تتعارض مع البيانات، بل نحسبها باستعلام COUNT.'],
-  ['الخطوة 7: علاقة 1:N نضع FK في جهة N','WORKS_FOR بين DEPARTMENT و EMPLOYEE: القسم الواحد لديه عدة موظفين، والموظف يعمل في قسم واحد. لذلك نضع Dnumber داخل EMPLOYEE كـ FK يشير إلى DEPARTMENT(Number).'],
-  ['الخطوة 8: علاقة 1:1 نضع FK في أحد الجدولين ومعها صفة العلاقة','MANAGES بين EMPLOYEE و DEPARTMENT علاقة 1:1 تقريبًا. نضع Mgr_ssn داخل DEPARTMENT لأنه كل قسم له مدير واحد. صفة Start_date التابعة للعلاقة تصبح أيضًا داخل DEPARTMENT باسم Mgr_start_date.'],
-  ['الخطوة 9: علاقة 1:N بين DEPARTMENT و PROJECT','CONTROLS: القسم الواحد يشرف على عدة مشاريع، والمشروع تابع لقسم واحد. لذلك نضع Dnumber داخل PROJECT كـ FK يشير إلى DEPARTMENT(Number).'],
-  ['الخطوة 10: علاقة تكرارية Recursive','SUPERVISION تربط EMPLOYEE بنفسه: موظف مشرف وموظف تحت إشرافه. نضيف Super_ssn داخل EMPLOYEE كـ FK يشير إلى EMPLOYEE(Ssn).'],
-  ['الخطوة 11: علاقة M:N تتحول إلى جدول وسيط','WORKS_ON بين EMPLOYEE و PROJECT علاقة M:N. الموظف يعمل على عدة مشاريع والمشروع يضم عدة موظفين. لذلك ننشئ EMP_PROJECT وفيه Essn و Pnumber و Hours. المفتاح الأساسي يكون (Essn, Pnumber).'],
-  ['الخطوة 12: الكيان الضعيف Weak Entity','DEPENDENT كيان ضعيف لا يملك مفتاحًا مستقلًا كاملًا. يعتمد على EMPLOYEE. لذلك جدول DEPENDENT يحتوي Essn كـ FK و Dependent_name كمفتاح جزئي، ويصبح المفتاح الأساسي المركب (Essn, Dependent_name).']
- ],
- extra:`<section class="deep-block info"><h3>الشكل النهائي للجداول من مثال COMPANY</h3><div class="schema-grid"><div class="schema-table"><h4>EMPLOYEE</h4><code>SSN PK\nFname\nMinit\nLname\nBdate\nAddress\nSalary\nSex\nSuper_ssn FK → EMPLOYEE.SSN\nDnumber FK → DEPARTMENT.Number</code></div><div class="schema-table"><h4>DEPARTMENT</h4><code>Number PK\nName\nMgr_ssn FK → EMPLOYEE.SSN\nMgr_start_date</code></div><div class="schema-table"><h4>PROJECT</h4><code>Number PK\nName\nLocation\nDnumber FK → DEPARTMENT.Number</code></div><div class="schema-table"><h4>DEPENDENT</h4><code>Essn FK → EMPLOYEE.SSN\nDependent_name\nSex\nBirth_date\nRelationship\nPK(Essn, Dependent_name)</code></div><div class="schema-table"><h4>EMP_PROJECT</h4><code>Essn FK → EMPLOYEE.SSN\nPnumber FK → PROJECT.Number\nHours\nPK(Essn, Pnumber)</code></div><div class="schema-table"><h4>DE_LOCATION</h4><code>Dnumber FK → DEPARTMENT.Number\nLocation\nPK(Dnumber, Location)</code></div></div></section><section class="deep-block"><h3>ملخص قواعد التحويل السريعة</h3><table class="mini-table"><tr><th>في ERD</th><th>في Schema</th></tr><tr><td>Strong Entity</td><td>Table</td></tr><tr><td>Simple Attribute</td><td>Column</td></tr><tr><td>Composite Attribute</td><td>Columns للأجزاء المهمة</td></tr><tr><td>Multivalued Attribute</td><td>Table جديد</td></tr><tr><td>Derived Attribute</td><td>لا تخزن غالبًا، تحسب باستعلام</td></tr><tr><td>1:N Relationship</td><td>FK في جهة N</td></tr><tr><td>1:1 Relationship</td><td>FK في أحد الجدولين + صفات العلاقة</td></tr><tr><td>M:N Relationship</td><td>جدول وسيط</td></tr><tr><td>Weak Entity</td><td>جدول بمفتاح مركب: مفتاح المالك + المفتاح الجزئي</td></tr></table></section>`,
- example:`CREATE TABLE employee (\n  ssn NUMBER PRIMARY KEY,\n  fname VARCHAR2(30),\n  minit CHAR(1),\n  lname VARCHAR2(30),\n  bdate DATE,\n  address VARCHAR2(100),\n  salary NUMBER(10,2),\n  sex CHAR(1),\n  super_ssn NUMBER REFERENCES employee(ssn),\n  dnumber NUMBER\n);\n\nCREATE TABLE dependent (\n  essn NUMBER REFERENCES employee(ssn),\n  dependent_name VARCHAR2(50),\n  sex CHAR(1),\n  birth_date DATE,\n  relationship VARCHAR2(30),\n  PRIMARY KEY (essn, dependent_name)\n);\n\nCREATE TABLE emp_project (\n  essn NUMBER REFERENCES employee(ssn),\n  pnumber NUMBER,\n  hours NUMBER(5,2),\n  PRIMARY KEY (essn, pnumber)\n);`,
- mistakes:['تحويل M:N إلى FK واحد فقط بدل جدول وسيط.','تخزين الخاصية متعددة القيم داخل عمود واحد مثل “Jeddah,Riyadh”.','تخزين الخاصية المشتقة Number_of_employees بدل حسابها.','نسيان صفة العلاقة مثل Hours أو Start_date.','نسيان المفتاح المركب في الكيان الضعيف.'],
- quiz:['أين نضع FK في علاقة 1:N؟','كيف نحول Multivalued Attribute؟','لماذا DEPENDENT يحتاج مفتاحًا مركبًا؟','لماذا WORKS_ON تتحول إلى EMP_PROJECT؟']
+ id:'erd-schema', no:'05', title:'تحويل ERD إلى Schema خطوة بخطوة', icon:'🔁', minutes:'70 دقيقة',
+ intro:'هذا هو الدرس الذي طلبته تحديدًا: ليس قواعد بناء جدول، بل قواعد تحويل مخطط ERD إلى Schema. سنأخذ مثال الطلبات ثم مثال COMPANY ونحولهما خطوة بخطوة.',
+ objectives:['تحول كل Entity إلى Table.','تعرف أين تضع FK في 1:N.','تعرف كيف تحل M:N بجدول وسيط.','تتعامل مع Weak Entity والصفات متعددة القيم.'],
+ body:`
+ <section class="deep-block"><h3>الفكرة الأساسية</h3><p>ERD هو الرسم، أما Schema فهو الشكل الجدولي القابل للتنفيذ في قاعدة البيانات: أسماء الجداول، الأعمدة، المفاتيح الأساسية، والمفاتيح الأجنبية.</p></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>ERD</div><span>←</span><div>Entities</div><span>←</span><div>Tables</div><span>←</span><div>PK / FK</div><span>←</span><div>Schema</div></div></div>
+ <section class="deep-block info"><h3>مثال الطلبات من الصورة</h3><p>لدينا Customer و Order و Product وبين Order و Product علاقة M:N لذلك نحتاج جدول وسيط OrderItem.</p></section>
+ <div class="erd-box"><div class="entity"><b>Customer</b><span>🔑 customer_id</span><span>full_name</span><span>email</span></div><div class="rel">1 ─ N</div><div class="entity"><b>Order</b><span>🔑 order_id</span><span>↳ customer_id FK</span><span>order_date</span><span>status</span></div></div>
+ <div class="erd-box"><div class="entity"><b>Order</b><span>🔑 order_id</span></div><div class="rel">M ─ N<br><small>تحتاج جدول وسيط</small></div><div class="entity"><b>Product</b><span>🔑 product_id</span><span>name</span><span>price</span></div></div>
+ <section class="deep-block"><h3><span class="step-badge">1</span>تحويل الكيانات إلى جداول</h3><p>كل Entity رئيسي يتحول إلى جدول مستقل: CUSTOMER يصبح customers، ORDER يصبح orders، PRODUCT يصبح products.</p></section>
+ <div class="schema-grid"><div class="schema-table"><h4>customers</h4><code>customer_id PK\nfull_name\nemail</code></div><div class="schema-table"><h4>orders</h4><code>order_id PK\ncustomer_id FK\norder_date\nstatus</code></div><div class="schema-table"><h4>products</h4><code>product_id PK\nname\nprice</code></div></div>
+ <section class="deep-block"><h3><span class="step-badge">2</span>تحويل علاقة 1:N</h3><p>في علاقة Customer 1:N Order نضع المفتاح الأجنبي في جهة N، لذلك نضيف customer_id داخل جدول orders.</p></section>
+ <section class="deep-block"><h3><span class="step-badge">3</span>تحويل علاقة M:N</h3><p>العلاقة بين Order و Product لا تتحول إلى FK واحد فقط، بل ننشئ جدولًا وسيطًا order_items يحتوي مفاتيح الجدولين.</p></section>
+ <div class="schema-grid"><div class="schema-table"><h4>order_items</h4><code>order_id FK\nproduct_id FK\nquantity\nPK(order_id, product_id)</code></div></div>
+ <section class="deep-block"><h3><span class="step-badge">4</span>صفات العلاقة</h3><p>إذا العلاقة نفسها لها صفة مثل quantity، توضع في جدول الربط order_items لأنها تصف المنتج داخل طلب معيّن، وليست صفة للمنتج وحده ولا للطلب وحده.</p></section>
+ <section class="deep-block"><h3>الناتج النهائي كـ Schema</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>CREATE TABLE customers (
+  customer_id INT PRIMARY KEY,
+  full_name VARCHAR2(100) NOT NULL,
+  email VARCHAR2(120)
+);
+
+CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  customer_id INT REFERENCES customers(customer_id),
+  order_date DATE,
+  status VARCHAR2(30)
+);
+
+CREATE TABLE products (
+  product_id INT PRIMARY KEY,
+  name VARCHAR2(100) NOT NULL,
+  price NUMBER(8,2)
+);
+
+CREATE TABLE order_items (
+  order_id INT REFERENCES orders(order_id),
+  product_id INT REFERENCES products(product_id),
+  quantity INT NOT NULL,
+  PRIMARY KEY (order_id, product_id)
+);</pre></div></section>
+ <section class="deep-block info"><h3>تطبيق على مثال COMPANY</h3><p>EMPLOYEE يتحول إلى جدول employee. DEPARTMENT يتحول إلى department. PROJECT يتحول إلى project. DEPENDENT كيان ضعيف، لذلك يأخذ مفتاح الموظف essn مع dependent_name كمفتاح مركب. WORKS_ON علاقة M:N بين EMPLOYEE و PROJECT لذلك تتحول إلى جدول وسيط ويحمل Hours لأنها صفة للعلاقة.</p></section>
+ <table class="mini-table"><tr><th>من ERD</th><th>إلى Schema</th><th>السبب</th></tr><tr><td>EMPLOYEE</td><td>employee</td><td>Entity رئيسي</td></tr><tr><td>DEPARTMENT</td><td>department</td><td>Entity رئيسي</td></tr><tr><td>WORKS_FOR 1:N</td><td>dno داخل employee</td><td>FK في جهة N</td></tr><tr><td>WORKS_ON M:N</td><td>works_on(essn, pno, hours)</td><td>جدول وسيط</td></tr><tr><td>DEPENDENT ضعيف</td><td>dependent(essn, dependent_name)</td><td>مفتاح مركب من مالكه ومفتاحه الجزئي</td></tr></table>
+ <section class="deep-block"><h3>كود DEPENDENT كما في فكرة الملف</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>CREATE TABLE dependent (
+  essn INT REFERENCES employee(ssn),
+  dependent_name VARCHAR2(50),
+  sex CHAR(1),
+  birth_date DATE,
+  relationship VARCHAR2(30),
+  PRIMARY KEY (essn, dependent_name)
+);</pre></div><p>لاحظ أن dependent_name وحده لا يكفي، لأن أكثر من موظف ممكن يكون لديه معال بنفس الاسم. لذلك المفتاح المركب هو essn + dependent_name.</p></section>
+ <section class="deep-block warn"><h3>قاعدة ذهبية</h3><p>إذا كانت العلاقة 1:N ضع FK في جهة N. إذا كانت M:N أنشئ جدولًا وسيطًا. إذا كانت العلاقة لها صفة، غالبًا الصفة تذهب إلى جدول العلاقة أو الجدول الوسيط.</p></section>`
 },
 {
- id:'schema', no:'06', title:'Schema والجداول', en:'Schema and Tables', icon:'🏗️',
- intro:'Schema هي مساحة تنظيمية داخل قاعدة البيانات تحتوي الجداول والعناصر الأخرى. في Oracle يوجد مثال مشهور اسمه HR Schema وفيه EMPLOYEES و DEPARTMENTS و JOBS.',
- diagram:`<div class="tree"><b>Oracle Database</b><ul><li>HR Schema<ul><li>EMPLOYEES</li><li>DEPARTMENTS</li><li>JOBS</li><li>LOCATIONS</li></ul></li><li>Sales Schema</li><li>Finance Schema</li></ul></div>`,
- sections:[
-  ['Database vs Schema','Database هي النظام الكبير الذي يخزن كل شيء. Schema مثل مساحة داخل قاعدة البيانات تحتوي كائنات مستخدم معين مثل الجداول والفهارس والعروض.'],
-  ['Table','الجدول يخزن نوعًا واحدًا من البيانات. EMPLOYEES يخزن الموظفين، و DEPARTMENTS يخزن الأقسام.'],
-  ['Row','الصف يمثل سجلًا واحدًا. في EMPLOYEES كل صف يعني موظف واحد.'],
-  ['Column','العمود يمثل نوع معلومة. مثل first_name أو salary أو hire_date.'],
-  ['Constraint','قيد يحمي البيانات من الأخطاء مثل PK و FK و NOT NULL و UNIQUE.']
- ],
- example:`EMPLOYEES(employee_id, first_name, last_name, salary, department_id)\nDEPARTMENTS(department_id, department_name)`,
- mistakes:['اعتبار Schema نفس Table.','وضع كل النظام في جدول واحد.','عدم ربط الجداول بالمفاتيح الأجنبية.'],
- quiz:['ما الفرق بين Table و Schema؟','ما معنى Row؟']
+ id:'schema', no:'06', title:'Schema والجداول في Oracle', icon:'🏗️', minutes:'35 دقيقة',
+ intro:'بعد تحويل ERD إلى Schema، نحتاج فهم معنى Schema داخل Oracle وكيف تظهر الجداول والأعمدة والصفوف والمفاتيح.',
+ objectives:['تعرف الفرق بين Database و Schema و Table.','تفهم HR Schema.','تعرف معنى Row و Column و Constraint.'],
+ body:`
+ <section class="deep-block"><h3>ما معنى Schema؟</h3><p>في Oracle، الـ Schema هي مجموعة كائنات يملكها مستخدم معين، مثل الجداول والفهارس والعروض. مثال HR Schema يحتوي جداول تدريبية مثل EMPLOYEES و DEPARTMENTS.</p></section>
+ <div class="tree"><b>Oracle Database</b><ul><li>HR Schema<ul><li>EMPLOYEES</li><li>DEPARTMENTS</li><li>JOBS</li><li>LOCATIONS</li><li>COUNTRIES</li></ul></li><li>SALES Schema</li><li>FINANCE Schema</li></ul></div>
+ <section class="deep-block"><h3>الجدول والصف والعمود</h3><p>الجدول يخزن نوعًا واحدًا من البيانات. الصف يمثل سجلًا واحدًا. العمود يمثل معلومة محددة داخل السجل.</p></section>
+ <table class="mini-table"><tr><th>employee_id</th><th>first_name</th><th>salary</th><th>department_id</th></tr><tr><td>100</td><td>Steven</td><td>24000</td><td>90</td></tr><tr><td>101</td><td>Neena</td><td>17000</td><td>90</td></tr></table>
+ <section class="deep-block info"><h3>المفاتيح والقيود</h3><p>Primary Key يميز كل صف. Foreign Key يربط جدولًا بآخر. NOT NULL يمنع الفراغ. UNIQUE يمنع التكرار. CHECK يسمح بقيم محددة فقط.</p></section>`
 },
 {
- id:'select', no:'07', title:'SELECT البدائي', en:'Basic SELECT', icon:'💻',
- intro:'SELECT هو أول أمر في SQL. وظيفته استرجاع البيانات من جدول. هو لا يغير البيانات؛ فقط يعرضها.',
- diagram:`<div class="sql-map"><span>SELECT</span><span>columns</span><span>FROM</span><span>table</span><span>;</span></div>`,
- sections:[
-  ['الصيغة الأساسية','نكتب SELECT ثم الأعمدة المطلوبة، ثم FROM ثم اسم الجدول. الفاصلة المنقوطة ; تعني نهاية الأمر في أدوات كثيرة.'],
-  ['استخدام النجمة *','النجمة تعني عرض كل الأعمدة. مفيدة للتعلم، لكن في العمل الأفضل تحديد الأعمدة المطلوبة.'],
-  ['اختيار أعمدة محددة','بدل SELECT * نكتب SELECT first_name, salary FROM employees لعرض عمودين فقط.'],
-  ['Alias','يمكن تغيير اسم العمود في النتيجة باستخدام AS. هذا لا يغير اسم العمود الحقيقي في الجدول.'],
-  ['DISTINCT','تستخدم لإزالة التكرار من النتائج مثل عرض أرقام الأقسام بدون تكرار.']
- ],
- example:`SELECT *\nFROM employees;\n\nSELECT first_name, last_name, salary\nFROM employees;\n\nSELECT DISTINCT department_id\nFROM employees;`,
- mistakes:['نسيان FROM.','كتابة اسم جدول غير موجود.','استخدام * دائمًا في التقارير النهائية.'],
- quiz:['ماذا تعني * في SELECT؟','هل SELECT يغير البيانات؟']
+ id:'select', no:'07', title:'SELECT من الصفر', icon:'💻', minutes:'35 دقيقة',
+ intro:'SELECT هو أول أمر SQL تستخدمه لعرض البيانات. لا يغير البيانات، فقط يسترجعها من جدول.',
+ objectives:['تفهم SELECT و FROM و * و ;.','تعرف لماذا نحدد الأعمدة بدل النجمة.','تقرأ نتيجة الاستعلام بشكل صحيح.'],
+ body:`
+ <section class="deep-block"><h3>الصيغة الأساسية</h3><div class="sql-map"><span>SELECT</span><span>الأعمدة</span><span>FROM</span><span>الجدول</span><span>;</span></div><p>SELECT يعني ماذا تريد أن تعرض. FROM يعني من أي جدول. الفاصلة المنقوطة تعني نهاية الأمر في أدوات كثيرة.</p></section>
+ <section class="deep-block"><h3>مثال: عرض كل الأعمدة</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT *
+FROM employees;</pre></div><p>النجمة تعني كل الأعمدة. جيدة للتعلم، لكن ليست الأفضل دائمًا في العمل.</p></section>
+ <section class="deep-block"><h3>مثال: تحديد أعمدة معينة</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT first_name, last_name, salary
+FROM employees;</pre></div><table class="mini-table"><tr><th>first_name</th><th>last_name</th><th>salary</th></tr><tr><td>Steven</td><td>King</td><td>24000</td></tr><tr><td>Neena</td><td>Kochhar</td><td>17000</td></tr></table></section>
+ <section class="deep-block warn"><h3>أخطاء شائعة</h3><ul><li>نسيان FROM.</li><li>كتابة اسم جدول غير موجود.</li><li>استخدام * في تقارير كبيرة بدون حاجة.</li></ul></section>`
 },
 {
- id:'where-order', no:'08', title:'WHERE و ORDER BY', en:'WHERE and ORDER BY', icon:'🔎',
- intro:'WHERE يفلتر الصفوف، و ORDER BY يرتب النتيجة. هذا يجعل الاستعلام أكثر فائدة من عرض كل البيانات.',
- diagram:`<div class="diagram-flow"><div>FROM</div><span>→</span><div>WHERE</div><span>→</span><div>SELECT</div><span>→</span><div>ORDER BY</div></div>`,
- sections:[
-  ['WHERE','تعرض الصفوف التي تحقق شرطًا معينًا. مثال: الموظفون الذين رواتبهم أكبر من 10000.'],
-  ['Operators','يمكن استخدام = و > و < و >= و <= و <>. مثال department_id = 60.'],
-  ['AND و OR','AND يعني كل الشروط يجب أن تكون صحيحة. OR يعني يكفي شرط واحد صحيح.'],
-  ['ORDER BY','يرتب النتائج تصاعديًا ASC أو تنازليًا DESC. الافتراضي غالبًا ASC.'],
-  ['الترتيب المنطقي','الفلترة تحدث قبل الترتيب: FROM ثم WHERE ثم SELECT ثم ORDER BY.']
- ],
- example:`SELECT last_name, salary\nFROM employees\nWHERE salary > 10000\nORDER BY salary DESC;`,
- mistakes:['وضع ORDER BY قبل WHERE.','نسيان علامات النصوص مثل last_name = \'King\'.','استخدام = مع NULL بدل IS NULL.'],
- quiz:['ما وظيفة WHERE؟','ما الفرق بين ASC و DESC؟']
-},
-{
- id:'functions', no:'09', title:'الدوال الأساسية في Oracle SQL', en:'Basic Oracle SQL Functions', icon:'🧮',
- intro:'الدوال تساعدنا نعدل شكل البيانات أو نحسب قيمة جديدة أثناء العرض. في Oracle توجد دوال نصية ورقمية وتاريخية.',
- diagram:`<div class="diagram-flow"><div>Input</div><span>→</span><div>Function</div><span>→</span><div>Output</div></div>`,
- sections:[
-  ['Single-row Functions','دوال تعمل على كل صف وترجع نتيجة لكل صف مثل UPPER(last_name) أو ROUND(salary).'],
-  ['Character Functions','LOWER و UPPER و INITCAP و LENGTH و SUBSTR و INSTR. تستخدم لمعالجة النصوص.'],
-  ['Number Functions','ROUND يقرب الرقم، TRUNC يقطع بدون تقريب، MOD يرجع باقي القسمة.'],
-  ['Date Functions','SYSDATE يرجع تاريخ ووقت النظام، MONTHS_BETWEEN يحسب الفرق بالشهور، ADD_MONTHS يضيف شهورًا.'],
-  ['Nesting Functions','يمكن وضع دالة داخل دالة مثل UPPER(SUBSTR(last_name,1,3)).']
- ],
- example:`SELECT UPPER(last_name), LENGTH(last_name)\nFROM employees;\n\nSELECT ROUND(45.926, 2), TRUNC(45.926, 2)\nFROM dual;\n\nSELECT SYSDATE\nFROM dual;`,
- mistakes:['خلط ROUND و TRUNC.','نسيان ترتيب معاملات الدالة.','استخدام دوال النصوص مع أرقام بدون فهم التحويل.'],
- quiz:['ما الفرق بين ROUND و TRUNC؟','ماذا ترجع SYSDATE؟']
+ id:'where-order', no:'08', title:'WHERE و ORDER BY', icon:'🔎', minutes:'30 دقيقة',
+ intro:'بعد أن تعرف SELECT، تحتاج تصفية النتائج وترتيبها. WHERE يختار الصفوف، و ORDER BY يرتب النتيجة.',
+ objectives:['تستخدم WHERE لتصفية الصفوف.','تستخدم AND و OR بوضوح.','ترتب النتائج باستخدام ORDER BY.'],
+ body:`
+ <section class="deep-block"><h3>WHERE</h3><p>WHERE تحدد شرطًا. الصف الذي يحقق الشرط يظهر في النتيجة، والصف الذي لا يحققه لا يظهر.</p><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT last_name, salary
+FROM employees
+WHERE salary > 10000;</pre></div></section>
+ <section class="deep-block"><h3>ORDER BY</h3><p>ORDER BY يرتب النتيجة. DESC من الأكبر إلى الأصغر، و ASC من الأصغر إلى الأكبر.</p><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT last_name, salary
+FROM employees
+WHERE salary > 10000
+ORDER BY salary DESC;</pre></div></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>FROM</div><span>←</span><div>WHERE</div><span>←</span><div>SELECT</div><span>←</span><div>ORDER BY</div></div></div>
+ <section class="deep-block warn"><h3>انتبه</h3><p>لا تكتب ORDER BY قبل WHERE. الترتيب الصحيح هو SELECT ثم FROM ثم WHERE ثم ORDER BY.</p></section>`
 }
 ];
-
 const lessonListEl = document.getElementById('lessonList');
 const lessonReaderEl = document.getElementById('lessonReader');
 const lessonSearchEl = document.getElementById('lessonSearch');
-
-function getLesson(id){return detailedLessons.find(x=>x.id===id)||detailedLessons[0];}
-function copyLessonText(text){navigator.clipboard?.writeText(text).catch(()=>{});}
-window.copyLessonText = copyLessonText;
+function getLesson(id){return detailedLessons.find(x=>x.id===id)||detailedLessons[0]}
 function renderList(filter=''){
  const q=filter.trim().toLowerCase();
- const data=detailedLessons.filter(l=>(l.title+' '+l.en+' '+l.intro).toLowerCase().includes(q));
- lessonListEl.innerHTML=data.map(l=>`<button class="lesson-link" data-id="${l.id}"><b>${l.no}</b><span>${l.icon} ${l.title}<small>${l.en}</small></span></button>`).join('');
- document.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id;renderReader(b.dataset.id);});
+ const data=detailedLessons.filter(l=>(l.title+' '+l.intro).toLowerCase().includes(q));
+ lessonListEl.innerHTML=data.map(l=>`<button class="lesson-link" data-id="${l.id}"><b>${l.no}</b><span>${l.icon} ${l.title}<small>${l.minutes}</small></span></button>`).join('');
+ document.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id;renderReader(b.dataset.id)});
 }
-function escapeHtml(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function renderReader(id){
  const l=getLesson(id);
  document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===l.id));
  lessonReaderEl.innerHTML=`
- <div class="lesson-hero"><span class="lesson-icon">${l.icon}</span><div><p class="eyebrow">LESSON ${l.no}</p><h2>${l.title}</h2><p>${l.intro}</p></div></div>
- <div class="lesson-diagram">${l.diagram}</div>
- <div class="lesson-sections">${l.sections.map((s,i)=>`<section class="deep-block"><h3><span class="step-badge">${i+1}</span>${s[0]}</h3><p>${s[1]}</p></section>`).join('')}</div>
- ${l.extra||''}
- <section class="deep-block"><h3>مثال عملي</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyLessonText(this.nextElementSibling.innerText)">Copy</button><pre>${escapeHtml(l.example)}</pre></div></section>
- <section class="deep-block warn"><h3>أخطاء شائعة</h3><ul>${l.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul></section>
- <section class="deep-block"><h3>تأكد من فهمك</h3><ol>${l.quiz.map(q=>`<li>${q}</li>`).join('')}</ol></section>
- <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button><a class="btn ghost" href="playground.html">افتح المحاكي</a></div>`;
- const done=document.getElementById('doneLesson');
- if(localStorage.getItem('lesson_'+l.id)==='1') done.textContent='الدرس مكتمل ✅';
- done.onclick=()=>{localStorage.setItem('lesson_'+l.id,'1');done.textContent='تم حفظ إنجازك ✅';};
+ <div class="lesson-hero"><span class="lesson-icon">${l.icon}</span><div><p class="eyebrow">الدرس ${l.no} · ${l.minutes}</p><h2>${l.title}</h2><p>${l.intro}</p></div></div>
+ <section class="deep-block info"><h3>🎯 أهداف الدرس</h3><ul>${l.objectives.map(o=>`<li>${o}</li>`).join('')}</ul></section>
+ ${l.body}
+ <section class="deep-block"><h3>📌 ملخص سريع</h3><p>راجع الرسم، ثم اربط الفكرة بالمثال العملي. أهم شيء في قواعد البيانات هو فهم العلاقة بين المتطلبات، ERD، Schema، ثم SQL.</p></section>
+ <section class="deep-block"><h3>📝 أسئلة مراجعة</h3><ol><li>ما أهم فكرة في هذا الدرس؟</li><li>كيف تطبقها على نظام مكتبة أو متجر؟</li><li>ما الخطأ الذي يجب أن تتجنبه؟</li></ol></section>
+ <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button><a class="btn ghost" href="playground.html">اذهب إلى الأمثلة</a></div>`;
+ document.getElementById('doneLesson').onclick=()=>{localStorage.setItem('lesson_'+l.id,'1');document.getElementById('doneLesson').textContent='تم حفظ إنجازك ✅'};
  window.scrollTo({top:0,behavior:'smooth'});
 }
-renderList();renderReader(location.hash.replace('#','')||'database');
-if (lessonSearchEl) { lessonSearchEl.addEventListener('input', function(e){ renderList(e.target.value); }); }
+renderList();
+renderReader(location.hash.replace('#','')||'database');
+lessonSearchEl?.addEventListener('input',e=>renderList(e.target.value));
 window.addEventListener('hashchange',()=>renderReader(location.hash.replace('#','')));
-})();

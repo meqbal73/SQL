@@ -1,12 +1,44 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Oracle Future Learn</title><meta name="description" content="Interactive bilingual Oracle SQL learning platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html" data-i18n="nav_home">الرئيسية</a><a href="lessons.html" data-i18n="nav_lessons">الدروس</a><a href="oracle-practice.html" data-i18n="nav_practice">العملي</a><a href="playground.html" data-i18n="nav_playground">المحاكي</a><a href="quiz.html" data-i18n="nav_quiz">الاختبار</a></nav><div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div></header><main>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دليل قواعد البيانات</title>
+  <meta name="description" content="موقع عربي لتعلم قواعد البيانات و ERD و SQL">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-orb">DB</span><span>دليل قواعد البيانات</span></a>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+  <nav class="nav"><a href="index.html">الرئيسية</a><a href="lessons.html">الدروس</a><a href="oracle-practice.html">العملي</a><a href="playground.html">الأمثلة</a><a href="quiz.html">الاختبار</a></nav>
+  <div class="actions"><button id="themeToggle" class="chip">☾</button></div>
+</header>
+<main>
 <section class="hero grid-2">
-  <div class="hero-copy reveal"><p class="eyebrow" data-i18n="eyebrow">منصة تدريب Oracle SQL</p><h1 data-i18n="hero_title">تعلّم SQL بطريقة عصرية وتفاعلية</h1><p class="lead" data-i18n="hero_sub">شرح عربي وإنجليزي، أمثلة عملية، محاكي استعلامات، اختبارات، وتتبع تقدم — جاهز للرفع على GitHub Pages.</p><div class="hero-actions"><a class="btn primary" href="lessons.html" data-i18n="start">ابدأ التعلم</a><a class="btn ghost" href="playground.html" data-i18n="try_sql">جرّب SQL</a></div><div class="stats"><div><b>12+</b><span data-i18n="stat_lessons">درس</span></div><div><b>40+</b><span data-i18n="stat_examples">مثال</span></div><div><b>2</b><span data-i18n="stat_lang">لغتين</span></div></div></div>
-  <div class="terminal-card reveal"><div class="dots"><span></span><span></span><span></span></div><pre><code id="typingSql">SELECT last_name, salary
-FROM employees
-WHERE salary > 10000
-ORDER BY salary DESC;</code></pre><div class="result-table"><div>LAST_NAME</div><div>SALARY</div><div>King</div><div>24000</div><div>Kochhar</div><div>17000</div><div>De Haan</div><div>17000</div></div></div>
+  <div class="hero-copy reveal">
+    <p class="eyebrow">من المتطلبات إلى SQL</p>
+    <h1>تعلّم قواعد البيانات بأسلوب واضح ومفصل</h1>
+    <p class="lead">شرح عربي فقط، رسومات ERD، تحويل ERD إلى Schema خطوة بخطوة، أمثلة SQL جاهزة، واختبارات مراجعة. مناسب للطالب الذي يبدأ من الصفر.</p>
+    <div class="hero-actions"><a class="btn primary" href="lessons.html">ابدأ الدروس</a><a class="btn ghost" href="playground.html">شاهد الأمثلة</a></div>
+    <div class="stats"><div><b>8+</b><span>دروس مفصلة</span></div><div><b>25+</b><span>رسم ومثال</span></div><div><b>AR</b><span>عربي فقط</span></div></div>
+  </div>
+  <div class="terminal-card reveal"><div class="dots"><span></span><span></span><span></span></div><pre><code>ERD
+  ↓
+Entities + Attributes
+  ↓
+Tables + Columns
+  ↓
+PK + FK
+  ↓
+SQL Schema</code></pre><div class="result-table"><div>FROM</div><div>TO</div><div>Customer Entity</div><div>customers Table</div><div>1:N Relationship</div><div>Foreign Key</div><div>M:N Relationship</div><div>Bridge Table</div></div></div>
 </section>
-<section class="section reveal"><div class="section-title"><p data-i18n="features_label">المميزات</p><h2 data-i18n="features_title">تجربة تعليمية وليست صفحة عادية</h2></div><div class="cards four"><article class="card"><span class="icon">🌗</span><h3 data-i18n="f1">Dark / Light</h3><p data-i18n="f1d">الوضع يحفظ تلقائياً في المتصفح.</p></article><article class="card"><span class="icon">🌍</span><h3 data-i18n="f2">AR / EN</h3><p data-i18n="f2d">تبديل فوري بين العربية والإنجليزية.</p></article><article class="card"><span class="icon">💻</span><h3 data-i18n="f3">SQL Playground</h3><p data-i18n="f3d">محاكاة نتائج SELECT و Functions.</p></article><article class="card"><span class="icon">🏆</span><h3 data-i18n="f4">Progress</h3><p data-i18n="f4d">حفظ إنجازك ونتائج الاختبارات.</p></article></div></section>
-<section class="section reveal"><div class="section-title"><p data-i18n="path_label">المسار</p><h2 data-i18n="path_title">من المفاهيم إلى التطبيق</h2></div><div class="timeline"><div><b>01</b><span data-i18n="p1">مقدمة قواعد البيانات</span></div><div><b>02</b><span data-i18n="p2">HR Schema والجداول</span></div><div><b>03</b><span data-i18n="p3">SELECT و WHERE</span></div><div><b>04</b><span data-i18n="p4">Single-row Functions</span></div><div><b>05</b><span data-i18n="p5">Date & Number Functions</span></div><div><b>06</b><span data-i18n="p6">تطبيقات واختبارات</span></div></div></section>
-<section class="section dashboard-preview reveal"><div><p class="eyebrow" data-i18n="dash_label">لوحة تقدم</p><h2 data-i18n="dash_title">تابع تعلمك خطوة بخطوة</h2><p data-i18n="dash_desc">كل درس تكمله يتحفظ، والاختبار يعطيك نتيجة فورية.</p></div><div class="progress-card"><div class="ring"><span id="homeProgress">0%</span></div><button class="btn primary" id="markHome" data-i18n="complete_home">علّم الرئيسية كمكتملة</button></div></section>
-</main><footer class="footer"><div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer><script src="app.js"></script></body></html>
+<section class="section reveal"><div class="section-title"><p>المحتوى</p><h2>ليس مجرد شرح مختصر</h2></div><div class="cards four"><article class="card"><span class="icon">🧩</span><h3>ERD برسومات</h3><p>شرح الكيانات، الخصائص، المفاتيح، والعلاقات مع رسومات واضحة.</p></article><article class="card"><span class="icon">🔁</span><h3>ERD إلى Schema</h3><p>تحويل المثال خطوة بخطوة إلى جداول ومفاتيح وكود SQL.</p></article><article class="card"><span class="icon">📄</span><h3>SRS</h3><p>كيف نستخرج الكيانات والعلاقات من متطلبات النظام.</p></article><article class="card"><span class="icon">💻</span><h3>أمثلة SQL</h3><p>استعلامات جاهزة مع شرح ونتائج متوقعة جاهزة.</p></article></div></section>
+<section class="section reveal"><div class="section-title"><p>المسار</p><h2>ترتيب التعلم</h2></div><div class="timeline"><div><b>01</b><span>قاعدة البيانات</span></div><div><b>02</b><span>SQL و NoSQL</span></div><div><b>03</b><span>SRS</span></div><div><b>04</b><span>ERD</span></div><div><b>05</b><span>ERD إلى Schema</span></div><div><b>06</b><span>SELECT</span></div></div></section>
+</main>
+<footer class="footer"><div><b>دليل قواعد البيانات</b><p>موقع تعليمي عربي يعمل على GitHub Pages.</p></div><div class="footer-links"><a href="lessons.html">الدروس</a><a href="playground.html">الأمثلة</a></div></footer>
+<script src="app.js"></script>
+</body>
+</html>

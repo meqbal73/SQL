@@ -1,3 +1,63 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SQL Playground</title><meta name="description" content="Interactive bilingual Oracle SQL learning platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html" data-i18n="nav_home">الرئيسية</a><a href="lessons.html" data-i18n="nav_lessons">الدروس</a><a href="oracle-practice.html" data-i18n="nav_practice">العملي</a><a href="playground.html" data-i18n="nav_playground">المحاكي</a><a href="quiz.html" data-i18n="nav_quiz">الاختبار</a></nav><div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div></header><main><section class="page-head reveal"><p class="eyebrow" data-i18n="nav_playground">المحاكي</p><h1 data-i18n="play_title">SQL Playground</h1><p data-i18n="play_desc">اكتب استعلام SQL وسيعرض الموقع نتيجة تعليمية محاكية بدون سيرفر.</p></section><section class="playground reveal"><div class="editor"><div class="editor-bar"><button class="btn primary" id="runSql" data-i18n="run">تشغيل</button><button class="btn ghost" id="copySql" data-i18n="copy">نسخ</button><select id="sampleSelect"><option value="employees">Employees</option><option value="functions">Functions</option><option value="dates">Dates</option></select></div><textarea id="sqlInput" spellcheck="false">SELECT employee_id, last_name, salary
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الأمثلة | دليل قواعد البيانات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-orb">DB</span><span>دليل قواعد البيانات</span></a>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+  <nav class="nav">
+    <a href="index.html">الرئيسية</a>
+    <a href="lessons.html">الدروس</a>
+    <a href="oracle-practice.html">العملي</a>
+    <a href="playground.html">الأمثلة</a>
+    <a href="quiz.html">الاختبار</a>
+  </nav>
+  <div class="actions"><button id="themeToggle" class="chip">☾</button></div>
+</header>
+<main>
+  <section class="page-head reveal">
+    <p class="eyebrow">أمثلة عملية جاهزة</p>
+    <h1>أمثلة SQL جاهزة مع الشرح والنتيجة</h1>
+    <p>هذه الصفحة تعرض الاستعلام، فكرته، والنتيجة المتوقعة بشكل تعليمي واضح. كل مثال يحتوي على الكود والشرح والنتيجة المتوقعة بشكل ثابت وواضح.</p>
+  </section>
+  <section class="section reveal examples-grid">
+    <article class="deep-block">
+      <h3>مثال 1: عرض كل الموظفين</h3>
+      <p>يستخدم هذا المثال لعرض كل الأعمدة من جدول الموظفين. مناسب للتعلم فقط، أما في التقارير الأفضل تحديد الأعمدة المطلوبة.</p>
+      <div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT *
+FROM employees;</pre></div>
+      <table class="mini-table"><tr><th>employee_id</th><th>first_name</th><th>salary</th></tr><tr><td>100</td><td>Steven</td><td>24000</td></tr><tr><td>101</td><td>Neena</td><td>17000</td></tr></table>
+    </article>
+    <article class="deep-block">
+      <h3>مثال 2: اختيار أعمدة محددة</h3>
+      <p>هنا نعرض الاسم والراتب فقط بدل كل الأعمدة، وهذا أوضح وأفضل من ناحية الأداء.</p>
+      <div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT first_name, last_name, salary
+FROM employees;</pre></div>
+    </article>
+    <article class="deep-block">
+      <h3>مثال 3: تصفية بالشرط WHERE</h3>
+      <p>يعرض الموظفين الذين رواتبهم أعلى من 10000 فقط.</p>
+      <div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT last_name, salary
 FROM employees
-WHERE salary > 10000;</textarea></div><div class="output"><h3 data-i18n="output">النتيجة</h3><div id="sqlOutput"></div></div></section></main><footer class="footer"><div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer><script src="app.js"></script><script src="playground.js"></script></body></html>
+WHERE salary &gt; 10000;</pre></div>
+    </article>
+    <article class="deep-block">
+      <h3>مثال 4: الترتيب ORDER BY</h3>
+      <p>يرتب النتائج من أعلى راتب إلى أقل راتب.</p>
+      <div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>SELECT last_name, salary
+FROM employees
+ORDER BY salary DESC;</pre></div>
+    </article>
+  </section>
+</main>
+<footer class="footer"><div><b>دليل قواعد البيانات</b><p>شرح عربي واضح ومنظم.</p></div><div class="footer-links"><a href="lessons.html">الدروس</a><a href="playground.html">الأمثلة</a></div></footer>
+<script src="app.js"></script>
+</body>
+</html>
