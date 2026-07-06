@@ -1,5 +1,54 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Lessons</title><meta name="description" content="Interactive bilingual Oracle SQL learning platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html" data-i18n="nav_home">الرئيسية</a><a href="lessons.html" data-i18n="nav_lessons">الدروس</a><a href="oracle-practice.html" data-i18n="nav_practice">العملي</a><a href="playground.html" data-i18n="nav_playground">المحاكي</a><a href="quiz.html" data-i18n="nav_quiz">الاختبار</a></nav><div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div></header><main><section class="page-head reveal"><p class="eyebrow" data-i18n="nav_lessons">الدروس</p><h1 data-i18n="lessons_title">دروس Oracle SQL المنظمة</h1><p data-i18n="lessons_desc">المحتوى مبني على ملفات التدريب: المقدمة، المفاهيم، SQL Developer، و Single-row Functions.</p><div class="search-wrap"><input id="lessonSearch" class="search-input" placeholder="ابحث داخل الدروس / Search lessons"></div></section>
-<section class="section reveal"><div class="section-title"><p class="eyebrow">BASIC</p><h2>أساسيات قواعد البيانات قبل SQL</h2><p>شرح مفصل يشمل SRS و ERD و SQL vs NoSQL و Schema وقواعد بناء الجداول و SELECT البدائي.</p></div><div class="lesson-grid" id="basicGrid"></div></section>
-<section class="section reveal"><div class="section-title"><p class="eyebrow">ORACLE SQL</p><h2>دروس Oracle العملية</h2><p>بعد فهم الأساسيات، انتقل إلى HR Schema ودوال SQL الموجودة في ملفات التدريب.</p></div><div class="lesson-grid" id="oracleGrid"></div></section>
-<section class="section reveal" id="lessonDetail"></section>
-</main><footer class="footer"><div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer><script src="app.js"></script><script src="lessons.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BASIC Lessons | Oracle Future Learn</title>
+  <meta name="description" content="Detailed BASIC course for database, SRS, ERD, schema, table design, and SQL basics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+  <nav class="nav">
+    <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+    <a href="lessons.html" data-i18n="nav_lessons">الدروس</a>
+    <a href="oracle-practice.html" data-i18n="nav_practice">العملي</a>
+    <a href="playground.html" data-i18n="nav_playground">المحاكي</a>
+    <a href="quiz.html" data-i18n="nav_quiz">الاختبار</a>
+  </nav>
+  <div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div>
+</header>
+<main>
+  <section class="page-head reveal basic-hero">
+    <p class="eyebrow">BASIC COURSE</p>
+    <h1 id="basicTitle">الأساسيات بالتفصيل قبل Oracle SQL</h1>
+    <p id="basicDesc">هذا القسم يبني الأساس من الصفر: قاعدة البيانات، SRS، ERD، Schema، تصميم الجداول، ثم أول أوامر SELECT بشكل واضح ومفصل.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#basicApp">ابدأ من أول درس</a>
+      <a class="btn ghost" href="playground.html">جرّب SQL</a>
+    </div>
+  </section>
+
+  <section class="basic-shell reveal" id="basicApp">
+    <aside class="basic-sidebar">
+      <div class="basic-side-head">
+        <b id="basicMenuTitle">دروس BASIC</b>
+        <input id="lessonSearch" class="lesson-search" type="search" placeholder="ابحث داخل BASIC...">
+      </div>
+      <div id="basicMenu" class="basic-menu"></div>
+    </aside>
+    <article class="basic-content" id="basicContent"></article>
+  </section>
+</main>
+<footer class="footer">
+  <div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div>
+  <div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div>
+</footer>
+<script src="app.js"></script>
+<script src="lessons.js"></script>
+</body>
+</html>
