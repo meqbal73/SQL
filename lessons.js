@@ -143,7 +143,7 @@ const detailedLessons = [
 
 const list = document.getElementById('lessonList');
 const reader = document.getElementById('lessonReader');
-const search = document.getElementById('lessonSearch');
+const lessonSearch = document.getElementById('lessonSearch');
 function getLesson(id){return detailedLessons.find(x=>x.id===id)||detailedLessons[0]}
 function renderList(filter=''){
  const q=filter.trim().toLowerCase();
