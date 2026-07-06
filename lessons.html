@@ -1,1 +1,44 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>الدروس | Oracle Future Learn</title><meta name="description" content="دروس مفصلة في قواعد البيانات و Oracle SQL"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html" data-i18n="nav_home">الرئيسية</a><a href="lessons.html" data-i18n="nav_lessons">الدروس</a><a href="oracle-practice.html" data-i18n="nav_practice">العملي</a><a href="playground.html" data-i18n="nav_playground">المحاكي</a><a href="quiz.html" data-i18n="nav_quiz">الاختبار</a></nav><div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div></header><main><section class="page-head reveal"><p class="eyebrow">DATABASE & ORACLE SQL</p><h1>الدروس المفصلة من الصفر</h1><p>هنا يبدأ الطالب من معنى البيانات وقاعدة البيانات، ثم ينتقل إلى SRS و ERD و Schema وتصميم الجداول، وبعدها يدخل أوامر SQL الأولى بشكل واضح ومفصل.</p></section><section class="lesson-tools reveal"><div class="search-wrap"><span>🔍</span><input id="lessonSearch" placeholder="ابحث داخل الدروس: ERD, SELECT, Schema..."></div><div class="mini-note">كل درس يحتوي شرح، رسومات، أمثلة، أخطاء شائعة، وتمارين.</div></section><section class="lesson-shell reveal"><aside class="lesson-sidebar"><h3>قائمة الدروس</h3><div id="lessonList"></div></aside><article class="lesson-reader" id="lessonReader"></article></section></main><footer class="footer"><div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer><script src="app.js"></script><script src="lessons.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الدروس | Oracle Future Learn</title>
+  <meta name="description" content="دروس مفصلة في قواعد البيانات و ERD و SQL">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+  <nav class="nav">
+    <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+    <a href="lessons.html" data-i18n="nav_lessons">الدروس</a>
+    <a href="oracle-practice.html" data-i18n="nav_practice">العملي</a>
+    <a href="playground.html" data-i18n="nav_playground">المحاكي</a>
+    <a href="quiz.html" data-i18n="nav_quiz">الاختبار</a>
+  </nav>
+  <div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div>
+</header>
+<main>
+  <section class="page-head reveal lessons-head">
+    <p class="eyebrow">DATABASE DESIGN + ORACLE SQL</p>
+    <h1>الدروس المفصلة</h1>
+    <p>شرح واضح من الصفر: SRS، ERD، تحويل ERD إلى Schema خطوة بخطوة، ثم أساسيات SELECT و Oracle SQL.</p>
+  </section>
+
+  <section class="lessons-shell reveal">
+    <aside class="lesson-sidebar">
+      <div class="search-wrap"><input id="lessonSearch" type="search" placeholder="ابحث داخل الدروس..."></div>
+      <div id="lessonList" class="lesson-list"></div>
+    </aside>
+    <article id="lessonReader" class="lesson-reader"></article>
+  </section>
+</main>
+<footer class="footer"><div><b>Oracle Future Learn</b><p>منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer>
+<script src="app.js"></script>
+<script src="lessons.js"></script>
+</body>
+</html>
