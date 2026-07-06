@@ -1,12 +1,64 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Oracle Future Learn</title><meta name="description" content="Interactive bilingual Oracle SQL learning platform"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span data-i18n="brand">Oracle Future Learn</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html" data-i18n="nav_home">الرئيسية</a><a href="lessons.html" data-i18n="nav_lessons">الدروس</a><a href="oracle-practice.html" data-i18n="nav_practice">العملي</a><a href="playground.html" data-i18n="nav_playground">المحاكي</a><a href="quiz.html" data-i18n="nav_quiz">الاختبار</a></nav><div class="actions"><button id="langToggle" class="chip">EN</button><button id="themeToggle" class="chip">☾</button></div></header><main>
-<section class="hero grid-2">
-  <div class="hero-copy reveal"><p class="eyebrow" data-i18n="eyebrow">منصة تدريب Oracle SQL</p><h1 data-i18n="hero_title">تعلّم SQL بطريقة عصرية وتفاعلية</h1><p class="lead" data-i18n="hero_sub">شرح عربي وإنجليزي، أمثلة عملية، محاكي استعلامات، اختبارات، وتتبع تقدم — جاهز للرفع على GitHub Pages.</p><div class="hero-actions"><a class="btn primary" href="lessons.html" data-i18n="start">ابدأ التعلم</a><a class="btn ghost" href="playground.html" data-i18n="try_sql">جرّب SQL</a></div><div class="stats"><div><b>12+</b><span data-i18n="stat_lessons">درس</span></div><div><b>40+</b><span data-i18n="stat_examples">مثال</span></div><div><b>2</b><span data-i18n="stat_lang">لغتين</span></div></div></div>
-  <div class="terminal-card reveal"><div class="dots"><span></span><span></span><span></span></div><pre><code id="typingSql">SELECT last_name, salary
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Database Master — BASIC Oracle SQL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <header class="nav">
+    <a class="brand" href="index.html"><span class="logo">SQL</span><b>Database Master</b></a>
+    <button class="menu" aria-label="Menu">☰</button>
+    <nav class="links">
+      <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+      <a href="basic.html" data-i18n="nav_basic">BASIC</a>
+      <a href="playground.html" data-i18n="nav_play">المحاكي</a>
+      <a href="quiz.html" data-i18n="nav_quiz">الاختبار</a>
+    </nav>
+    <div class="actions">
+      <button id="themeBtn" class="pill">🌙</button>
+      <button id="langBtn" class="pill">EN</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-content reveal">
+        <span class="tag" data-i18n="hero_tag">منصة تعليمية مفصلة من الصفر</span>
+        <h1 data-i18n="hero_title">تعلم أساسيات قواعد البيانات و Oracle SQL بطريقة واضحة وعملية</h1>
+        <p data-i18n="hero_desc">ابدأ من Data و Database ثم SRS و ERD و Schema وبعدها أول أوامر SELECT. كل درس فيه شرح مفصل، رسومات، أمثلة، أخطاء شائعة وتمارين.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="basic.html" data-i18n="start_basic">ابدأ BASIC</a>
+          <a class="btn ghost" href="playground.html" data-i18n="try_sql">جرب SQL</a>
+        </div>
+      </div>
+      <div class="hero-card reveal delay">
+        <div class="terminal-head"><span></span><span></span><span></span></div>
+        <pre><code>SELECT last_name, salary
 FROM employees
-WHERE salary > 10000
-ORDER BY salary DESC;</code></pre><div class="result-table"><div>LAST_NAME</div><div>SALARY</div><div>King</div><div>24000</div><div>Kochhar</div><div>17000</div><div>De Haan</div><div>17000</div></div></div>
-</section>
-<section class="section reveal"><div class="section-title"><p data-i18n="features_label">المميزات</p><h2 data-i18n="features_title">تجربة تعليمية وليست صفحة عادية</h2></div><div class="cards four"><article class="card"><span class="icon">🌗</span><h3 data-i18n="f1">Dark / Light</h3><p data-i18n="f1d">الوضع يحفظ تلقائياً في المتصفح.</p></article><article class="card"><span class="icon">🌍</span><h3 data-i18n="f2">AR / EN</h3><p data-i18n="f2d">تبديل فوري بين العربية والإنجليزية.</p></article><article class="card"><span class="icon">💻</span><h3 data-i18n="f3">SQL Playground</h3><p data-i18n="f3d">محاكاة نتائج SELECT و Functions.</p></article><article class="card"><span class="icon">🏆</span><h3 data-i18n="f4">Progress</h3><p data-i18n="f4d">حفظ إنجازك ونتائج الاختبارات.</p></article></div></section>
-<section class="section reveal"><div class="section-title"><p data-i18n="path_label">المسار</p><h2 data-i18n="path_title">من المفاهيم إلى التطبيق</h2></div><div class="timeline"><div><b>01</b><span data-i18n="p1">مقدمة قواعد البيانات</span></div><div><b>02</b><span data-i18n="p2">HR Schema والجداول</span></div><div><b>03</b><span data-i18n="p3">SELECT و WHERE</span></div><div><b>04</b><span data-i18n="p4">Single-row Functions</span></div><div><b>05</b><span data-i18n="p5">Date & Number Functions</span></div><div><b>06</b><span data-i18n="p6">تطبيقات واختبارات</span></div></div></section>
-<section class="section dashboard-preview reveal"><div><p class="eyebrow" data-i18n="dash_label">لوحة تقدم</p><h2 data-i18n="dash_title">تابع تعلمك خطوة بخطوة</h2><p data-i18n="dash_desc">كل درس تكمله يتحفظ، والاختبار يعطيك نتيجة فورية.</p></div><div class="progress-card"><div class="ring"><span id="homeProgress">0%</span></div><button class="btn primary" id="markHome" data-i18n="complete_home">علّم الرئيسية كمكتملة</button></div></section>
-</main><footer class="footer"><div><b>Oracle Future Learn</b><p data-i18n="footer_desc">منصة تعليمية تفاعلية مبنية من ملفات التدريب.</p></div><div class="footer-links"><a href="lessons.html">Lessons</a><a href="oracle-practice.html">Practice</a><a href="playground.html">Playground</a></div></footer><script src="app.js"></script></body></html>
+WHERE salary &gt; 10000
+ORDER BY salary DESC;</code></pre>
+        <table class="mini-table"><tr><th>LAST_NAME</th><th>SALARY</th></tr><tr><td>King</td><td>24000</td></tr><tr><td>Kochhar</td><td>17000</td></tr></table>
+      </div>
+    </section>
+    <section class="section reveal">
+      <h2 data-i18n="path_title">مسار BASIC المفصل</h2>
+      <p class="muted" data-i18n="path_desc">تم ترتيب الأساسيات بحيث تفهم لماذا نحتاج قواعد البيانات قبل كتابة SQL.</p>
+      <div class="cards three">
+        <a class="card" href="basic.html#data"><b>01</b><h3>Data & Database</h3><p>الفرق بين البيانات والمعلومات، ولماذا قاعدة البيانات أفضل من الملفات العادية.</p></a>
+        <a class="card" href="basic.html#srs"><b>02</b><h3>SRS</h3><p>كيف نحول فكرة النظام إلى متطلبات واضحة قبل التصميم والبرمجة.</p></a>
+        <a class="card" href="basic.html#erd"><b>03</b><h3>ERD</h3><p>رسومات وعلاقات ومفاتيح مع أمثلة Library, University, Invoice.</p></a>
+        <a class="card" href="basic.html#schema"><b>04</b><h3>Schema</h3><p>Database → Schema → Tables → Columns → Rows → Constraints.</p></a>
+        <a class="card" href="basic.html#table-rules"><b>05</b><h3>Table Rules</h3><p>القواعد السبعة لبناء جدول صحيح ومفهوم وقابل للتطوير.</p></a>
+        <a class="card" href="basic.html#select"><b>06</b><h3>Basic SELECT</h3><p>SELECT, FROM, *, Alias, DISTINCT, WHERE, ORDER BY من الصفر.</p></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">Database Master — GitHub Pages Ready</footer>
+  <script src="app.js"></script>
+</body>
+</html>

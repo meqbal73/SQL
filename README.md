@@ -1,18 +1,11 @@
-# Oracle Future Learn - Flat GitHub Pages Version
+# Database Master BASIC
 
-كل الملفات في فولدر واحد فقط. ارفع محتويات هذا المجلد مباشرة داخل مستودع GitHub Pages.
+نسخة GitHub Pages جاهزة. ارفع كل الملفات في نفس المجلد داخل الريبو.
 
 Files:
 - index.html
-- lessons.html
-- oracle-practice.html
+- basic.html
 - playground.html
 - quiz.html
 - style.css
 - app.js
-- lessons.js
-- practice.js
-- playground.js
-- quiz.js
-
-مهم: لا ترفع ملف ZIP فقط. فك الضغط وارفع الملفات نفسها داخل الريبو.

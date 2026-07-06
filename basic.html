@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BASIC — Database Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="bg-grid"></div>
+<header class="nav">
+  <a class="brand" href="index.html"><span class="logo">SQL</span><b>Database Master</b></a>
+  <button class="menu">☰</button>
+  <nav class="links"><a href="index.html">الرئيسية</a><a href="basic.html">BASIC</a><a href="playground.html">المحاكي</a><a href="quiz.html">الاختبار</a></nav>
+  <div class="actions"><button id="themeBtn" class="pill">🌙</button><button id="langBtn" class="pill">EN</button></div>
+</header>
+<main class="layout">
+  <aside class="toc card">
+    <b>محتويات BASIC</b>
+    <input id="lessonSearch" class="search" placeholder="ابحث داخل BASIC..." />
+    <a href="#data">1. Data & Database</a>
+    <a href="#types">2. Database Types</a>
+    <a href="#sql-nosql">3. SQL vs NoSQL</a>
+    <a href="#srs">4. SRS Document</a>
+    <a href="#erd">5. ERD</a>
+    <a href="#schema">6. Schema</a>
+    <a href="#table-rules">7. Table Design Rules</a>
+    <a href="#hr">8. HR Schema</a>
+    <a href="#select">9. Basic SELECT</a>
+    <a href="#where-order">10. WHERE & ORDER BY</a>
+  </aside>
+  <article class="content">
+    <section class="lesson-hero reveal">
+      <span class="tag">BASIC COURSE</span>
+      <h1>قسم BASIC — الأساس الواضح قبل Oracle SQL</h1>
+      <p>هذا القسم مبني بطريقة تعليمية مفصلة. كل فكرة تبدأ بتعريف بسيط، ثم مثال من الحياة، ثم رسم، ثم تطبيق، ثم أخطاء شائعة. الهدف أنك تفهم وليس فقط تحفظ.</p>
+    </section>
+
+    <section id="data" class="lesson reveal searchable" data-title="data database information">
+      <h2>1) Data & Database — البيانات وقاعدة البيانات</h2>
+      <p><b>Data</b> هي حقائق خام مثل: اسم طالب، رقم هوية، تاريخ، سعر، أو درجة اختبار. لوحدها قد لا تعطي معنى كامل.</p>
+      <p><b>Information</b> هي بيانات تم ترتيبها ومعالجتها لتساعدك في اتخاذ قرار. مثال: درجة الطالب 92 تصبح معلومة عندما نقول: الطالب ناجح بتقدير ممتاز.</p>
+      <div class="diagram flow"><div>Data<br><small>112, Ahmed, 92</small></div><span>→</span><div>Processing<br><small>تنظيم وتحليل</small></div><span>→</span><div>Information<br><small>Excellent Student</small></div></div>
+      <div class="explain-grid">
+        <div class="info-box"><h3>لماذا نحتاج Database؟</h3><p>لأن الملفات العادية و Excel تصبح صعبة عند كثرة البيانات، تعدد المستخدمين، الحاجة للبحث السريع، حماية البيانات، ومنع التكرار والأخطاء.</p></div>
+        <div class="info-box"><h3>مثال حقيقي</h3><p>جامعة لديها طلاب، مواد، درجات، مدرسين، شعب. لو خزنت كل شيء في ملف واحد ستتكرر البيانات ويصعب استخراج التقارير. قاعدة البيانات تقسمها لجداول مرتبطة.</p></div>
+      </div>
+      <div class="mistake"><b>خطأ شائع:</b> الاعتقاد أن قاعدة البيانات مجرد جدول Excel. الفرق أن قاعدة البيانات تدعم العلاقات، القيود، الصلاحيات، الاستعلامات، والتعامل مع عدد كبير من المستخدمين.</div>
+    </section>
+
+    <section id="types" class="lesson reveal searchable" data-title="database types relational document graph key value">
+      <h2>2) Database Types — أنواع قواعد البيانات</h2>
+      <div class="cards two">
+        <div class="card"><h3>Relational Database</h3><p>تخزن البيانات في جداول مترابطة. ممتازة للأنظمة التي تحتاج علاقات واضحة مثل الجامعات والبنوك والفواتير. أمثلة: Oracle, MySQL, SQL Server, PostgreSQL.</p></div>
+        <div class="card"><h3>Document Database</h3><p>تخزن البيانات كوثائق JSON مرنة. مناسبة للتطبيقات التي تتغير بياناتها كثيرًا مثل بعض تطبيقات الويب. مثال: MongoDB, Firebase Firestore.</p></div>
+        <div class="card"><h3>Key-Value</h3><p>تخزن البيانات بشكل مفتاح وقيمة. سريعة جدًا للكاش والجلسات. مثال: Redis.</p></div>
+        <div class="card"><h3>Graph Database</h3><p>مناسبة للعلاقات المعقدة مثل الشبكات الاجتماعية والتوصيات. مثال: Neo4j.</p></div>
+      </div>
+    </section>
+
+    <section id="sql-nosql" class="lesson reveal searchable" data-title="sql nosql difference comparison">
+      <h2>3) SQL vs NoSQL — الفرق بين SQL و NoSQL</h2>
+      <p><b>SQL</b> هو أسلوب للتعامل مع قواعد البيانات العلائقية. يعتمد على جداول وصفوف وأعمدة وعلاقات. <b>NoSQL</b> مصطلح يشمل قواعد لا تعتمد دائمًا على الجداول التقليدية.</p>
+      <table class="compare"><tr><th>النقطة</th><th>SQL</th><th>NoSQL</th></tr><tr><td>الشكل</td><td>Tables</td><td>Documents / Key-Value / Graph</td></tr><tr><td>العلاقات</td><td>قوية وواضحة</td><td>مرنة حسب النوع</td></tr><tr><td>Schema</td><td>ثابت غالبًا</td><td>مرن غالبًا</td></tr><tr><td>مناسب لـ</td><td>بنوك، جامعات، فواتير</td><td>تطبيقات مرنة، كاش، بيانات ضخمة</td></tr></table>
+      <div class="tip"><b>قاعدة سهلة:</b> إذا كان النظام يعتمد على علاقات وتقارير دقيقة، ابدأ بـ SQL. إذا كانت البيانات متغيرة جدًا أو تحتاج توسعًا أفقيًا مرنًا، قد يناسبك NoSQL.</div>
+    </section>
+
+    <section id="srs" class="lesson reveal searchable" data-title="srs software requirement specification functional non functional">
+      <h2>4) SRS — Software Requirements Specification</h2>
+      <p>وثيقة SRS هي مستند يشرح ماذا يجب أن يفعل النظام قبل التصميم والبرمجة. هي الجسر بين فكرة العميل وفريق التطوير.</p>
+      <div class="diagram flow"><div>Idea</div><span>→</span><div>SRS</div><span>→</span><div>Design</div><span>→</span><div>Code</div><span>→</span><div>Test</div></div>
+      <h3>مكونات SRS الأساسية</h3>
+      <div class="accordion">
+        <button>Functional Requirements — المتطلبات الوظيفية</button><div><p>أشياء يجب أن يفعلها النظام. مثال: يستطيع الطالب تسجيل الدخول، يستطيع الموظف إضافة فاتورة، يستطيع المدير طباعة تقرير.</p></div>
+        <button>Non-Functional Requirements — غير الوظيفية</button><div><p>صفات النظام: السرعة، الأمان، سهولة الاستخدام، الاعتمادية، قابلية التوسع. مثال: يجب أن تظهر نتيجة البحث خلال أقل من ثانيتين.</p></div>
+        <button>Actors & Use Cases</button><div><p>من يستخدم النظام؟ وما المهام التي يقوم بها؟ مثال: Student, Admin, Teacher.</p></div>
+      </div>
+      <div class="example"><h3>مثال SRS لنظام مكتبة</h3><p>النظام يسمح للموظف بإضافة كتاب، وللعضو باستعارة كتاب، ويجب ألا تتم الاستعارة إذا كانت الكمية غير متوفرة. يجب أن يحفظ النظام تاريخ الاستعارة وتاريخ الإرجاع.</p></div>
+    </section>
+
+    <section id="erd" class="lesson reveal searchable" data-title="erd entity relationship diagram primary foreign key cardinality">
+      <h2>5) ERD — Entity Relationship Diagram</h2>
+      <p>ERD هو مخطط يوضح الكيانات في النظام والعلاقات بينها قبل تحويلها إلى جداول. هو مثل خريطة النظام. إذا كان ERD صحيحًا، غالبًا سيكون تصميم قاعدة البيانات صحيحًا.</p>
+      <h3>قبل ERD: كيف نفكر؟</h3>
+      <p>نقرأ المتطلبات ثم نسأل: ما الأشياء المهمة التي نحتاج تخزينها؟ هذه الأشياء تصبح Entities. ثم نسأل: ما صفات كل شيء؟ هذه Attributes. ثم نسأل: كيف ترتبط هذه الأشياء؟ هذه Relationships.</p>
+      <div class="erd-demo">
+        <div class="entity"><b>STUDENT</b><span># student_id</span><span>* name</span><span>* email</span></div>
+        <div class="rel">1<br>enrolls<br>N</div>
+        <div class="entity"><b>COURSE</b><span># course_id</span><span>* title</span><span>* hours</span></div>
+      </div>
+      <h3>Entity — الكيان</h3><p>شيء نحتاج حفظ بيانات عنه. مثل Student, Employee, Product, Invoice. غالبًا يتحول إلى جدول.</p>
+      <h3>Attribute — الصفة</h3><p>معلومة تصف الكيان. مثل name, salary, price. غالبًا تتحول إلى عمود داخل الجدول.</p>
+      <div class="cards two">
+        <div class="card"><h3>Primary Key</h3><p>عمود يميز كل صف عن غيره. مثل employee_id. لا يتكرر ولا يكون فارغًا.</p></div>
+        <div class="card"><h3>Foreign Key</h3><p>عمود يربط جدولًا بجدول آخر. مثل department_id داخل EMPLOYEE يشير إلى DEPARTMENT.</p></div>
+      </div>
+      <h3>أنواع العلاقات</h3>
+      <div class="relationship-gallery">
+        <div><b>One to One</b><div class="mini-erd"><span>PERSON</span><em>1 — 1</em><span>PASSPORT</span></div><p>الشخص لديه جواز واحد، والجواز لشخص واحد.</p></div>
+        <div><b>One to Many</b><div class="mini-erd"><span>DEPARTMENT</span><em>1 — N</em><span>EMPLOYEE</span></div><p>القسم يحتوي عدة موظفين، والموظف في قسم واحد.</p></div>
+        <div><b>Many to Many</b><div class="mini-erd"><span>STUDENT</span><em>N — M</em><span>COURSE</span></div><p>الطالب يأخذ عدة مواد، والمادة يأخذها عدة طلاب. نحلها بجدول وسيط ENROLLMENT.</p></div>
+      </div>
+      <h3>مثال كامل: نظام فواتير</h3>
+      <div class="erd-wide">
+        <div class="entity"><b>CUSTOMER</b><span># customer_id</span><span>* name</span><span>phone</span></div>
+        <div class="rel">1 → N</div>
+        <div class="entity"><b>INVOICE</b><span># invoice_id</span><span>* invoice_date</span><span>customer_id FK</span></div>
+        <div class="rel">1 → N</div>
+        <div class="entity"><b>INVOICE_DETAIL</b><span># invoice_id FK</span><span># product_id FK</span><span>* quantity</span></div>
+        <div class="rel">N ← 1</div>
+        <div class="entity"><b>PRODUCT</b><span># product_id</span><span>* product_name</span><span>* price</span></div>
+      </div>
+      <div class="mistake"><b>أخطاء ERD شائعة:</b> نسيان Primary Key، وضع علاقة Many-to-Many بدون جدول وسيط، جعل الصفة كيانًا بدون سبب، وعدم توضيح Cardinality.</div>
+    </section>
+
+    <section id="schema" class="lesson reveal searchable" data-title="schema table row column constraint oracle hr">
+      <h2>6) Schema — السكيما</h2>
+      <p>Schema هي مساحة تنظيمية داخل قاعدة البيانات تحتوي على جداول و Views و Sequences و Objects أخرى. في Oracle غالبًا ترتبط السكيما بالمستخدم. مثال HR Schema تحتوي على EMPLOYEES و DEPARTMENTS و JOBS.</p>
+      <div class="tree"><b>Oracle Database</b><ul><li>HR Schema<ul><li>EMPLOYEES table</li><li>DEPARTMENTS table</li><li>JOBS table</li><li>LOCATIONS table</li></ul></li><li>SALES Schema</li><li>FINANCE Schema</li></ul></div>
+      <h3>الفرق بين المصطلحات</h3>
+      <table class="compare"><tr><th>المصطلح</th><th>المعنى</th></tr><tr><td>Database</td><td>النظام الكامل الذي يخزن ويدير البيانات.</td></tr><tr><td>Schema</td><td>مجموعة منظمة من الجداول والكائنات.</td></tr><tr><td>Table</td><td>مكان تخزين بيانات كيان معين.</td></tr><tr><td>Column</td><td>صفة داخل الجدول.</td></tr><tr><td>Row</td><td>سجل واحد داخل الجدول.</td></tr></table>
+    </section>
+
+    <section id="table-rules" class="lesson reveal searchable" data-title="table design rules naming primary key foreign key datatype normalization">
+      <h2>7) القواعد السبعة لبناء جدول صحيح</h2>
+      <p>قبل كتابة CREATE TABLE، لازم تفهم كيف تصمم الجدول. الجدول الجيد واضح، غير مكرر، سهل الربط، وسهل الاستعلام.</p>
+      <div class="rules">
+        <div><b>1</b><h3>اسم واضح للجدول</h3><p>استخدم اسم يدل على الكيان مثل STUDENT أو EMPLOYEE. تجنب أسماء غامضة مثل T1 أو DATA.</p></div>
+        <div><b>2</b><h3>Primary Key لكل جدول</h3><p>كل جدول يحتاج عمود يميز كل صف. مثال student_id.</p></div>
+        <div><b>3</b><h3>أعمدة واضحة</h3><p>اكتب first_name بدل fn، وhire_date بدل hd.</p></div>
+        <div><b>4</b><h3>اختر Data Type صحيح</h3><p>الأسماء VARCHAR2، الرواتب NUMBER، التواريخ DATE.</p></div>
+        <div><b>5</b><h3>لا تكرر البيانات</h3><p>إذا كان department_name يتكرر مع كل موظف، افصل DEPARTMENT في جدول مستقل.</p></div>
+        <div><b>6</b><h3>استخدم Foreign Keys</h3><p>لربط الجداول وحماية العلاقات من الأخطاء.</p></div>
+        <div><b>7</b><h3>استخدم Naming Convention</h3><p>مثال: employee_id, department_id, hire_date. نفس النمط يجعل النظام مفهومًا.</p></div>
+      </div>
+      <pre class="code"><button class="copy">Copy</button><code>-- مثال تصميم منطقي قبل إنشاء الجدول
+TABLE: EMPLOYEE
+PK: employee_id
+Columns: first_name, last_name, salary, hire_date
+FK: department_id → DEPARTMENT.department_id</code></pre>
+    </section>
+
+    <section id="hr" class="lesson reveal searchable" data-title="hr schema employees departments jobs locations">
+      <h2>8) HR Schema — نموذج Oracle التدريبي</h2>
+      <p>HR Schema تستخدم في تدريب Oracle لأنها تحتوي على جداول مترابطة تمثل نظام موارد بشرية.</p>
+      <div class="schema-cards">
+        <div class="card"><h3>EMPLOYEES</h3><p>employee_id, first_name, last_name, email, hire_date, job_id, salary, department_id</p></div>
+        <div class="card"><h3>DEPARTMENTS</h3><p>department_id, department_name, manager_id, location_id</p></div>
+        <div class="card"><h3>JOBS</h3><p>job_id, job_title, min_salary, max_salary</p></div>
+        <div class="card"><h3>LOCATIONS</h3><p>location_id, street_address, city, country_id</p></div>
+      </div>
+      <div class="tip">عندما تكتب FROM employees فأنت تطلب البيانات من جدول EMPLOYEES داخل HR Schema.</div>
+    </section>
+
+    <section id="select" class="lesson reveal searchable" data-title="select from distinct alias basic sql">
+      <h2>9) Basic SELECT — أول استعلام</h2>
+      <p>SELECT يستخدم لاسترجاع البيانات من جدول. هو أول أمر تتعلمه في SQL.</p>
+      <pre class="code"><button class="copy">Copy</button><code>SELECT *
+FROM employees;</code></pre>
+      <h3>شرح كل جزء</h3>
+      <ul class="rich-list"><li><b>SELECT</b>: اختر الأعمدة التي تريد عرضها.</li><li><b>*</b>: يعني عرض كل الأعمدة.</li><li><b>FROM</b>: من أي جدول؟</li><li><b>employees</b>: اسم الجدول.</li><li><b>;</b>: نهاية الأمر في أدوات كثيرة مثل SQL Developer.</li></ul>
+      <pre class="code"><button class="copy">Copy</button><code>SELECT first_name, salary
+FROM employees;</code></pre>
+      <div class="mistake"><b>خطأ شائع:</b> استخدام SELECT * دائمًا. في المشاريع الحقيقية الأفضل تحديد الأعمدة المطلوبة لتقليل البيانات وتحسين الوضوح.</div>
+    </section>
+
+    <section id="where-order" class="lesson reveal searchable" data-title="where order by filter sort">
+      <h2>10) WHERE & ORDER BY — التصفية والترتيب</h2>
+      <p><b>WHERE</b> يستخدم لتصفية الصفوف حسب شرط. <b>ORDER BY</b> يستخدم لترتيب النتائج.</p>
+      <pre class="code"><button class="copy">Copy</button><code>SELECT last_name, salary
+FROM employees
+WHERE salary &gt; 10000
+ORDER BY salary DESC;</code></pre>
+      <table class="mini-table wide"><tr><th>LAST_NAME</th><th>SALARY</th></tr><tr><td>King</td><td>24000</td></tr><tr><td>Kochhar</td><td>17000</td></tr><tr><td>De Haan</td><td>17000</td></tr></table>
+      <div class="tip"><b>DESC</b> يعني تنازلي من الأكبر للأصغر. <b>ASC</b> يعني تصاعدي وهو الافتراضي.</div>
+    </section>
+  </article>
+</main>
+<footer class="footer">Database Master — BASIC Detailed</footer>
+<script src="app.js"></script>
+</body>
+</html>
