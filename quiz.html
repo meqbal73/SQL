@@ -1,1 +1,45 @@
-<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>الاختبار | دليل قواعد البيانات</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">DB</span><span>دليل قواعد البيانات</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a href="index.html">الرئيسية</a><a href="lessons.html">الدروس</a><a href="oracle-practice.html">العملي</a><a href="playground.html">الأمثلة</a><a href="quiz.html">الاختبار</a></nav><div class="actions"><button id="themeToggle" class="chip">☾</button></div></header><main><section class="page-head reveal"><p class="eyebrow">الاختبار</p><h1>اختبر فهمك</h1><p>أسئلة مراجعة سريعة من الدروس الأساسية.</p></section><section class="quiz-box reveal"><div id="quizArea"></div><button class="btn primary" id="submitQuiz">اعرض النتيجة</button><div id="quizResult"></div></section></main><footer class="footer"><div><b>دليل قواعد البيانات</b><p>شرح عربي واضح ومنظم.</p></div><div class="footer-links"><a href="lessons.html">الدروس</a><a href="playground.html">الأمثلة</a></div></footer><script src="app.js"></script><script src="quiz.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختبر نفسك | دليل قواعد البيانات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-orb">DB</span><span>دليل قواعد البيانات</span></a>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+  <nav class="nav"><a href="index.html">الرئيسية</a><a href="lessons.html">الدروس</a><a href="oracle-practice.html">العملي</a><a href="playground.html">الأمثلة</a><a href="quiz.html" class="active">اختبر نفسك</a></nav>
+  <div class="actions"><button id="themeToggle" class="chip">☾</button></div>
+</header>
+<main>
+<section class="page-head reveal">
+  <p class="eyebrow">اختبر نفسك</p>
+  <h1>بنك أسئلة قواعد البيانات</h1>
+  <p>البنك يحتوي على 200 سؤال. في كل محاولة تظهر لك 5 أسئلة عشوائية فقط، مع تلميح وشرح الإجابة الصحيحة بعد الاختيار.</p>
+</section>
+<section class="quiz-dashboard reveal">
+  <div class="stat-card"><b>200</b><span>سؤال في البنك</span></div>
+  <div class="stat-card"><b>5</b><span>أسئلة في كل محاولة</span></div>
+  <div class="stat-card"><b id="savedBest">0/5</b><span>أفضل نتيجة</span></div>
+</section>
+<section class="quiz-box reveal">
+  <div class="quiz-topline">
+    <div>
+      <h2>الأسئلة الحالية</h2>
+      <p>اختر الإجابة، ثم سيظهر لك الصحيح والخطأ والسبب.</p>
+    </div>
+    <button class="btn ghost" id="newQuiz">اختبار جديد</button>
+  </div>
+  <div id="quizArea"></div>
+  <div id="quizResult"></div>
+</section>
+</main>
+<footer class="footer"><div><b>دليل قواعد البيانات</b><p>شرح عربي واضح ومنظم.</p></div><div class="footer-links"><a href="lessons.html">الدروس</a><a href="playground.html">الأمثلة</a></div></footer>
+<script src="app.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>

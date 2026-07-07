@@ -33,7 +33,7 @@ const detailedLessons = [
 },
 {
  id:'erd', no:'04', title:'شرح ERD بنفس فكرة الرسم', icon:'🧩', minutes:'75 دقيقة',
- intro:'هذا الدرس يعرض ERD بنفس أسلوب الملف الذي أرسلته: رموز Chen، مثال COMPANY، ثم تجهيز التحويل إلى Schema.',
+ intro:'هذا الدرس يشرح ERD من الأساس حتى قراءة مخطط COMPANY، ثم يجهزك لتحويله إلى Schema خطوة بخطوة.',
  objectives:['تفهم رموز ERD: كيان، خاصية، علاقة، مفتاح.','تميز بين العلاقة 1:1 و 1:N و M:N.','تقرأ مثال COMPANY كاملًا قبل تحويله إلى Schema.'],
  body:`
  <section class="deep-block"><h3>ما هو ERD؟</h3><p>ERD هو مخطط الكيانات والعلاقات. وظيفته تحويل متطلبات SRS إلى رسم واضح يبين: ما الأشياء التي سنخزنها؟ ما خصائص كل شيء؟ وكيف ترتبط هذه الأشياء ببعضها؟ بعد ذلك نحول الرسم إلى جداول SQL فعلية.</p></section>
@@ -58,7 +58,7 @@ const detailedLessons = [
    <a href="erd-company-dark.png" target="_blank" aria-label="فتح مخطط ERD بالحجم الكامل">
      <img class="responsive-erd-img" src="erd-company-dark.png" alt="مخطط ERD كامل لمثال COMPANY مع الكيانات والعلاقات والخصائص ومفتاح الرموز">
    </a>
-   <figcaption>مخطط COMPANY منظم بنفس أسلوب الرسم الذي طلبته: كيانات، علاقات، خصائص، كارديناليتي، ومفتاح رموز. اضغط على الصورة لفتحها بالحجم الكامل.</figcaption>
+   <figcaption>مخطط ERD كامل لمثال COMPANY باستخدام ترميز Chen: الكيانات، الخصائص، العلاقات، والكاردينالية.</figcaption>
  </figure>
  <section class="deep-block info"><h3>ملاحظة مهمة: علاقة الموظف التكرارية</h3><p>في الرسم، علاقة <b>SUPERVISION</b> هي علاقة تكرارية لأن كيان <b>EMPLOYEE</b> يرتبط بنفسه بدورين مختلفين: موظف مشرف <b>Supervisor</b> وموظف تحت الإشراف <b>Supervisee</b>. عند التحويل إلى Schema لا ننشئ جدولًا جديدًا؛ بل نضيف عمود <b>Super_ssn</b> داخل جدول EMPLOYEE كمفتاح أجنبي يشير إلى <b>EMPLOYEE(Ssn)</b>.</p></section>
  <section class="deep-block"><h3>تفكيك الكيانات والصفات</h3><table class="mini-table"><tr><th>الكيان</th><th>الصفات المهمة</th><th>ملاحظات</th></tr><tr><td>EMPLOYEE</td><td>Ssn, Name, Bdate, Address, Salary, Sex</td><td>Ssn مفتاح أساسي، و Name مركبة إلى Fname و Minit و Lname.</td></tr><tr><td>DEPARTMENT</td><td>Number, Name, Locations, Number_of_employees</td><td>Number مفتاح، Locations متعددة القيم، Number_of_employees مشتقة.</td></tr><tr><td>PROJECT</td><td>Number, Name, Location</td><td>Number مفتاح أساسي.</td></tr><tr><td>DEPENDENT</td><td>Name, Sex, Birth_date, Relationship</td><td>كيان ضعيف؛ Name مفتاح جزئي وليس مفتاحًا كاملًا وحده.</td></tr></table></section>
