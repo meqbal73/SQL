@@ -167,6 +167,64 @@ FROM employees
 WHERE salary > 10000
 ORDER BY salary DESC;</pre></div></section>`
 }
+,
+{
+ id:'api', no:'09', title:'شرح API بالتفصيل', icon:'🔌', minutes:'60 دقيقة',
+ intro:'API هو الجسر الذي يسمح للتطبيقات بالتواصل مع بعضها. في هذا الدرس ستفهم API من الصفر: ما هو، لماذا نستخدمه، كيف يعمل Request و Response، وما علاقة API بقواعد البيانات والمواقع.',
+ objectives:['تعرف معنى API ببساطة.','تفهم الفرق بين Client و Server.','تتعلم مكونات Request و Response.','تميز بين GET و POST و PUT و DELETE.','تفهم كيف يرتبط API بقاعدة البيانات.','تقرأ أمثلة JSON و HTTP بشكل واضح.'],
+ body:`
+ <section class="deep-block"><h3>ما هو API؟</h3><p>API اختصار <b>Application Programming Interface</b>. معناه ببساطة: طريقة منظمة تسمح لتطبيق أن يطلب خدمة أو بيانات من تطبيق آخر بدون أن يعرف تفاصيله الداخلية. المستخدم لا يتعامل مع قاعدة البيانات مباشرة، بل يرسل التطبيق طلبًا إلى API، والـ API يتعامل مع النظام ثم يرجع النتيجة.</p></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>المستخدم</div><span>←</span><div>واجهة التطبيق</div><span>←</span><div>API</div><span>←</span><div>قاعدة البيانات</div><span>←</span><div>النتيجة</div></div></div>
+ <section class="deep-block info"><h3>مثال من الحياة</h3><p>تخيل أنك في مطعم. أنت لا تدخل المطبخ بنفسك، بل تطلب من النادل. النادل يأخذ طلبك للمطبخ ثم يرجع لك بالوجبة. في البرمجة، التطبيق مثل العميل، والـ API مثل النادل، وقاعدة البيانات أو السيرفر مثل المطبخ.</p></section>
+ <div class="compare big"><div><h3>بدون API</h3><p>كل تطبيق يحتاج يعرف تفاصيل قاعدة البيانات والأنظمة الداخلية، وهذا خطر وصعب الصيانة.</p><ul><li>تعقيد عالي</li><li>أمان أقل</li><li>تكرار في الكود</li></ul></div><div><h3>مع API</h3><p>التطبيق يطلب البيانات بطريقة واضحة، والـ API يتحكم بالوصول ويجهز الرد بشكل مناسب.</p><ul><li>تنظيم أفضل</li><li>أمان أعلى</li><li>سهولة ربط الأنظمة</li></ul></div></div>
+ <section class="deep-block"><h3>Client و Server</h3><p><b>Client</b> هو الطرف الذي يطلب البيانات، مثل المتصفح أو تطبيق الجوال. <b>Server</b> هو الطرف الذي يستقبل الطلب ويعالجه ثم يرجع الرد. الـ API غالبًا يكون موجودًا في السيرفر ويستقبل طلبات من الـ Client.</p></section>
+ <div class="erd-box"><div class="entity"><b>CLIENT</b><span>Browser</span><span>Mobile App</span></div><div class="rel">HTTP Request<br><small>طلب</small></div><div class="entity"><b>API SERVER</b><span>Routes</span><span>Logic</span><span>Security</span></div><div class="rel">SQL Query<br><small>استعلام</small></div><div class="entity"><b>DATABASE</b><span>Tables</span><span>Rows</span></div></div>
+ <section class="deep-block"><h3>كيف يعمل API؟</h3><p>العملية غالبًا تمر بأربع مراحل: يرسل العميل طلبًا، يستقبل السيرفر الطلب، ينفذ المنطق المطلوب مثل قراءة قاعدة البيانات، ثم يرجع ردًا غالبًا بصيغة JSON.</p></section>
+ <div class="lesson-diagram"><div class="diagram-flow"><div>1 طلب Request</div><span>←</span><div>2 معالجة Logic</div><span>←</span><div>3 قاعدة البيانات</div><span>←</span><div>4 رد Response</div></div></div>
+ <section class="deep-block"><h3>ما هو Request؟</h3><p>Request هو الطلب الذي يرسله العميل إلى API. يحتوي عادة على رابط URL، وطريقة HTTP Method، وربما Headers، وربما Body إذا كان الطلب يرسل بيانات.</p><table class="mini-table"><tr><th>العنصر</th><th>المعنى</th><th>مثال</th></tr><tr><td>URL</td><td>عنوان المورد المطلوب</td><td>/api/students</td></tr><tr><td>Method</td><td>نوع العملية</td><td>GET أو POST</td></tr><tr><td>Headers</td><td>معلومات إضافية مثل نوع البيانات أو التوثيق</td><td>Authorization</td></tr><tr><td>Body</td><td>البيانات المرسلة مع الطلب</td><td>اسم طالب جديد</td></tr></table></section>
+ <section class="deep-block"><h3>ما هو Response؟</h3><p>Response هو الرد الذي يرجعه API. يحتوي غالبًا على Status Code يوضح هل نجح الطلب أو فشل، وبيانات بصيغة JSON إذا كان هناك نتيجة.</p><table class="mini-table"><tr><th>Status Code</th><th>المعنى</th></tr><tr><td>200</td><td>نجح الطلب</td></tr><tr><td>201</td><td>تم إنشاء عنصر جديد</td></tr><tr><td>400</td><td>الطلب غير صحيح</td></tr><tr><td>401</td><td>غير مصرح</td></tr><tr><td>404</td><td>العنصر غير موجود</td></tr><tr><td>500</td><td>خطأ في السيرفر</td></tr></table></section>
+ <section class="deep-block"><h3>أشهر HTTP Methods</h3><p>كل Method تعبر عن نوع عملية مختلف على البيانات. في الأنظمة التعليمية والمتاجر نستخدمها كثيرًا مع الجداول.</p><table class="mini-table"><tr><th>Method</th><th>الوظيفة</th><th>مثال</th></tr><tr><td>GET</td><td>قراءة بيانات</td><td>عرض كل الطلاب</td></tr><tr><td>POST</td><td>إضافة بيانات جديدة</td><td>إضافة طالب</td></tr><tr><td>PUT</td><td>تعديل بيانات كاملة</td><td>تعديل بيانات طالب</td></tr><tr><td>PATCH</td><td>تعديل جزئي</td><td>تغيير رقم الجوال فقط</td></tr><tr><td>DELETE</td><td>حذف بيانات</td><td>حذف طالب</td></tr></table></section>
+ <section class="deep-block"><h3>مثال API للطلاب</h3><p>لو عندك جدول STUDENTS في قاعدة البيانات، ممكن تبني API يسمح للتطبيق بعرض الطلاب وإضافة طالب جديد.</p><div class="schema-grid"><div class="schema-table"><h4>STUDENTS</h4><code>student_id PK\nstudent_name\nmajor\nphone</code></div><div class="schema-table"><h4>API Endpoints</h4><code>GET /api/students\nGET /api/students/101\nPOST /api/students\nPUT /api/students/101\nDELETE /api/students/101</code></div></div></section>
+ <section class="deep-block"><h3>مثال Request بصيغة JSON</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>POST /api/students
+Content-Type: application/json
+
+{
+  "student_name": "Ali",
+  "major": "IT",
+  "phone": "0550000000"
+}</pre></div><p>هذا الطلب يعني: أضف طالبًا جديدًا إلى النظام. الـ API يستقبل JSON، يتحقق من البيانات، ثم يحفظها في قاعدة البيانات.</p></section>
+ <section class="deep-block"><h3>مثال Response</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+  "message": "تمت إضافة الطالب بنجاح",
+  "student": {
+    "student_id": 101,
+    "student_name": "Ali",
+    "major": "IT"
+  }
+}</pre></div><p>الكود 201 يعني أن السيرفر أنشأ سجلًا جديدًا بنجاح.</p></section>
+ <section class="deep-block"><h3>علاقة API بقاعدة البيانات</h3><p>الـ API لا يكون بديلًا عن قاعدة البيانات. هو طبقة بين التطبيق وقاعدة البيانات. التطبيق يرسل طلبًا، والـ API يحوله إلى عملية مناسبة مثل SELECT أو INSERT أو UPDATE أو DELETE.</p><table class="mini-table"><tr><th>طلب API</th><th>عملية SQL المقابلة</th></tr><tr><td>GET /api/students</td><td>SELECT * FROM students</td></tr><tr><td>POST /api/students</td><td>INSERT INTO students</td></tr><tr><td>PUT /api/students/101</td><td>UPDATE students WHERE student_id = 101</td></tr><tr><td>DELETE /api/students/101</td><td>DELETE FROM students WHERE student_id = 101</td></tr></table></section>
+ <section class="deep-block"><h3>ما هو REST API؟</h3><p>REST أسلوب شائع لتنظيم API. يعتمد على موارد Resources مثل students أو products أو orders، ويستخدم HTTP Methods للتعامل معها. مثلًا students مورد، و GET يقرأ، و POST يضيف، و DELETE يحذف.</p></section>
+ <section class="deep-block"><h3>ما هو JSON؟</h3><p>JSON صيغة خفيفة لتبادل البيانات بين الأنظمة. تشبه شكل الكائنات في JavaScript، لكنها تستخدم في لغات كثيرة جدًا. أغلب APIs الحديثة ترجع البيانات بصيغة JSON لأنها واضحة وسهلة القراءة.</p><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>{
+  "order_id": 5001,
+  "customer": "Ahmed",
+  "total": 250,
+  "items": ["Keyboard", "Mouse"]
+}</pre></div></section>
+ <section class="deep-block"><h3>Authentication و Authorization</h3><p><b>Authentication</b> يعني التحقق من هوية المستخدم: من أنت؟ أما <b>Authorization</b> يعني الصلاحيات: ماذا يسمح لك أن تفعل؟ قد يكون المستخدم مسجل دخول، لكن لا يملك صلاحية حذف البيانات.</p><div class="compare"><div><h3>Authentication</h3><p>تسجيل دخول، كلمة مرور، Token.</p></div><div><h3>Authorization</h3><p>صلاحيات: Admin، Student، Employee.</p></div></div></section>
+ <section class="deep-block"><h3>مثال عملي كامل: نظام مكتبة</h3><p>في نظام مكتبة، عند استعارة كتاب لا يكتب المستخدم مباشرة في جدول BORROW. بل الواجهة ترسل طلبًا إلى API، والـ API يتحقق من توفر الكتاب ثم يسجل الاستعارة.</p><div class="lesson-diagram"><div class="diagram-flow"><div>زر استعارة</div><span>←</span><div>POST /api/borrows</div><span>←</span><div>فحص توفر الكتاب</div><span>←</span><div>INSERT BORROW</div></div></div><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>POST /api/borrows
+
+{
+  "member_id": 10,
+  "book_id": 55,
+  "employee_id": 3
+}</pre></div></section>
+ <section class="deep-block warn"><h3>أخطاء شائعة في فهم API</h3><ul><li>اعتقاد أن API هو قاعدة البيانات نفسها.</li><li>إرسال بيانات حساسة بدون حماية أو Token.</li><li>استخدام GET للإضافة أو الحذف بدل POST و DELETE.</li><li>عدم التحقق من البيانات قبل حفظها.</li><li>إرجاع رسائل خطأ غير واضحة للمستخدم.</li></ul></section>
+ <section class="deep-block info"><h3>أفضل الممارسات</h3><ul><li>اجعل أسماء الروابط واضحة مثل /api/students و /api/orders.</li><li>استخدم Status Codes بشكل صحيح.</li><li>لا تكشف تفاصيل قاعدة البيانات للمستخدم.</li><li>تحقق من البيانات قبل الحفظ.</li><li>استخدم Authentication عند التعامل مع بيانات خاصة.</li><li>اكتب توثيقًا واضحًا لكل Endpoint.</li></ul></section>
+ <section class="deep-block"><h3>أسئلة مقابلات شائعة</h3><ol><li>ما الفرق بين API و Database؟</li><li>ما الفرق بين GET و POST؟</li><li>ما معنى Status Code 404؟</li><li>ما الفرق بين Authentication و Authorization؟</li><li>لماذا نستخدم JSON في API؟</li></ol></section>`
+}
+
 ];
 
 const lessonListEl = document.getElementById('lessonList');
