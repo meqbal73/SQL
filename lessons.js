@@ -54,32 +54,13 @@ const detailedLessons = [
   <div class="relation-card"><h4>متعدد لمتعدد M:N</h4><p>الموظف يعمل على عدة مشاريع، والمشروع يضم عدة موظفين.</p><div class="simple-rel"><b>EMPLOYEE</b><span>M ─ N</span><b>PROJECT</b></div></div>
  </div>
  <section class="deep-block info"><h3>مثال COMPANY كما في الرسم</h3><p>المثال يحتوي أربعة كيانات أساسية: EMPLOYEE و DEPARTMENT و PROJECT و DEPENDENT. كما يحتوي علاقات مهمة: WORKS_FOR و MANAGES و CONTROLS و WORKS_ON و SUPERVISION و DEPENDENTS_OF.</p></section>
- <div class="company-erd">
-   <div class="bubble b1">Fname</div><div class="bubble b2">Minit</div><div class="bubble b3">Lname</div><div class="bubble b4 key">Ssn</div><div class="bubble b5">Bdate</div><div class="bubble b6">Address</div><div class="bubble b7">Salary</div><div class="bubble b8">Sex</div>
-   <div class="box employee">EMPLOYEE</div>
-   <div class="diamond-node worksfor">WORKS_FOR</div>
-   <div class="box dept">DEPARTMENT</div>
-   <div class="bubble d1 key">Number</div><div class="bubble d2">Name</div><div class="bubble d3 multi">Locations</div><div class="bubble d4 derived">Number_of_employees</div>
-   <div class="diamond-node manages">MANAGES</div><div class="bubble startdate">Start_date</div>
-   <div class="diamond-node controls">CONTROLS</div>
-   <div class="box project">PROJECT</div><div class="bubble p1 key">Number</div><div class="bubble p2">Name</div><div class="bubble p3">Location</div>
-   <div class="diamond-node workson">WORKS_ON</div><div class="bubble hours">Hours</div>
-   <div class="diamond-node supervision">SUPERVISION</div><span class="role sup">Supervisor 1</span><span class="role sub">Supervisee N</span>
-   <div class="diamond-node dependsof">DEPENDENTS_OF</div>
-   <div class="box weak dependent">DEPENDENT</div><div class="bubble dep1 key">Name</div><div class="bubble dep2">Sex</div><div class="bubble dep3">Birth_date</div><div class="bubble dep4">Relationship</div>
-   <svg class="erd-lines" viewBox="0 0 1000 720" preserveAspectRatio="none">
-    <line x1="210" y1="210" x2="440" y2="210"/><line x1="560" y1="210" x2="780" y2="210"/>
-    <line x1="525" y1="235" x2="525" y2="330"/><line x1="575" y1="330" x2="780" y2="250"/>
-    <line x1="840" y1="280" x2="840" y2="385"/><line x1="790" y1="410" x2="620" y2="410"/>
-    <line x1="535" y1="410" x2="210" y2="245"/>
-    <line x1="210" y1="260" x2="350" y2="385"/><line x1="350" y1="465" x2="210" y2="520"/>
-    <line x1="210" y1="260" x2="210" y2="485"/><line x1="210" y1="555" x2="210" y2="620"/>
-    <line x1="210" y1="180" x2="130" y2="70"/><line x1="210" y1="180" x2="210" y2="70"/><line x1="210" y1="180" x2="290" y2="70"/><line x1="190" y1="180" x2="95" y2="120"/><line x1="205" y1="180" x2="160" y2="130"/><line x1="230" y1="180" x2="300" y2="130"/><line x1="240" y1="180" x2="370" y2="130"/>
-    <line x1="780" y1="180" x2="720" y2="85"/><line x1="820" y1="180" x2="840" y2="85"/><line x1="850" y1="180" x2="930" y2="85"/><line x1="790" y1="180" x2="660" y2="140"/>
-    <line x1="780" y1="445" x2="730" y2="535"/><line x1="820" y1="445" x2="840" y2="535"/><line x1="850" y1="445" x2="930" y2="535"/>
-    <line x1="210" y1="650" x2="120" y2="690"/><line x1="210" y1="650" x2="220" y2="695"/><line x1="210" y1="650" x2="350" y2="690"/><line x1="210" y1="650" x2="470" y2="690"/>
-   </svg>
- </div>
+ <figure class="erd-image-card">
+   <a href="erd-company-dark.png" target="_blank" aria-label="فتح مخطط ERD بالحجم الكامل">
+     <img class="responsive-erd-img" src="erd-company-dark.png" alt="مخطط ERD كامل لمثال COMPANY مع الكيانات والعلاقات والخصائص ومفتاح الرموز">
+   </a>
+   <figcaption>مخطط COMPANY منظم بنفس أسلوب الرسم الذي طلبته: كيانات، علاقات، خصائص، كارديناليتي، ومفتاح رموز. اضغط على الصورة لفتحها بالحجم الكامل.</figcaption>
+ </figure>
+ <section class="deep-block info"><h3>ملاحظة مهمة: علاقة الموظف التكرارية</h3><p>في الرسم، علاقة <b>SUPERVISION</b> هي علاقة تكرارية لأن كيان <b>EMPLOYEE</b> يرتبط بنفسه بدورين مختلفين: موظف مشرف <b>Supervisor</b> وموظف تحت الإشراف <b>Supervisee</b>. عند التحويل إلى Schema لا ننشئ جدولًا جديدًا؛ بل نضيف عمود <b>Super_ssn</b> داخل جدول EMPLOYEE كمفتاح أجنبي يشير إلى <b>EMPLOYEE(Ssn)</b>.</p></section>
  <section class="deep-block"><h3>تفكيك الكيانات والصفات</h3><table class="mini-table"><tr><th>الكيان</th><th>الصفات المهمة</th><th>ملاحظات</th></tr><tr><td>EMPLOYEE</td><td>Ssn, Name, Bdate, Address, Salary, Sex</td><td>Ssn مفتاح أساسي، و Name مركبة إلى Fname و Minit و Lname.</td></tr><tr><td>DEPARTMENT</td><td>Number, Name, Locations, Number_of_employees</td><td>Number مفتاح، Locations متعددة القيم، Number_of_employees مشتقة.</td></tr><tr><td>PROJECT</td><td>Number, Name, Location</td><td>Number مفتاح أساسي.</td></tr><tr><td>DEPENDENT</td><td>Name, Sex, Birth_date, Relationship</td><td>كيان ضعيف؛ Name مفتاح جزئي وليس مفتاحًا كاملًا وحده.</td></tr></table></section>
  <section class="deep-block"><h3>تفكيك العلاقات</h3><table class="mini-table"><tr><th>العلاقة</th><th>الكارديناليتي</th><th>المعنى</th></tr><tr><td>WORKS_FOR</td><td>EMPLOYEE N : 1 DEPARTMENT</td><td>كل موظف يعمل في قسم واحد، والقسم يضم عدة موظفين.</td></tr><tr><td>MANAGES</td><td>EMPLOYEE 1 : 1 DEPARTMENT</td><td>موظف واحد يدير قسمًا، و Start_date صفة للعلاقة.</td></tr><tr><td>CONTROLS</td><td>DEPARTMENT 1 : N PROJECT</td><td>القسم يشرف على عدة مشاريع.</td></tr><tr><td>WORKS_ON</td><td>EMPLOYEE M : N PROJECT</td><td>الموظف قد يعمل على عدة مشاريع، والمشروع يضم عدة موظفين، و Hours صفة للعلاقة.</td></tr><tr><td>SUPERVISION</td><td>EMPLOYEE 1 : N EMPLOYEE</td><td>علاقة تكرارية: موظف يشرف على موظفين آخرين.</td></tr><tr><td>DEPENDENTS_OF</td><td>EMPLOYEE 1 : N DEPENDENT</td><td>علاقة معرفة تربط الكيان الضعيف بمالكه.</td></tr></table></section>
  <section class="deep-block warn"><h3>الفكرة المهمة قبل التحويل</h3><p>لا نحول الرسم بشكل عشوائي. أولًا نقرأ الكيانات والصفات، ثم نحدد المفاتيح، ثم نطبق قواعد التحويل حسب نوع العلاقة. الدرس التالي يحول نفس المثال إلى Schema خطوة بخطوة.</p></section>`
