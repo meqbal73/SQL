@@ -171,7 +171,7 @@ ORDER BY salary DESC;</pre></div></section>`
 {
  id:'api', no:'09', title:'شرح API بالتفصيل', icon:'🔌', minutes:'60 دقيقة',
  intro:'API هو الجسر الذي يسمح للتطبيقات بالتواصل مع بعضها. في هذا الدرس ستفهم API من الصفر: ما هو، لماذا نستخدمه، كيف يعمل Request و Response، وما علاقة API بقواعد البيانات والمواقع.',
- objectives:['تعرف معنى API ببساطة.','تفهم الفرق بين Client و Server.','تتعلم مكونات Request و Response.','تميز بين GET و POST و PUT و DELETE.','تفهم كيف يرتبط API بقاعدة البيانات.','تقرأ أمثلة JSON و HTTP بشكل واضح.'],
+ objectives:['تعرف معنى API ببساطة.','تفهم الفرق بين Client و Server.','تتعلم مكونات Request و Response.','تميز بين GET و POST و PUT و DELETE.','تفهم كيف يرتبط API بقاعدة البيانات.','تقرأ أمثلة JSON و HTTP بشكل واضح.','تفهم Status Codes مثل 200 و201 و400 و401 و403 و404 و500.'],
  body:`
  <section class="deep-block"><h3>ما هو API؟</h3><p>API اختصار <b>Application Programming Interface</b>. معناه ببساطة: طريقة منظمة تسمح لتطبيق أن يطلب خدمة أو بيانات من تطبيق آخر بدون أن يعرف تفاصيله الداخلية. المستخدم لا يتعامل مع قاعدة البيانات مباشرة، بل يرسل التطبيق طلبًا إلى API، والـ API يتعامل مع النظام ثم يرجع النتيجة.</p></section>
  <div class="lesson-diagram"><div class="diagram-flow"><div>المستخدم</div><span>←</span><div>واجهة التطبيق</div><span>←</span><div>API</div><span>←</span><div>قاعدة البيانات</div><span>←</span><div>النتيجة</div></div></div>
@@ -182,7 +182,34 @@ ORDER BY salary DESC;</pre></div></section>`
  <section class="deep-block"><h3>كيف يعمل API؟</h3><p>العملية غالبًا تمر بأربع مراحل: يرسل العميل طلبًا، يستقبل السيرفر الطلب، ينفذ المنطق المطلوب مثل قراءة قاعدة البيانات، ثم يرجع ردًا غالبًا بصيغة JSON.</p></section>
  <div class="lesson-diagram"><div class="diagram-flow"><div>1 طلب Request</div><span>←</span><div>2 معالجة Logic</div><span>←</span><div>3 قاعدة البيانات</div><span>←</span><div>4 رد Response</div></div></div>
  <section class="deep-block"><h3>ما هو Request؟</h3><p>Request هو الطلب الذي يرسله العميل إلى API. يحتوي عادة على رابط URL، وطريقة HTTP Method، وربما Headers، وربما Body إذا كان الطلب يرسل بيانات.</p><table class="mini-table"><tr><th>العنصر</th><th>المعنى</th><th>مثال</th></tr><tr><td>URL</td><td>عنوان المورد المطلوب</td><td>/api/students</td></tr><tr><td>Method</td><td>نوع العملية</td><td>GET أو POST</td></tr><tr><td>Headers</td><td>معلومات إضافية مثل نوع البيانات أو التوثيق</td><td>Authorization</td></tr><tr><td>Body</td><td>البيانات المرسلة مع الطلب</td><td>اسم طالب جديد</td></tr></table></section>
- <section class="deep-block"><h3>ما هو Response؟</h3><p>Response هو الرد الذي يرجعه API. يحتوي غالبًا على Status Code يوضح هل نجح الطلب أو فشل، وبيانات بصيغة JSON إذا كان هناك نتيجة.</p><table class="mini-table"><tr><th>Status Code</th><th>المعنى</th></tr><tr><td>200</td><td>نجح الطلب</td></tr><tr><td>201</td><td>تم إنشاء عنصر جديد</td></tr><tr><td>400</td><td>الطلب غير صحيح</td></tr><tr><td>401</td><td>غير مصرح</td></tr><tr><td>404</td><td>العنصر غير موجود</td></tr><tr><td>500</td><td>خطأ في السيرفر</td></tr></table></section>
+ <section class="deep-block"><h3>ما هو Response؟</h3><p>Response هو الرد الذي يرجعه API. الرد لا يحتوي على البيانات فقط، بل يحتوي أيضًا على <b>Status Code</b>، وهو رقم يوضح نتيجة الطلب: هل نجح، هل فشل بسبب المستخدم، أم فشل بسبب السيرفر.</p><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": 101,
+  "name": "Ali"
+}</pre></div></section>
+ <section class="deep-block info"><h3>ما هو Status Code؟</h3><p>Status Code هو رقم يرجع من السيرفر مع كل Response. هذا الرقم يعطيك معنى سريعًا لحالة الطلب. مثلًا: <b>200</b> يعني الطلب نجح، <b>404</b> يعني الرابط أو البيانات غير موجودة، و <b>500</b> يعني هناك مشكلة داخل السيرفر.</p><div class="lesson-diagram"><div class="diagram-flow"><div>Client</div><span>←</span><div>Request</div><span>←</span><div>Server</div><span>←</span><div>Status + Data</div></div></div></section>
+ <section class="deep-block"><h3>تصنيفات Status Codes</h3><div class="relation-gallery"><div class="relation-card"><h4>🟢 2xx نجاح</h4><p>الطلب وصل للسيرفر وتم تنفيذه بنجاح.</p><code>200 OK<br>201 Created<br>204 No Content</code></div><div class="relation-card"><h4>🔵 3xx تحويل</h4><p>المورد انتقل أو يحتاج إعادة توجيه.</p><code>301 Moved<br>302 Found<br>304 Not Modified</code></div><div class="relation-card"><h4>🟡 4xx خطأ من العميل</h4><p>المشكلة غالبًا في الطلب نفسه أو الصلاحيات.</p><code>400 Bad Request<br>401 Unauthorized<br>403 Forbidden<br>404 Not Found</code></div><div class="relation-card"><h4>🔴 5xx خطأ من السيرفر</h4><p>السيرفر استقبل الطلب لكن فشل في معالجته.</p><code>500 Server Error<br>502 Bad Gateway<br>503 Unavailable<br>504 Timeout</code></div></div></section>
+ <section class="deep-block"><h3>أشهر الأكواد ومعناها</h3><table class="mini-table"><tr><th>الكود</th><th>الاسم</th><th>متى يظهر؟</th><th>مثال بسيط</th></tr><tr><td>200</td><td>OK</td><td>نجح الطلب وتم إرجاع البيانات.</td><td>عرض بيانات طالب موجود.</td></tr><tr><td>201</td><td>Created</td><td>تم إنشاء سجل جديد.</td><td>إضافة طالب جديد باستخدام POST.</td></tr><tr><td>204</td><td>No Content</td><td>نجح الطلب لكن لا يوجد محتوى للعرض.</td><td>حذف سجل بنجاح.</td></tr><tr><td>400</td><td>Bad Request</td><td>الطلب ناقص أو صيغته خاطئة.</td><td>إرسال رقم جوال بحروف.</td></tr><tr><td>401</td><td>Unauthorized</td><td>لم يتم تسجيل الدخول أو Token غير موجود.</td><td>طلب صفحة خاصة بدون تسجيل دخول.</td></tr><tr><td>403</td><td>Forbidden</td><td>أنت معروف لكن لا تملك صلاحية.</td><td>طالب يحاول حذف مستخدم.</td></tr><tr><td>404</td><td>Not Found</td><td>المسار أو السجل غير موجود.</td><td>GET /students/9999</td></tr><tr><td>409</td><td>Conflict</td><td>تعارض مع بيانات موجودة.</td><td>إيميل مستخدم مسبقًا.</td></tr><tr><td>422</td><td>Unprocessable Entity</td><td>الطلب مفهوم لكن البيانات غير مقبولة.</td><td>كلمة مرور أقل من الحد المطلوب.</td></tr><tr><td>429</td><td>Too Many Requests</td><td>طلبات كثيرة جدًا خلال وقت قصير.</td><td>محاولات تسجيل دخول متكررة.</td></tr><tr><td>500</td><td>Internal Server Error</td><td>خطأ داخلي في السيرفر.</td><td>خطأ في كود السيرفر.</td></tr><tr><td>503</td><td>Service Unavailable</td><td>الخدمة غير متاحة مؤقتًا.</td><td>السيرفر تحت الصيانة.</td></tr></table></section>
+ <section class="deep-block"><h3>أمثلة واضحة على Status Codes</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>GET /api/students/101
+→ 200 OK
+
+POST /api/students
+→ 201 Created
+
+GET /api/students/9999
+→ 404 Not Found
+
+POST /api/login بدون كلمة مرور
+→ 400 Bad Request
+
+GET /api/admin بدون صلاحية
+→ 403 Forbidden
+
+مشكلة داخل السيرفر
+→ 500 Internal Server Error</pre></div></section>
+ <section class="deep-block warn"><h3>الفرق بين 401 و 403</h3><p><b>401 Unauthorized</b> تعني أنك لم تثبت هويتك بعد، مثل دخول بدون Token. أما <b>403 Forbidden</b> فتعني أن هويتك معروفة، لكن لا تملك صلاحية تنفيذ العملية.</p><div class="compare"><div><h3>401</h3><p>من أنت؟ لم تسجل دخول أو Token غير صحيح.</p></div><div><h3>403</h3><p>نعرف من أنت، لكن ليس لديك صلاحية.</p></div></div></section>
  <section class="deep-block"><h3>أشهر HTTP Methods</h3><p>كل Method تعبر عن نوع عملية مختلف على البيانات. في الأنظمة التعليمية والمتاجر نستخدمها كثيرًا مع الجداول.</p><table class="mini-table"><tr><th>Method</th><th>الوظيفة</th><th>مثال</th></tr><tr><td>GET</td><td>قراءة بيانات</td><td>عرض كل الطلاب</td></tr><tr><td>POST</td><td>إضافة بيانات جديدة</td><td>إضافة طالب</td></tr><tr><td>PUT</td><td>تعديل بيانات كاملة</td><td>تعديل بيانات طالب</td></tr><tr><td>PATCH</td><td>تعديل جزئي</td><td>تغيير رقم الجوال فقط</td></tr><tr><td>DELETE</td><td>حذف بيانات</td><td>حذف طالب</td></tr></table></section>
  <section class="deep-block"><h3>مثال API للطلاب</h3><p>لو عندك جدول STUDENTS في قاعدة البيانات، ممكن تبني API يسمح للتطبيق بعرض الطلاب وإضافة طالب جديد.</p><div class="schema-grid"><div class="schema-table"><h4>STUDENTS</h4><code>student_id PK\nstudent_name\nmajor\nphone</code></div><div class="schema-table"><h4>API Endpoints</h4><code>GET /api/students\nGET /api/students/101\nPOST /api/students\nPUT /api/students/101\nDELETE /api/students/101</code></div></div></section>
  <section class="deep-block"><h3>مثال Request بصيغة JSON</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>POST /api/students
@@ -222,23 +249,140 @@ Content-Type: application/json
 }</pre></div></section>
  <section class="deep-block warn"><h3>أخطاء شائعة في فهم API</h3><ul><li>اعتقاد أن API هو قاعدة البيانات نفسها.</li><li>إرسال بيانات حساسة بدون حماية أو Token.</li><li>استخدام GET للإضافة أو الحذف بدل POST و DELETE.</li><li>عدم التحقق من البيانات قبل حفظها.</li><li>إرجاع رسائل خطأ غير واضحة للمستخدم.</li></ul></section>
  <section class="deep-block info"><h3>أفضل الممارسات</h3><ul><li>اجعل أسماء الروابط واضحة مثل /api/students و /api/orders.</li><li>استخدم Status Codes بشكل صحيح.</li><li>لا تكشف تفاصيل قاعدة البيانات للمستخدم.</li><li>تحقق من البيانات قبل الحفظ.</li><li>استخدم Authentication عند التعامل مع بيانات خاصة.</li><li>اكتب توثيقًا واضحًا لكل Endpoint.</li></ul></section>
- <section class="deep-block"><h3>أسئلة مقابلات شائعة</h3><ol><li>ما الفرق بين API و Database؟</li><li>ما الفرق بين GET و POST؟</li><li>ما معنى Status Code 404؟</li><li>ما الفرق بين Authentication و Authorization؟</li><li>لماذا نستخدم JSON في API؟</li></ol></section>`
+ <section class="deep-block"><h3>أسئلة مقابلات شائعة</h3><ol><li>ما الفرق بين API و Database؟</li><li>ما الفرق بين GET و POST؟</li><li>ما معنى Status Code 404؟</li><li>ما الفرق بين 401 و 403؟</li><li>متى نستخدم 201 بدل 200؟</li><li>ما الفرق بين Authentication و Authorization؟</li><li>لماذا نستخدم JSON في API؟</li></ol></section>`
+},
+{
+ id:'llm', no:'10', title:'ما هو LLM؟', icon:'🤖', minutes:'55 دقيقة',
+ intro:'LLM هو اختصار Large Language Model، ويعني نموذج لغوي ضخم. هذا الدرس يشرح الفكرة من الصفر: ما معنى النموذج اللغوي، كيف يتعامل مع النصوص، ما الفرق بينه وبين API، وكيف يمكن استخدامه داخل التطبيقات الحديثة.',
+ objectives:['تفهم معنى LLM بدون حفظ فقط.','تميز بين AI و Machine Learning و Deep Learning و LLM.','تعرف معنى Prompt و Response و Token و Context Window.','تفهم كيف يتصل التطبيق بالنموذج عبر API.','تعرف استخدامات LLM وحدوده وأخطاؤه الشائعة.'],
+ body:`
+ <section class="deep-block"><h3>الهدف من الدرس</h3><p>الهدف أن تفهم ما الذي يحدث عندما تكتب سؤالًا لنموذج مثل ChatGPT أو Gemini. النموذج لا يكون مجرد صفحة دردشة، بل هو نظام لغوي ضخم يمكن ربطه بالتطبيقات، المواقع، قواعد البيانات، وخدمات API.</p></section>
+ <section class="deep-block"><h3>ما معنى LLM؟</h3><p>LLM اختصار لـ <b>Large Language Model</b>. كلمة Large تعني أنه تدرب على كمية ضخمة من النصوص، وكلمة Language تعني أنه متخصص في اللغة، وكلمة Model تعني أنه نظام رياضي يتعلم الأنماط من البيانات ثم يستخدمها لتوليد إجابة مناسبة.</p><div class="lesson-diagram"><div class="diagram-flow"><div>نصوص ضخمة</div><span>←</span><div>تدريب</div><span>←</span><div>نموذج لغوي</div><span>←</span><div>إجابات</div></div></div></section>
+ <section class="deep-block"><h3>الفكرة ببساطة</h3><p>عندما تكتب: “اشرح لي SELECT”، فإن النموذج يحلل الكلمات والسياق، ثم يتوقع أفضل إجابة بناءً على الأنماط التي تعلمها. هو لا يبحث دائمًا في الإنترنت، ولا يعني ذلك أن كل إجابة صحيحة 100%. لذلك في المجالات المهمة يجب التحقق من الإجابة.</p></section>
+ <section class="deep-block"><h3>الفرق بين AI و ML و DL و LLM</h3><div class="tree"><b>Artificial Intelligence - الذكاء الاصطناعي</b><ul><li>Machine Learning - تعلم الآلة</li><li>Deep Learning - التعلم العميق<ul><li>Large Language Models - النماذج اللغوية الضخمة</li></ul></li></ul></div><p>LLM هو جزء من الذكاء الاصطناعي، وليس كل الذكاء الاصطناعي. هو نوع متخصص في فهم وتوليد اللغة، وقد يستخدم في الشرح، البرمجة، التلخيص، الترجمة، والتحليل.</p></section>
+ <section class="deep-block"><h3>دورة عمل LLM</h3><div class="lesson-diagram"><div class="diagram-flow"><div>المستخدم</div><span>←</span><div>Prompt</div><span>←</span><div>LLM</div><span>←</span><div>Response</div></div></div><p><b>Prompt</b> هو الطلب الذي تكتبه. <b>Response</b> هي الإجابة التي يرجعها النموذج. جودة الإجابة تعتمد كثيرًا على وضوح الطلب والسياق الذي تعطيه للنموذج.</p></section>
+ <section class="deep-block"><h3>ما هو Prompt؟</h3><p>Prompt هو النص أو الأمر الذي ترسله للنموذج. كلما كان الطلب واضحًا ومحددًا، زادت فرصة الحصول على إجابة جيدة.</p><div class="compare"><div><h3>طلب ضعيف</h3><p>اشرح SQL</p></div><div><h3>طلب أفضل</h3><p>اشرح SELECT في Oracle SQL لطالب مبتدئ مع مثال وجدول ناتج.</p></div></div></section>
+ <section class="deep-block"><h3>ما هو Token؟</h3><p>النموذج لا يعالج النص دائمًا ككلمات كاملة. غالبًا يقسم النص إلى أجزاء صغيرة تسمى Tokens. قد يكون الـ Token كلمة، جزءًا من كلمة، رقمًا، أو علامة ترقيم.</p><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>الجملة: اشرح ERD ببساطة
+Tokens تقريبية: [اشرح] [ERD] [ببساطة]</pre></div></section>
+ <section class="deep-block"><h3>ما هي Context Window؟</h3><p>Context Window هي كمية النص التي يستطيع النموذج قراءتها واستخدامها في نفس الطلب أو المحادثة. إذا كان النص طويلًا جدًا، قد لا يستطيع النموذج استخدام كل التفاصيل القديمة. لذلك في التطبيقات الكبيرة نحتاج تنظيم المعلومات أو استخدام تقنيات مثل RAG.</p></section>
+ <section class="deep-block"><h3>ما معنى Temperature؟</h3><p>Temperature إعداد يتحكم في درجة تنوع الإجابة. قيمة منخفضة تجعل الإجابة أكثر ثباتًا ومباشرة. قيمة أعلى تجعل الإجابة أكثر تنوعًا وإبداعًا، لكنها قد تزيد احتمال الإجابات غير الدقيقة.</p><div class="relation-gallery"><div class="relation-card"><h4>Temperature منخفض</h4><p>مناسب للتلخيص، الأكواد، والإجابات الدقيقة.</p></div><div class="relation-card"><h4>Temperature مرتفع</h4><p>مناسب للأفكار الإبداعية والكتابة الحرة.</p></div></div></section>
+ <section class="deep-block"><h3>ما علاقة LLM بالـ API؟</h3><p>LLM هو النموذج نفسه، أما API فهو الطريق الذي يستخدمه التطبيق للتواصل مع النموذج. مثلًا موقعك يرسل Prompt إلى API، والـ API يرجع Response من النموذج.</p><div class="lesson-diagram"><div class="diagram-flow"><div>المستخدم</div><span>←</span><div>الموقع</div><span>←</span><div>API</div><span>←</span><div>LLM</div><span>←</span><div>الإجابة</div></div></div></section>
+ <section class="deep-block"><h3>مثال طلب إلى LLM عبر API</h3><div class="codebox"><button class="btn ghost copy-btn" onclick="copyText(this.nextElementSibling.innerText)">نسخ</button><pre>POST /chat/completions
+Content-Type: application/json
+Authorization: Bearer YOUR_API_KEY
+
+{
+  "model": "example-llm-model",
+  "messages": [
+    {"role": "user", "content": "اشرح ERD بطريقة بسيطة"}
+  ]
+}</pre></div><p>هذا مثال تعليمي يوضح الفكرة العامة: التطبيق يرسل رسالة المستخدم إلى النموذج، ثم يستقبل الإجابة ويعرضها في الواجهة.</p></section>
+ <section class="deep-block"><h3>أشهر استخدامات LLM</h3><div class="relation-gallery"><div class="relation-card"><h4>التعليم</h4><p>شرح الدروس وتوليد أمثلة وأسئلة.</p></div><div class="relation-card"><h4>البرمجة</h4><p>مساعدة في كتابة الكود وفهم الأخطاء.</p></div><div class="relation-card"><h4>خدمة العملاء</h4><p>شات بوت يرد على الأسئلة المتكررة.</p></div><div class="relation-card"><h4>تحليل النصوص</h4><p>تلخيص، تصنيف، استخراج معلومات.</p></div></div></section>
+ <section class="deep-block warn"><h3>قيود مهمة</h3><ul><li>قد يعطي إجابة خاطئة لكنها تبدو مقنعة.</li><li>قد لا يعرف معلومات حديثة إذا لم يكن متصلًا بمصدر محدث.</li><li>لا يجب استخدامه وحده في القرارات الطبية أو القانونية أو المالية المهمة.</li><li>قد يفهم الطلب بشكل خاطئ إذا كان Prompt غامضًا.</li></ul></section>
+ <section class="deep-block info"><h3>أفضل الممارسات في كتابة Prompt</h3><ul><li>اكتب المطلوب بوضوح.</li><li>حدد مستوى الشرح: مبتدئ، متوسط، متقدم.</li><li>اطلب مثالًا وجدولًا أو خطوات إذا احتجت.</li><li>أعطِ سياقًا كافيًا.</li><li>راجع الإجابات المهمة ولا تعتمد عليها بشكل أعمى.</li></ul></section>
+ <section class="deep-block"><h3>أسئلة مراجعة</h3><ol><li>ما معنى LLM؟</li><li>ما الفرق بين Prompt و Response؟</li><li>هل LLM هو نفسه API؟ ولماذا؟</li><li>ما فائدة Context Window؟</li><li>لماذا يجب مراجعة إجابات النماذج اللغوية؟</li></ol></section>`
 }
 
+
 ];
+
 
 const lessonListEl = document.getElementById('lessonList');
 const lessonReaderEl = document.getElementById('lessonReader');
 const lessonSearchEl = document.getElementById('lessonSearch');
+
+const lessonGroups = [
+  {
+    id:'fundamentals',
+    title:'أساسيات قواعد البيانات',
+    icon:'📘',
+    desc:'المفاهيم الأولى قبل SQL',
+    lessons:['database','sql-nosql','srs','erd','erd-schema','schema']
+  },
+  {
+    id:'oracle-sql',
+    title:'أساسيات Oracle SQL',
+    icon:'💻',
+    desc:'قراءة البيانات وتصفيتها',
+    lessons:['select','where-order']
+  },
+  {
+    id:'web-api',
+    title:'تطوير الويب والـ API',
+    icon:'🌐',
+    desc:'ربط التطبيقات والأنظمة',
+    lessons:['api','llm']
+  }
+];
+
 function getLesson(id){return detailedLessons.find(x=>x.id===id)||detailedLessons[0]}
+function lessonDone(id){return localStorage.getItem('lesson_'+id)==='1'}
+function groupProgress(group){
+  const total = group.lessons.length;
+  const done = group.lessons.filter(lessonDone).length;
+  return {done,total,percent: total ? Math.round((done/total)*100) : 0};
+}
+function groupForLesson(id){return lessonGroups.find(g=>g.lessons.includes(id)) || lessonGroups[0]}
+function getOpenGroupId(){
+  const hashId = location.hash.replace('#','');
+  if(hashId) return groupForLesson(hashId).id;
+  return localStorage.getItem('openLessonGroup') || lessonGroups[0].id;
+}
+
 function renderList(filter=''){
  const q=(filter||'').trim().toLowerCase();
- const data=detailedLessons.filter(l=>(l.title+' '+l.intro).toLowerCase().includes(q));
- lessonListEl.innerHTML=data.map(l=>`<button class="lesson-link" data-id="${l.id}"><b>${l.no}</b><span>${l.icon} ${l.title}<small>${l.minutes}</small></span></button>`).join('');
- document.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id;renderReader(b.dataset.id)});
+ const activeId = location.hash.replace('#','') || 'database';
+ const openId = q ? 'all' : getOpenGroupId();
+ lessonListEl.innerHTML = lessonGroups.map(group=>{
+   const lessons = group.lessons.map(getLesson).filter(l => !q || (l.title+' '+l.intro).toLowerCase().includes(q));
+   if(q && lessons.length===0) return '';
+   const progress = groupProgress(group);
+   const isOpen = q || group.id === openId;
+   return `
+   <div class="lesson-group ${isOpen?'open':''}" data-group="${group.id}">
+     <button class="lesson-group-head" type="button" aria-expanded="${isOpen?'true':'false'}">
+       <span class="group-ico">${group.icon}</span>
+       <span class="group-text"><b>${group.title}</b><small>${group.desc}</small></span>
+       <span class="group-progress">${progress.done}/${progress.total}</span>
+       <span class="group-arrow">⌄</span>
+     </button>
+     <div class="lesson-group-body">
+       ${lessons.map(l=>`<button class="lesson-link ${lessonDone(l.id)?'is-done':''}" data-id="${l.id}" type="button"><b>${l.no}</b><span>${l.icon} ${l.title}<small>${l.minutes}</small></span><i>${lessonDone(l.id)?'✓':''}</i></button>`).join('')}
+     </div>
+   </div>`;
+ }).join('') || `<div class="empty-lessons">لا توجد نتائج مطابقة للبحث.</div>`;
+
+ document.querySelectorAll('.lesson-group-head').forEach(head=>{
+   head.onclick=()=>{
+     const groupEl = head.closest('.lesson-group');
+     const groupId = groupEl.dataset.group;
+     const willOpen = !groupEl.classList.contains('open');
+     document.querySelectorAll('.lesson-group').forEach(g=>{
+       g.classList.remove('open');
+       g.querySelector('.lesson-group-head')?.setAttribute('aria-expanded','false');
+     });
+     if(willOpen){
+       groupEl.classList.add('open');
+       head.setAttribute('aria-expanded','true');
+       localStorage.setItem('openLessonGroup',groupId);
+     }
+   };
+ });
+ document.querySelectorAll('.lesson-link').forEach(b=>{
+   b.onclick=()=>{
+     const id=b.dataset.id;
+     const groupId = groupForLesson(id).id;
+     localStorage.setItem('openLessonGroup',groupId);
+     location.hash=id;
+     renderReader(id);
+     renderList(lessonSearchEl?.value || '');
+   };
+ });
+ document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===activeId));
 }
 function renderReader(id){
  const l=getLesson(id);
+ localStorage.setItem('openLessonGroup', groupForLesson(l.id).id);
  document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===l.id));
  lessonReaderEl.innerHTML=`
  <div class="lesson-hero"><span class="lesson-icon">${l.icon}</span><div><p class="eyebrow">الدرس ${l.no} · ${l.minutes}</p><h2>${l.title}</h2><p>${l.intro}</p></div></div>
@@ -247,10 +391,14 @@ function renderReader(id){
  <section class="deep-block"><h3>📌 ملخص سريع</h3><p>راجع الرسم أولًا، ثم اربط الفكرة بالتحويل إلى جداول. في قواعد البيانات أهم سلسلة هي: متطلبات ← ERD ← Schema ← SQL.</p></section>
  <section class="deep-block"><h3>📝 أسئلة مراجعة</h3><ol><li>ما أهم قاعدة تعلمتها في هذا الدرس؟</li><li>كيف تطبقها على نظام مكتبة أو متجر؟</li><li>ما الخطأ الذي يجب أن تتجنبه؟</li></ol></section>
  <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button><a class="btn ghost" href="oracle-practice.html">اذهب إلى الأمثلة</a></div>`;
- document.getElementById('doneLesson').onclick=()=>{localStorage.setItem('lesson_'+l.id,'1');document.getElementById('doneLesson').textContent='تم حفظ إنجازك ✅'};
+ document.getElementById('doneLesson').onclick=()=>{
+   localStorage.setItem('lesson_'+l.id,'1');
+   document.getElementById('doneLesson').textContent='تم حفظ إنجازك ✅';
+   renderList(lessonSearchEl?.value || '');
+ };
  window.scrollTo({top:0,behavior:'smooth'});
 }
 renderList();
 renderReader(location.hash.replace('#','')||'database');
 lessonSearchEl?.addEventListener('input',e=>renderList(e.target.value));
-window.addEventListener('hashchange',()=>renderReader(location.hash.replace('#','')));
+window.addEventListener('hashchange',()=>{renderReader(location.hash.replace('#',''));renderList(lessonSearchEl?.value || '')});
