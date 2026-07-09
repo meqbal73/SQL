@@ -64,3 +64,9 @@ button,a,input,textarea{touch-action:manipulation}
 .lesson-group-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease, padding .32s ease;overflow:hidden}.lesson-group.open .lesson-group-body{grid-template-rows:1fr;padding:0 10px 10px}.lesson-group-inner{min-height:0;overflow:hidden}.lesson-group-body .lesson-link{margin-top:8px;background:rgba(255,255,255,.025);position:relative;grid-template-columns:38px 1fr 20px}.lesson-link i{font-style:normal;color:#22c55e;font-weight:900}.lesson-link.is-done b{background:rgba(34,197,94,.16);color:#22c55e}.lesson-link.active{box-shadow:inset 0 0 0 1px var(--accent),0 10px 25px rgba(32,227,210,.10)}.empty-lessons{padding:18px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:18px;background:var(--surface2)}
 @media(max-width:900px){.lessons-shell{display:block}.lesson-sidebar{margin-bottom:18px;border-radius:24px}.lesson-list{max-height:58vh;overflow:auto;padding-inline-end:3px}.lesson-group-head{grid-template-columns:38px 1fr auto 24px;padding:12px}.group-ico{width:36px;height:36px;border-radius:14px}.group-text b{font-size:.92rem}.group-text small{font-size:.72rem}.lesson-group.open .lesson-group-body{padding:0 8px 8px}.lesson-group-body .lesson-link{grid-template-columns:34px 1fr 18px;padding:10px}}
 @supports not (grid-template-rows: 0fr){.lesson-group-body{display:none}.lesson-group.open .lesson-group-body{display:block}.lesson-group-inner{overflow:visible}}
+
+/* تحديث: جعل الشرح أبسط للمبتدئين وإخفاء زر الأمثلة من صفحات الدروس */
+.beginner-box{border-inline-start:5px solid var(--accent);background:linear-gradient(135deg,rgba(32,227,210,.12),rgba(79,140,255,.08)),var(--surface)!important}
+.beginner-box p{font-size:1.08rem;font-weight:700;color:var(--text);line-height:2}
+.lesson-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+@media(max-width:700px){.beginner-box p{font-size:1rem}.lesson-actions .btn{width:100%}}

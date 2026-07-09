@@ -380,17 +380,35 @@ function renderList(filter=''){
  });
  document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===activeId));
 }
+
+function beginnerExplanation(id){
+ const notes = {
+  database: 'الفكرة ببساطة: قاعدة البيانات مثل دفتر منظم جدًا. بدل أن تكتب كل شيء في صفحة واحدة، تجعل الطلاب في جدول، والمواد في جدول، والدرجات في جدول، ثم تربط بينهم. هذا يجعل البحث والتعديل أسهل وأقل أخطاء.',
+  'sql-nosql': 'الفكرة ببساطة: SQL مثل جدول منظم بقواعد واضحة، مناسب عندما تكون العلاقات مهمة. NoSQL مثل ملف مرن من نوع JSON، مناسب عندما يتغير شكل البيانات كثيرًا. لا يوجد نوع أفضل دائمًا؛ الاختيار يعتمد على النظام.',
+  srs: 'الفكرة ببساطة: SRS هي ورقة الاتفاق قبل البرمجة. نكتب فيها ماذا يريد العميل بالضبط حتى لا نبدأ نرسم ERD أو نكتب كود ونحن غير فاهمين المطلوب.',
+  erd: 'الفكرة ببساطة: ERD هو رسم قبل الجداول. نرسم الأشياء المهمة في النظام مثل الموظف والقسم والمشروع، ثم نوضح كيف ترتبط ببعضها. بعد أن نفهم الرسم نحوله إلى Schema.',
+  'erd-schema': 'الفكرة ببساطة: تحويل ERD إلى Schema يعني تحويل الرسم إلى جداول حقيقية. الكيان يصبح جدولًا، الخاصية تصبح عمودًا، والمفتاح والعلاقات تتحول إلى PK و FK.',
+  schema: 'الفكرة ببساطة: Schema مثل مجلد داخل قاعدة البيانات. هذا المجلد يحتوي الجداول والعلاقات والعناصر الخاصة بنظام معين، مثل HR Schema في Oracle.',
+  select: 'الفكرة ببساطة: SELECT لا يغير البيانات. هو فقط يطلب عرض بيانات من جدول. عندما تكتب SELECT first_name FROM employees فأنت تقول: اعرض لي أسماء الموظفين من جدول employees.',
+  'where-order': 'الفكرة ببساطة: WHERE يختار الصفوف التي تحقق شرطًا، و ORDER BY يرتب الصفوف بعد اختيارها. يعني WHERE للتصفية، و ORDER BY للترتيب.',
+  api: 'الفكرة ببساطة: API هو وسيط بين تطبيقك والسيرفر. التطبيق يرسل طلبًا، والـ API يرجع ردًا. مثل النادل في المطعم: يأخذ الطلب ويوصله للمطبخ ثم يرجع بالنتيجة.',
+  llm: 'الفكرة ببساطة: LLM هو نموذج يفهم النصوص ويولد ردودًا. أنت تكتب له Prompt، وهو يرجع Response. لكنه قد يخطئ، لذلك يجب مراجعة إجاباته في الأشياء المهمة.'
+ };
+ return notes[id] || 'الفكرة ببساطة: اقرأ الدرس كأنك أول مرة تسمع المصطلح. ابدأ بالتعريف، ثم المثال، ثم الرسم، ثم طبق الفكرة على نظام بسيط مثل مكتبة أو متجر.';
+}
+
 function renderReader(id){
  const l=getLesson(id);
  localStorage.setItem('openLessonGroup', groupForLesson(l.id).id);
  document.querySelectorAll('.lesson-link').forEach(b=>b.classList.toggle('active',b.dataset.id===l.id));
  lessonReaderEl.innerHTML=`
  <div class="lesson-hero"><span class="lesson-icon">${l.icon}</span><div><p class="eyebrow">الدرس ${l.no} · ${l.minutes}</p><h2>${l.title}</h2><p>${l.intro}</p></div></div>
+ <section class="deep-block info beginner-box"><h3>💡 شرح مبسط جدًا قبل التفاصيل</h3><p>${beginnerExplanation(l.id)}</p></section>
  <section class="deep-block info"><h3>🎯 أهداف الدرس</h3><ul>${l.objectives.map(o=>`<li>${o}</li>`).join('')}</ul></section>
  ${l.body}
  <section class="deep-block"><h3>📌 ملخص سريع</h3><p>راجع الرسم أولًا، ثم اربط الفكرة بالتحويل إلى جداول. في قواعد البيانات أهم سلسلة هي: متطلبات ← ERD ← Schema ← SQL.</p></section>
  <section class="deep-block"><h3>📝 أسئلة مراجعة</h3><ol><li>ما أهم قاعدة تعلمتها في هذا الدرس؟</li><li>كيف تطبقها على نظام مكتبة أو متجر؟</li><li>ما الخطأ الذي يجب أن تتجنبه؟</li></ol></section>
- <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button><a class="btn ghost" href="oracle-practice.html">اذهب إلى الأمثلة</a></div>`;
+ <div class="lesson-actions"><button class="btn primary" id="doneLesson">علّم الدرس كمكتمل</button></div>`;
  document.getElementById('doneLesson').onclick=()=>{
    localStorage.setItem('lesson_'+l.id,'1');
    document.getElementById('doneLesson').textContent='تم حفظ إنجازك ✅';
