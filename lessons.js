@@ -346,9 +346,9 @@ function renderList(filter=''){
        <span class="group-progress">${progress.done}/${progress.total}</span>
        <span class="group-arrow">⌄</span>
      </button>
-     <div class="lesson-group-body">
+     <div class="lesson-group-body"><div class="lesson-group-inner">
        ${lessons.map(l=>`<button class="lesson-link ${lessonDone(l.id)?'is-done':''}" data-id="${l.id}" type="button"><b>${l.no}</b><span>${l.icon} ${l.title}<small>${l.minutes}</small></span><i>${lessonDone(l.id)?'✓':''}</i></button>`).join('')}
-     </div>
+     </div></div>
    </div>`;
  }).join('') || `<div class="empty-lessons">لا توجد نتائج مطابقة للبحث.</div>`;
 
