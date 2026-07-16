@@ -1,0 +1,61 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SQL Reference | IT Learning Hub</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">SQL</span><span>IT Learning Hub</span></a><button class="nav-toggle">☰</button><nav class="nav"><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a href="lessons.html" data-ar="الدروس" data-en="Lessons">الدروس</a><a class="active" href="sql.html">SQL</a><a href="examples.html" data-ar="الأمثلة" data-en="Examples">الأمثلة</a><a href="quiz.html" data-ar="اختبار SQL" data-en="SQL Quiz">اختبار SQL</a></nav><div class="actions"><button class="chip" data-lang="ar">AR</button><button class="chip" data-lang="en">EN</button><button id="modeToggle" class="chip">☀</button></div></header><main><section class="page-head"><p class="eyebrow">ORACLE SQL</p><h1 data-ar="مرجع SQL العملي الكامل" data-en="Complete practical SQL reference">مرجع SQL العملي الكامل</h1><p data-ar="الأوامر مرتبة من إنشاء البنية إلى تعديل البيانات والصلاحيات والكائنات والربط." data-en="Commands are ordered from structure creation to data changes, permissions, objects, and joins.">الأوامر مرتبة من إنشاء البنية إلى تعديل البيانات والصلاحيات والكائنات والربط.</p></section><section class="sql-grid">
+<article class="sql-card"><h3>1. SQL Basics</h3><div class="command-list"><span>SELECT</span><span>WHERE</span><span>ORDER BY</span><span>DISTINCT</span><span>ALIASES</span><span>NULL</span></div><div class="codebox"><pre>SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary &gt; 5000
+ORDER BY salary DESC;</pre></div></article>
+<article class="sql-card"><h3>2. DDL</h3><p data-ar="تغيّر بنية قاعدة البيانات." data-en="Changes database structure.">تغيّر بنية قاعدة البيانات.</p><div class="command-list"><span>CREATE</span><span>ALTER</span><span>DROP</span><span>TRUNCATE</span><span>RENAME</span><span>COMMENT</span></div><div class="codebox"><pre>CREATE TABLE products (
+ pid NUMBER(8) PRIMARY KEY,
+ pname VARCHAR2(25) NOT NULL,
+ price NUMBER(8,2) CHECK(price &gt;= 0)
+);
+ALTER TABLE products ADD category VARCHAR2(30);
+ALTER TABLE products MODIFY pname VARCHAR2(50);
+ALTER TABLE products RENAME COLUMN category TO type;
+ALTER TABLE products DROP COLUMN type;
+TRUNCATE TABLE products;
+RENAME products TO items;
+COMMENT ON TABLE items IS 'Products list';
+DROP TABLE items;</pre></div></article>
+<article class="sql-card"><h3>3. DML</h3><p data-ar="تضيف وتعدّل وتحذف السجلات." data-en="Adds, updates, and deletes rows.">تضيف وتعدّل وتحذف السجلات.</p><div class="command-list"><span>INSERT</span><span>UPDATE</span><span>DELETE</span><span>MERGE</span></div><div class="codebox"><pre>INSERT INTO products(pid,pname,price)
+VALUES(1,'Laptop',3500);
+UPDATE products SET price=3300 WHERE pid=1;
+DELETE FROM products WHERE pid=1;</pre></div></article>
+<article class="sql-card"><h3>4. DCL</h3><p data-ar="تتحكم في الصلاحيات." data-en="Controls privileges.">تتحكم في الصلاحيات.</p><div class="command-list"><span>GRANT</span><span>REVOKE</span></div><div class="codebox"><pre>GRANT CREATE SESSION, CREATE TABLE TO ali;
+GRANT SELECT, INSERT ON hr.employees TO ali;
+REVOKE INSERT ON hr.employees FROM ali;
+REVOKE CREATE TABLE FROM ali;</pre></div></article>
+<article class="sql-card"><h3>5. TABLES & CONSTRAINTS</h3><div class="command-list"><span>PRIMARY KEY</span><span>FOREIGN KEY</span><span>NOT NULL</span><span>UNIQUE</span><span>CHECK</span><span>DEFAULT</span></div><div class="codebox"><pre>CREATE TABLE orders (
+ order_id NUMBER PRIMARY KEY,
+ customer_id NUMBER,
+ order_date DATE DEFAULT SYSDATE,
+ total NUMBER CHECK(total &gt;= 0),
+ CONSTRAINT fk_order_customer
+ FOREIGN KEY(customer_id) REFERENCES customers(customer_id)
+);</pre></div></article>
+<article class="sql-card"><h3>6. VIEW</h3><div class="command-list"><span>CREATE VIEW</span><span>REPLACE</span><span>CHECK OPTION</span><span>READ ONLY</span></div><div class="codebox"><pre>CREATE OR REPLACE VIEW v50 AS
+SELECT employee_id, first_name, department_id
+FROM employees
+WHERE department_id=50
+WITH CHECK OPTION;</pre></div></article>
+<article class="sql-card"><h3>7. SEQUENCE</h3><div class="command-list"><span>NEXTVAL</span><span>CURRVAL</span><span>CACHE</span><span>CYCLE</span></div><div class="codebox"><pre>CREATE SEQUENCE s1 START WITH 1 INCREMENT BY 1 NOCYCLE;
+INSERT INTO products(pid,pname) VALUES(s1.NEXTVAL,'Phone');
+SELECT s1.CURRVAL FROM dual;</pre></div></article>
+<article class="sql-card"><h3>8. SYNONYM & INDEX</h3><div class="command-list"><span>PRIVATE SYNONYM</span><span>PUBLIC SYNONYM</span><span>INDEX</span><span>UNIQUE INDEX</span></div><div class="codebox"><pre>CREATE SYNONYM emp FOR hr.employees;
+CREATE INDEX idx_emp_name ON employees(last_name);
+CREATE UNIQUE INDEX idx_emp_email ON employees(email);</pre></div></article>
+<article class="sql-card"><h3>9. INNER JOIN</h3><div class="codebox"><pre>SELECT e.first_name, d.department_name
+FROM employees e
+INNER JOIN departments d
+ON e.department_id=d.department_id;</pre></div></article>
+<article class="sql-card"><h3>10. CROSS JOIN</h3><div class="codebox"><pre>SELECT e.first_name, d.department_name
+FROM employees e
+CROSS JOIN departments d;</pre></div></article>
+<article class="sql-card"><h3>11. GROUPING</h3><div class="command-list"><span>GROUP BY</span><span>HAVING</span><span>COUNT</span><span>SUM</span><span>AVG</span></div><div class="codebox"><pre>SELECT department_id, COUNT(*) total_employees
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) &gt;= 5;</pre></div></article>
+<article class="sql-card"><h3>12. TRANSACTIONS</h3><div class="command-list"><span>COMMIT</span><span>ROLLBACK</span><span>SAVEPOINT</span></div><div class="codebox"><pre>SAVEPOINT before_update;
+UPDATE employees SET salary=salary+500;
+ROLLBACK TO before_update;
+COMMIT;</pre></div></article>
+</section></main><footer class="footer"><b>IT Learning Hub</b><a href="quiz.html">SQL Quiz</a></footer><script src="app.js"></script></body></html>

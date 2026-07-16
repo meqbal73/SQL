@@ -1,9 +1,11 @@
-# دليل قواعد البيانات — نسخة محدثة
+# IT Learning Hub
 
-تحديث هذه النسخة:
-- إضافة قسم HTTP Status Codes داخل درس API.
-- شرح 2xx و3xx و4xx و5xx.
-- أمثلة على 200 و201 و204 و400 و401 و403 و404 و409 و422 و429 و500 و503.
-- توضيح الفرق بين 401 و403.
+A bilingual, beginner-friendly static learning website for GitHub Pages.
 
-ارفع جميع الملفات إلى GitHub Pages في نفس المجلد.
+## Publish on GitHub Pages
+1. Upload all files to the root of your repository.
+2. Open **Settings → Pages**.
+3. Choose **Deploy from a branch**.
+4. Select `main` and `/root`, then save.
+
+No backend, build command, or environment variables are required.

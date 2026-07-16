@@ -1,44 +1,21 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دليل قواعد البيانات</title>
-  <meta name="description" content="موقع عربي لتعلم قواعد البيانات و ERD و SQL">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-orb">DB</span><span>دليل قواعد البيانات</span></a>
-  <button class="nav-toggle" aria-label="menu">☰</button>
-  <nav class="nav"><a href="index.html">الرئيسية</a><a href="lessons.html">الدروس</a><a href="oracle-practice.html">العملي</a><a href="quiz.html">الاختبار</a></nav>
-  <div class="actions"><button id="themeToggle" class="chip">☾</button></div>
-</header>
-<main>
-<section class="hero grid-2">
-  <div class="hero-copy reveal">
-    <p class="eyebrow">من المتطلبات إلى SQL</p>
-    <h1>تعلّم قواعد البيانات بأسلوب واضح ومفصل</h1>
-    <p class="lead">شرح عربي فقط، رسومات ERD، تحويل ERD إلى Schema خطوة بخطوة، أمثلة SQL جاهزة، واختبارات مراجعة. مناسب للطالب الذي يبدأ من الصفر.</p>
-    <div class="hero-actions"><a class="btn primary" href="lessons.html">ابدأ الدروس</a></div>
-    <div class="stats"><div><b>8+</b><span>دروس مفصلة</span></div><div><b>25+</b><span>رسم ومثال</span></div><div><b>AR</b><span>عربي فقط</span></div></div>
-  </div>
-  <div class="terminal-card reveal"><div class="dots"><span></span><span></span><span></span></div><pre><code>ERD
-  ↓
-Entities + Attributes
-  ↓
-Tables + Columns
-  ↓
-PK + FK
-  ↓
-SQL Schema</code></pre><div class="result-table"><div>FROM</div><div>TO</div><div>Customer Entity</div><div>customers Table</div><div>1:N Relationship</div><div>Foreign Key</div><div>M:N Relationship</div><div>Bridge Table</div></div></div>
-</section>
-<section class="section reveal"><div class="section-title"><p>المحتوى</p><h2>ليس مجرد شرح مختصر</h2></div><div class="cards four"><article class="card"><span class="icon">🧩</span><h3>ERD برسومات</h3><p>شرح الكيانات، الخصائص، المفاتيح، والعلاقات مع رسومات واضحة.</p></article><article class="card"><span class="icon">🔁</span><h3>ERD إلى Schema</h3><p>تحويل المثال خطوة بخطوة إلى جداول ومفاتيح وكود SQL.</p></article><article class="card"><span class="icon">📄</span><h3>SRS</h3><p>كيف نستخرج الكيانات والعلاقات من متطلبات النظام.</p></article><article class="card"><span class="icon">💻</span><h3>أمثلة SQL</h3><p>استعلامات جاهزة مع شرح ونتائج متوقعة جاهزة.</p></article></div></section>
-<section class="section reveal"><div class="section-title"><p>المسار</p><h2>ترتيب التعلم</h2></div><div class="timeline"><div><b>01</b><span>قاعدة البيانات</span></div><div><b>02</b><span>SQL و NoSQL</span></div><div><b>03</b><span>SRS</span></div><div><b>04</b><span>ERD</span></div><div><b>05</b><span>ERD إلى Schema</span></div><div><b>06</b><span>SELECT</span></div></div></section>
-</main>
-<footer class="footer"><div><b>دليل قواعد البيانات</b><p>موقع تعليمي عربي يعمل على GitHub Pages.</p></div><div class="footer-links"><a href="lessons.html">الدروس</a></div></footer>
-<script src="app.js"></script>
-</body>
-</html>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="منصة ثنائية اللغة لتعلّم قواعد البيانات وSQL ومفاهيم التقنية للمبتدئين"><title>IT Learning Hub</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
+<header class="topbar"><a class="brand" href="index.html"><span class="brand-orb">IT</span><span>IT Learning Hub</span></a><button class="nav-toggle" aria-label="menu">☰</button><nav class="nav"><a class="active" href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a><a href="lessons.html" data-ar="الدروس" data-en="Lessons">الدروس</a><a href="sql.html">SQL</a><a href="examples.html" data-ar="الأمثلة" data-en="Examples">الأمثلة</a><a href="quiz.html" data-ar="اختبار SQL" data-en="SQL Quiz">اختبار SQL</a></nav><div class="actions"><button class="chip" data-lang="ar">AR</button><button class="chip" data-lang="en">EN</button><button id="modeToggle" class="chip">☀</button></div></header>
+<main><section class="hero grid-2"><div class="hero-copy reveal"><p class="eyebrow">SRS → DATABASE → SQL → AI</p><h1 data-ar="تعلّم التقنية بالترتيب الصحيح، من الصفر." data-en="Learn technology in the right order, from zero.">تعلّم التقنية بالترتيب الصحيح، من الصفر.</h1><p class="lead" data-ar="دروس عربية وإنجليزية بشرح بسيط للمبتدئين، أمثلة عملية في Oracle SQL، واختبارات مرتبة حسب مسار التعلم." data-en="Arabic and English beginner-friendly lessons, practical Oracle SQL examples, and quizzes arranged by learning path.">دروس عربية وإنجليزية بشرح بسيط للمبتدئين، أمثلة عملية في Oracle SQL، واختبارات مرتبة حسب مسار التعلم.</p><div class="hero-actions"><a class="btn primary" href="lessons.html" data-ar="ابدأ المسار" data-en="Start learning">ابدأ المسار</a><a class="btn ghost" href="sql.html" data-ar="مرجع SQL" data-en="SQL reference">مرجع SQL</a></div><div class="stats"><div><b>19</b><span data-ar="درسًا مرتبًا" data-en="ordered lessons">درسًا مرتبًا</span></div><div><b>2</b><span data-ar="لغتان" data-en="languages">لغتان</span></div><div><b>7</b><span data-ar="ثيمات" data-en="themes">ثيمات</span></div></div></div><div class="terminal-card reveal"><div class="dots"><span></span><span></span><span></span></div><pre><code>01 SRS
+02 Database
+03 SQL vs NoSQL
+04 ERD
+05 Schema
+06 SQL Basics
+07 DDL
+08 DML
+09 DCL
+10 SQL Objects
+11 JOIN
+12 APIs + MCP
+13 LLM + Transformers
+14 Prompt Engineering
+15 n8n · ATS · UI/UX</code></pre></div></section>
+<section class="section reveal"><div class="section-title"><p data-ar="المسار" data-en="Learning path">المسار</p><h2 data-ar="كل درس يبني على الدرس السابق" data-en="Every lesson builds on the previous one">كل درس يبني على الدرس السابق</h2></div><div class="roadmap"><div><b>01</b><span>SRS</span></div><i>→</i><div><b>02</b><span>Database</span></div><i>→</i><div><b>03</b><span>SQL / NoSQL</span></div><i>→</i><div><b>04</b><span>ERD</span></div><i>→</i><div><b>05</b><span>Schema</span></div><i>→</i><div><b>06</b><span>SQL</span></div></div></section>
+<section class="section reveal"><div class="section-title"><p data-ar="التجربة" data-en="Experience">التجربة</p><h2 data-ar="واضحة، عملية، ومناسبة لأي شاشة" data-en="Clear, practical, and responsive">واضحة، عملية، ومناسبة لأي شاشة</h2></div><div class="cards four"><article class="card"><span class="icon">🌐</span><h3 data-ar="عربي وإنجليزي" data-en="Arabic & English">عربي وإنجليزي</h3><p data-ar="بدّل اللغة في أي وقت، مع الحفاظ على المصطلحات التقنية الصحيحة." data-en="Switch languages anytime while keeping technical terms accurate.">بدّل اللغة في أي وقت، مع الحفاظ على المصطلحات التقنية الصحيحة.</p></article><article class="card"><span class="icon">💻</span><h3>SQL Complete</h3><p data-ar="كل أوامر DDL وDML وDCL، وكل SQL Objects المطلوبة." data-en="All DDL, DML, DCL commands and required SQL objects.">كل أوامر DDL وDML وDCL، وكل SQL Objects المطلوبة.</p></article><article class="card"><span class="icon">🧠</span><h3 data-ar="للمبتدئين" data-en="For beginners">للمبتدئين</h3><p data-ar="تعريف، سبب الاستخدام، طريقة العمل، مثال، أخطاء، وملخص." data-en="Definition, purpose, how it works, example, mistakes, and summary.">تعريف، سبب الاستخدام، طريقة العمل، مثال، أخطاء، وملخص.</p></article><article class="card"><span class="icon">🎨</span><h3 data-ar="ثيمات متعددة" data-en="Multiple themes">ثيمات متعددة</h3><p data-ar="Purple, Emerald, Cyan, Orange, Rose, Midnight, Snow." data-en="Purple, Emerald, Cyan, Orange, Rose, Midnight, and Snow.">Purple, Emerald, Cyan, Orange, Rose, Midnight, Snow.</p></article></div></section>
+<section class="section reveal"><div class="section-title"><p data-ar="اختر المظهر" data-en="Choose a theme">اختر المظهر</p><h2 data-ar="غيّر الهوية بضغطة واحدة" data-en="Change the visual identity instantly">غيّر الهوية بضغطة واحدة</h2></div><div class="theme-picker"><button data-theme-choice="purple">Purple</button><button data-theme-choice="emerald">Emerald</button><button data-theme-choice="cyan">Cyan</button><button data-theme-choice="orange">Orange</button><button data-theme-choice="rose">Rose</button><button data-theme-choice="midnight">Midnight</button><button data-theme-choice="snow">Snow</button></div></section></main>
+<footer class="footer"><div><b>IT Learning Hub</b><p data-ar="منصة ثابتة تعمل مباشرة على GitHub Pages." data-en="A static platform ready for GitHub Pages.">منصة ثابتة تعمل مباشرة على GitHub Pages.</p></div><div class="footer-links"><a href="lessons.html" data-ar="الدروس" data-en="Lessons">الدروس</a><a href="sql.html">SQL</a></div></footer><script src="app.js"></script></body></html>
