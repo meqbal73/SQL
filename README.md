@@ -9,3 +9,5 @@ A bilingual, beginner-friendly static learning website for GitHub Pages.
 4. Select `main` and `/root`, then save.
 
 No backend, build command, or environment variables are required.
+
+
